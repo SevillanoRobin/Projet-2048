@@ -10,3 +10,7 @@
 
 #### Enseignant :
  * M. Castagnos Silvain
+ 
+ ____
+### Liens utiles
+ * [Notes sur l'utilisation de Git (aide)](misc/git-help.md)
