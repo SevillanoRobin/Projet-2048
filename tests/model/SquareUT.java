@@ -130,17 +130,20 @@ public class SquareUT {
     /**
      * Case in which the instance is compared to an altered copy of itself.
      */
-    @Ignore("The test is currently unavailable: the square values cannot be changed yet. ")
     @Test
     public void equals_alteredCopy() {
         Square _square;
 
         this.initializeSquareTo2();
         _square = this.square;
+        _square.fuseTwoSquares( new Square( 2 ) );
+        this.square.fuseTwoSquares( new Square( 2 ) );
         assertEquals( "The instance is considered as different from itself.", this.square, _square );
 
         this.initializeSquareTo4();
         _square = this.square;
+        _square.fuseTwoSquares( new Square( 4 ) );
+        this.square.fuseTwoSquares( new Square( 4 ) );
         assertEquals( "The instance is considered as different from itself.", this.square, _square );
     }
 
@@ -220,11 +223,14 @@ public class SquareUT {
     /**
      * Case in which it is an unique unaltered square and an altered copy of itself.
      */
-    @Ignore("The test is currently unavailable: the square values cannot be changed yet. ")
     @Test
     public void canBeFused_sameInstance_alteredCopy() {
         this.initializeSquareTo2();
         Square _square = this.square;
+
+        this.square.fuseTwoSquares( new Square( 2 ) );
+        _square.fuseTwoSquares( new Square( 2 ) );
+
         assertFalse( "The instance is wrongfully considered to be fuse-able with a copy of itself.",
                      this.square.canBeFused( _square ) );
     }
