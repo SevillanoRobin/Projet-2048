@@ -78,6 +78,26 @@ public class Square {
      * @return <code>true</code> if the squares are deemed merge-able.
      */
     public boolean canBeFused( Square _square ) {
+        if ( super.equals( _square ) ) {
+            System.err.println( "The to-be-fused squares are considered the same one." );
+        }
         return !super.equals( _square ) && this.equals( _square );
+    }
+
+    /**
+     * Identify if two squares (arguments) can be fused.
+     * <p>
+     * The two squares must not be the same instance (including copies), and must have the same value.
+     * <p>
+     *
+     * @param _square1 The first square in the potential fusion.
+     * @param _square2 The second square in the potential fusion.
+     *
+     * @return <code>true</code> if the squares are deemed merge-able.
+     *
+     * @see Square#canBeFused(Square)
+     */
+    public static boolean canBeFused( Square _square1, Square _square2 ) {
+        return _square1.canBeFused( _square2 );
     }
 }
