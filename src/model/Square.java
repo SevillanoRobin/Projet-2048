@@ -85,6 +85,24 @@ public class Square {
     }
 
     /**
+     * Fuse two squares together as one.
+     * <p>
+     * The square passed in argument will have its value nullified if the fusion proceeds properly.
+     * <p>
+     * TODO: Find a way to delete the nullified squares, if possible.
+     *
+     * @param _square the square to be fused with the current one.
+     */
+    public void fuseTwoSquares( Square _square ) {
+        if ( !this.canBeFused( _square ) ) {
+            return;
+        }
+
+        this.value += _square.value;
+        _square.value = 0;
+    }
+
+    /**
      * Identify if two squares (arguments) can be fused.
      * <p>
      * The two squares must not be the same instance (including copies), and must have the same value.
@@ -99,5 +117,19 @@ public class Square {
      */
     public static boolean canBeFused( Square _square1, Square _square2 ) {
         return _square1.canBeFused( _square2 );
+    }
+
+    /**
+     * Attempt to fuse two squares (arguments).
+     * <p>
+     * The two squares must not be the same instance (including copies), and must have the same value.
+     *
+     * @param _square1 The first square in the potential fusion.
+     * @param _square2 The second square in the potential fusion.
+     *
+     * @see Square#fuseTwoSquares(Square)
+     */
+    public static void fuseTwoSquares( Square _square1, Square _square2 ) {
+        _square1.fuseTwoSquares( _square2 );
     }
 }

@@ -264,4 +264,101 @@ public class SquareUT {
         assertFalse( "The instance is wrongfully considered to be fuse-able with a square of different value.",
                      this.square.canBeFused( _square ) );
     }
+
+    // === Tests on the fuseTwoSquares() method. === //
+
+    /**
+     * Case in which we attempt to fuse an unique instance with itself through the same variable and, then, an unaltered copy.
+     * <p>
+     * Compacted since the <code>canBeFused()</code> method tests should cover those cases.
+     */
+    @Test
+    public void fuseTwoSquares_sameInstance() {
+        Square _square;
+
+        // Prepare the square for the coming loop.
+        this.initializeSquareTo2();
+
+        for ( int i = 2; i <= 4; i += 2 ) {
+            // Check if the square doesn't fuse with itself through the same variable.
+            this.square.fuseTwoSquares( this.square );
+            assertEquals( "", i, this.square.getValue() );
+
+            // Check if the square doesn't fuse with itself through an unaltered copy.
+            _square = this.square;
+            this.square.fuseTwoSquares( _square );
+            assertEquals( "The fused square's value has been abnormally modified.", i, this.square.getValue() );
+            assertEquals( "The other square's value has been abnormally modified.", i, _square.getValue() );
+
+            // Change the square's value for the next loop.
+            this.initializeSquareTo4();
+        }
+    }
+
+    /**
+     * Case in which we attempt to fuse an unique instance with a different instance of same value.
+     */
+    @Test
+    public void fuseTwoSquares_differentInstance_sameValue() {
+        Square _square;
+
+        // Prepare the square for the coming loop.
+        this.initializeSquareTo2();
+
+        for ( int i = 2; i <= 4; i += 2 ) {
+            _square = new Square( i );
+
+            this.square.fuseTwoSquares( _square );
+            assertEquals( "The fused square's value hasn't been properly modified", i * 2, this.square.getValue() );
+            assertEquals( "The other square's value hasn't been properly nullified.", 0, _square.getValue() );
+        }
+    }
+
+    /**
+     * Case in which we attempt to fuse an unique instance with a different instance of different value.
+     */
+    @Test
+    public void fuseTwoSquares_differentInstance_differentValue() {
+        Square _square;
+
+        // Prepare the squares for the coming loop.
+        this.initializeSquareTo2();
+        _square = new Square( 4 );
+
+        for ( int i = 2; i <= 4; i += 2 ) {
+
+            this.square.fuseTwoSquares( _square );
+            assertEquals( "The fused square's value has been abnormally modified.", i, this.square.getValue() );
+            assertEquals( "The other square's value has been abnormally modified.", i * 2, _square.getValue() );
+
+            // Prepare the squares for the next loop.
+            this.initializeSquareTo4();
+            _square.fuseTwoSquares( new Square( 4 ) );
+        }
+    }
+
+    /**
+     * Case in which we attempt to fuse an unique instance with an altered copy.
+     */
+    @Test
+    public void fuseTwoSquares_alteredCopy() {
+        // Create the copy.
+        this.initializeSquareTo2();
+        Square _square = this.square;
+
+        // Alter the squares' values.
+        this.square.fuseTwoSquares( new Square( 2 ) );
+        _square.fuseTwoSquares( new Square( 2 ) );
+
+        // Check if the squares properly fused.
+        assertEquals( "The fused square's value hasn't been properly modified", 4, this.square.getValue() );
+        assertEquals( "The other square's value hasn't been properly modified.", 4, _square.getValue() );
+
+        // Check if the square fuse with the altered copy.
+        _square = this.square;
+        this.square.fuseTwoSquares( _square );
+        assertEquals( "The fused square's value has been abnormally modified.", 4, this.square.getValue() );
+        assertEquals( "The other square's value has been abnormally modified.", 4, _square.getValue() );
+
+    }
 }
