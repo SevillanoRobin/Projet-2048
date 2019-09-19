@@ -1,6 +1,5 @@
 package model;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -171,14 +170,12 @@ public class SquareUT {
         this.initializeSquareTo2();
         _square = new Square( 4 );
         assertNotEquals( "The instance is considered as the same as a square of different value.",
-                         this.square,
-                         _square );
+                         this.square, _square );
 
         this.initializeSquareTo4();
         _square = new Square( 2 );
         assertNotEquals( "The instance is considered as the same as a square of different value.",
-                         this.square,
-                         _square );
+                         this.square, _square );
     }
 
     /**
