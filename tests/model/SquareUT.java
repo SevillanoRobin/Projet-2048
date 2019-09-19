@@ -3,8 +3,7 @@ package model;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 /**
  * Unit test class for the the {@link Square class}.
@@ -196,5 +195,76 @@ public class SquareUT {
         this.initializeSquareTo4();
         __pseudoSquare = "new Square( 4 )";
         assertNotEquals( "The instance is considered as the same as a non-square", this.square, __pseudoSquare );
+    }
+
+    // === Tests on the canBeFused() method. === //
+
+    /**
+     * Case in which it is an unique unaltered square accessed through an unique variable.
+     */
+    @Test
+    public void canBeFused_sameInstance_sameVar() {
+        this.initializeSquareTo2();
+        assertFalse( "The instance is wrongfully considered to be fuse-able with itself.",
+                     this.square.canBeFused( this.square ) );
+    }
+
+    /**
+     * Case in which it is an unique unaltered square accessed through two distinct variable.
+     */
+    @Test
+    public void canBeFused_sameInstance_differentVar() {
+        this.initializeSquareTo2();
+        Square _square = this.square;
+        assertFalse( "The instance is wrongfully considered to be fuse-able with a copy of itself.",
+                     this.square.canBeFused( _square ) );
+    }
+
+    /**
+     * Case in which it is an unique unaltered square and an altered copy of itself.
+     */
+    @Ignore("The test is currently unavailable: the square values cannot be changed yet. ")
+    @Test
+    public void canBeFused_sameInstance_alteredCopy() {
+        this.initializeSquareTo2();
+        Square _square = this.square;
+        assertFalse( "The instance is wrongfully considered to be fuse-able with a copy of itself.",
+                     this.square.canBeFused( _square ) );
+    }
+
+    /**
+     * Case in which it is two distinct squares with the same values.
+     */
+    @Test
+    public void canBeFused_differentInstance_sameValue() {
+        Square _square;
+
+        this.initializeSquareTo2();
+        _square = new Square( 2 );
+        assertTrue( "The instance is wrongfully considered to not be fuse-able with a square of same value.",
+                    this.square.canBeFused( _square ) );
+
+        this.initializeSquareTo4();
+        _square = new Square( 4 );
+        assertTrue( "The instance is wrongfully considered to not be fuse-able with a square of same value.",
+                    this.square.canBeFused( _square ) );
+    }
+
+    /**
+     * Case in which it is two distinct squares with different values.
+     */
+    @Test
+    public void canBeFused_differentInstance_differentValue() {
+        Square _square;
+
+        this.initializeSquareTo2();
+        _square = new Square( 4 );
+        assertFalse( "The instance is wrongfully considered to be fuse-able with a square of different value.",
+                     this.square.canBeFused( _square ) );
+
+        this.initializeSquareTo4();
+        _square = new Square( 2 );
+        assertFalse( "The instance is wrongfully considered to be fuse-able with a square of different value.",
+                     this.square.canBeFused( _square ) );
     }
 }

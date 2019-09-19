@@ -65,4 +65,19 @@ public class Square {
         Square _square = (Square) _obj;
         return this.getValue() == _square.getValue();
     }
+
+    /**
+     * Identify if two squares (the current and the parameter) can be fused.
+     * <p>
+     * The two squares must not be the same instance (including copies), and must have the same value.
+     * <p>
+     * TODO: Change this method to consider position if deemed necessary, possible and optimal.
+     *
+     * @param _square The other square in the potential fusion.
+     *
+     * @return <code>true</code> if the squares are deemed merge-able.
+     */
+    public boolean canBeFused( Square _square ) {
+        return !super.equals( _square ) && this.equals( _square );
+    }
 }
