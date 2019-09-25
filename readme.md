@@ -4,6 +4,7 @@
 
 #### Collaborateurs :
  * Guillaume Behm
+ * Adrien Claudel
  * Guillaume Richez
  * Robin Sevillano
 
