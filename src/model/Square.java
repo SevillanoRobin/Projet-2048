@@ -89,7 +89,7 @@ public class Square {
      * <p>
      * The square passed in argument will have its value nullified if the fusion proceeds properly.
      * <p>
-     * TODO: Find a way to delete the nullified squares, if possible.
+     * TODO: Find a way to delete the nullified squares, if possible. Potentiality: Use a Observable/Observer struct.
      *
      * @param _square the square to be fused with the current one.
      */
