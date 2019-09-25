@@ -14,3 +14,4 @@
  ____
 ### Liens utiles
  * [Notes sur l'utilisation de Git (aide)](misc/git-help.md)
+ * [Capture d'écran des spécifications](misc/specs.png)
