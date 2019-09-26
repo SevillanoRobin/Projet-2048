@@ -21,4 +21,16 @@ public class Grille implements Parametres {
 
     /** Ensemble des {@link Case cellules} de la grille. */
     private HashSet<Case> grille;
+
+    /**
+     * Constructeur.
+     * <p>
+     * Initialise les attributs comme convenable.
+     * <p>
+     * Le tableau bénéficie d'une initialisation avec une taille initiale correspondante à sa taille maximale.
+     */
+    Grille() {
+        this.valeurMax = 0;
+        this.grille = new HashSet<>(TAILLE * 2);
+    }
 }
