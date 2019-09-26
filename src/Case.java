@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Case implements Parametres {
     private int x;
     private int y;
@@ -53,5 +55,10 @@ public class Case implements Parametres {
     @Override
     public String toString() {
         return "Case(" + x + "," + y + "," + value + ")";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( getX(), getY(), grille );
     }
 }
