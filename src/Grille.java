@@ -4,4 +4,8 @@ public class Grille implements Parametres {
     private int valeurMax;
 
     private HashSet<Case> grille;
+
+    public Grille() {
+        grille = new HashSet<>();
+    }
 }
