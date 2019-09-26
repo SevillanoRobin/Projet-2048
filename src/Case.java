@@ -106,6 +106,18 @@ public class Case implements Parametres {
     }
 
     /**
+     * Redéfinition de la méthode {@link Object#toString()}.
+     * <p>
+     * Offre une chaîne d'information contenant les coordonnées et la valeur de la cellule.
+     *
+     * @return ladite chaîne d'information ({@link String}).
+     */
+    @Override
+    public String toString() {
+        return "Case(" + x + "," + y + "," + value + ")";
+    }
+
+    /**
      * Accesseur du contructeur.
      * <p>
      * Cette méthode vérifie que les paramètres convienne pour la création d'une case.
