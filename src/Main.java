@@ -13,5 +13,5 @@
  * <p>
  * Initialise et lance le programme.
  */
-public class Main {
+public class Main implements Parametres {
 }

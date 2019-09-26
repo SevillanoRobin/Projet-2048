@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 23/10/2019
+ * Copyright (c) 24/10/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -13,5 +13,5 @@
  * <p>
  * Represente une cellule du jeu 2048, avec une valeur entre 2 et 2048 (voire plus).
  */
-public class Case {
+public class Case implements Parametres {
 }

@@ -13,5 +13,5 @@
  * <p>
  * Represente une grille de jeu 2048, composée de {@link Case cellules}.
  */
-public class Grille {
+public class Grille implements Parametres {
 }
