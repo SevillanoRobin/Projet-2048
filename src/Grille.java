@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Grille implements Parametres {
     private int valeurMax;
@@ -47,5 +48,33 @@ public class Grille implements Parametres {
         System.out.println( "Game over. The grid is full.\nScore: " + this.valeurMax );
 
         System.exit( 0 );
+    }
+
+    boolean nouvelleCase() {
+        if ( this.grille.size() >= Math.pow( Parametres.TAILLE, 2 ) ) {
+            return false;
+        }
+
+        Case cell;
+        {
+            Random random = new Random();
+
+            int x;
+            int y;
+            int valeur = (int) random.nextDouble() * 2 + 2;
+
+            do {
+                x = (int) random.nextDouble() * Parametres.TAILLE;
+                y = (int) random.nextDouble() * Parametres.TAILLE;
+                cell = new Case( x, y, valeur );
+            } while ( !this.grille.add( cell ) );
+
+            if ( this.valeurMax < valeur ) {
+                this.valeurMax = valeur;
+            }
+        }
+
+        cell.setGrille( this );
+        return true;
     }
 }
