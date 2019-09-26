@@ -33,4 +33,22 @@ public class Grille implements Parametres {
         this.valeurMax = 0;
         this.grille = new HashSet<>(TAILLE * 2);
     }
+
+    /**
+     * Accesseur de l'attribut `valeurMax`.
+     *
+     * @return Retourne la valeur de l'attribut.
+     */
+    int getValeurMax() {
+        return this.valeurMax;
+    }
+
+    /**
+     * Accesseur de l'attribut `grille`.
+     *
+     * @return Retourne la valeur de l'attribut.
+     */
+    HashSet<Case> getGrille() {
+        return this.grille;
+    }
 }
