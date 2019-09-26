@@ -8,6 +8,7 @@
  *      - Sevillano Robin
  */
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -50,5 +51,33 @@ public class Grille implements Parametres {
      */
     HashSet<Case> getGrille() {
         return this.grille;
+    }
+
+    /**
+     * Redéfinition de la méthode {@link Object#toString()}.
+     * <p>
+     * Offre une chaîne d'information représentant la grille ainsi que ses différentes cellules.
+     * <p>
+     * La chaîne contient plusieurs lignes.
+     *
+     * @return ladite chaîne d'information ({@link String}).
+     */
+    @Override
+    public String toString() {
+        int[][] tableau = new int[TAILLE][TAILLE];
+
+        for (Case c : this.grille) {
+            tableau[c.getY()][c.getX()] = c.getValue();  // Pris de la correction du TP 2048 de L2.
+        }
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < tableau.length; i++) {
+            res.append(Arrays.toString(tableau[i]));
+
+            if (i != tableau.length - 1) {
+                res.append("\n");
+            }
+        }
+
+        return res.toString();
     }
 }
