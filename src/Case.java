@@ -71,4 +71,8 @@ public class Case implements Parametres {
                getY() == aCase.getY() &&
                grille.equals( aCase.grille );
     }
+
+    public boolean valeurEgale( Case _case ) {
+        return this.value == _case.value;
+    }
 }
