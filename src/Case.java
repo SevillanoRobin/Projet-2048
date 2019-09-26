@@ -75,4 +75,39 @@ public class Case implements Parametres {
     public boolean valeurEgale( Case _case ) {
         return this.value == _case.value;
     }
+
+    public Case getVoisinDirect( int _direction ) {
+        Case     cell    = null;
+        Case[][] tableau = new Case[Parametres.TAILLE][Parametres.TAILLE];
+
+        for ( Case c : this.grille.getGrille() ) {
+            if ( !this.equals( c ) )
+                tableau[c.getX()][c.getY()] = c;  // Pris de la correction du TP 2048 de L2.
+        }
+
+        switch ( _direction ) {
+            case Parametres.HAUT:
+                for ( int j = this.y; j >= 0 && cell == null; j-- ) {
+                    cell = tableau[this.x][j];
+                }
+                break;
+            case Parametres.BAS:
+                for ( int j = this.y; j < Parametres.TAILLE && cell == null; j++ ) {
+                    cell = tableau[this.x][j];
+                }
+                break;
+            case Parametres.GAUCHE:
+                for ( int i = this.x; i >= 0 && cell == null; i-- ) {
+                    cell = tableau[i][this.y];
+                }
+                break;
+            case Parametres.DROITE:
+                for ( int i = this.x; i < Parametres.TAILLE && cell == null; i++ ) {
+                    cell = tableau[i][this.y];
+                }
+                break;
+        }
+
+        return cell;
+    }
 }
