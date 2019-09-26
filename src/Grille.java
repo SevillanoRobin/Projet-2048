@@ -10,6 +10,7 @@
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Classe Grille.
@@ -101,5 +102,43 @@ public class Grille implements Parametres {
         System.out.println("Game over. The grid is full.\nScore: " + this.valeurMax);
 
         System.exit(0);
+    }
+
+    /**
+     * Crée une nouvelle case dans la grille si possible.
+     * <p>
+     * Utilise des coordonnées et des valeurs aléatoires.
+     *
+     * @return {@code true} si la case a pu être créé.
+     */
+    boolean nouvelleCase() {
+        if (this.grille.size() >= Math.pow(Parametres.TAILLE, 2)) {
+            return false;
+        }
+
+        Case cell;
+        {
+            Random random = new Random();
+
+            int x;
+            int y;
+            int valeur = (int) Math.floor(random.nextDouble() * 2 + 2);
+
+            if (valeur == 3) valeur = 4;
+
+            do {
+                x = (int) random.nextDouble() * Parametres.TAILLE;
+                y = (int) random.nextDouble() * Parametres.TAILLE;
+                cell = Case.verifyThenCreateCase(x, y, valeur);
+                cell.setGrille(this);
+            } while (!this.grille.add(cell));
+
+            if (this.valeurMax < valeur) {
+                this.valeurMax = valeur;
+            }
+        }
+
+        cell.setGrille(this);
+        return true;
     }
 }

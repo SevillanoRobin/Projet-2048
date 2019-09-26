@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -62,5 +63,13 @@ class GrilleTest {
 
             assertEquals(expected, "" + this.grille, "The results are not corresponding.");
         }
+    }
+
+    /**
+     * Vérification de la fonctionalité de {@link Grille#nouvelleCase()}.
+     */
+    @Test
+    void testNouvelleCase() {
+        assertTrue(this.grille.nouvelleCase());
     }
 }
