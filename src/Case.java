@@ -21,4 +21,32 @@ public class Case implements Parametres {
     public Case( int[] _coors, int _value ) {
         this( _coors[0], _coors[1], _value );
     }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public void setX( int _x ) {
+        this.x = _x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public void setY( int _y ) {
+        this.y = _y;
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    public void setValue( int _value ) {
+        this.value = _value;
+    }
+
+    public void setGrille( Grille _grille ) {
+        this.grille = _grille;
+    }
 }
