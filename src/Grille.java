@@ -80,4 +80,26 @@ public class Grille implements Parametres {
 
         return res.toString();
     }
+
+    /**
+     * Méthode invoquée quand le jeu a été résolu.
+     * <p>
+     * Pour le moment, n'envoit qu'un message et arrête l'application.
+     */
+    private void victory() {
+        System.out.println("Congratulation! You won.\nScore: " + this.valeurMax);
+
+        System.exit(0);
+    }
+
+    /**
+     * Méthode invoquée quand le jeu a été perdu.
+     * <p>
+     * Pour le moment, n'envoit qu'un message et arrête l'application.
+     */
+    private void gameOver() {
+        System.out.println("Game over. The grid is full.\nScore: " + this.valeurMax);
+
+        System.exit(0);
+    }
 }
