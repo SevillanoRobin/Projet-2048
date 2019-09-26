@@ -132,6 +132,25 @@ public class Case implements Parametres {
     }
 
     /**
+     * Redéfinition de la méthode {@link Object#equals(Object)} )}.
+     * <p>
+     * Permet de déterminer si deux cellules sont les mêmes, peu importe si les instances le sont ou non.
+     *
+     * @param _o Instance à comparer avec l'instance courante.
+     *
+     * @return {@code true} si les cellules sont les mêmes.
+     */
+    @Override
+    public boolean equals(Object _o) {
+        if (this == _o) return true;
+        if (!(_o instanceof Case)) return false;
+        Case aCase = (Case) _o;
+        return getX() == aCase.getX() &&
+               getY() == aCase.getY() &&
+               grille.equals(aCase.grille);
+    }
+
+    /**
      * Accesseur du contructeur.
      * <p>
      * Cette méthode vérifie que les paramètres convienne pour la création d'une case.
