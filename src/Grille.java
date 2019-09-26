@@ -36,4 +36,16 @@ public class Grille implements Parametres {
 
         return res.toString();
     }
+
+    private void victory() {
+        System.out.println( "Congratulation! You won.\nScore: " + this.valeurMax );
+
+        System.exit( 0 );
+    }
+
+    private void gameOver() {
+        System.out.println( "Game over. The grid is full.\nScore: " + this.valeurMax );
+
+        System.exit( 0 );
+    }
 }
