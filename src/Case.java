@@ -61,4 +61,14 @@ public class Case implements Parametres {
     public int hashCode() {
         return Objects.hash( getX(), getY(), grille );
     }
+
+    @Override
+    public boolean equals( Object _o ) {
+        if ( this == _o ) return true;
+        if ( !( _o instanceof Case ) ) return false;
+        Case aCase = (Case) _o;
+        return getX() == aCase.getX() &&
+               getY() == aCase.getY() &&
+               grille.equals( aCase.grille );
+    }
 }
