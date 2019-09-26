@@ -1,2 +1,2 @@
-public class Grille {
+public class Grille implements Parametres {
 }
