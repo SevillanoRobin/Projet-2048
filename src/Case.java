@@ -151,6 +151,17 @@ public class Case implements Parametres {
     }
 
     /**
+     * Détermine si la valeur d'une case est la même que celle de la case courante.
+     *
+     * @param _case Case à comparer avec l'instance courante.
+     *
+     * @return {@code true} si les valeurs sont les mêmes.
+     */
+    boolean valeurEgale(Case _case) {
+        return this.value == _case.value;
+    }
+
+    /**
      * Accesseur du contructeur.
      * <p>
      * Cette méthode vérifie que les paramètres convienne pour la création d'une case.
