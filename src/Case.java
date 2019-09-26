@@ -8,6 +8,8 @@
  *      - Sevillano Robin
  */
 
+import java.util.Objects;
+
 /**
  * Classe Case.
  * <p>
@@ -115,6 +117,18 @@ public class Case implements Parametres {
     @Override
     public String toString() {
         return "Case(" + x + "," + y + "," + value + ")";
+    }
+
+    /**
+     * Redéfinition de la méthode {@link Object#hashCode()}.
+     * <p>
+     * Permet de fournir un identifiant unique pour chaque instance différente ( !equals ) pour la {@link java.util.HashSet grille}.
+     *
+     * @return l'identifiant créé.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getX(), getY(), grille);
     }
 
     /**
