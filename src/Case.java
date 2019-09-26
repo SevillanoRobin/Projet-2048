@@ -40,6 +40,72 @@ public class Case implements Parametres {
     }
 
     /**
+     * Accesseur de l'attribut `X`.
+     *
+     * @return Retourne la valeur de l'attribut.
+     */
+    int getX() {
+        return this.x;
+    }
+
+    /**
+     * Modificateur de l'attribut `X`.
+     *
+     * @param _x Nouvelle valeur de l'attribut.
+     */
+    void setX(int _x) {
+        this.x = _x;
+    }
+
+    /**
+     * Accesseur de l'attribut `Y`.
+     *
+     * @return Retourne la valeur de l'attribut.
+     */
+    int getY() {
+        return this.y;
+    }
+
+    /**
+     * Modificateur de l'attribut `Y`.
+     *
+     * @param _y Nouvelle valeur de l'attribut.
+     */
+    void setY(int _y) {
+        this.y = _y;
+    }
+
+    /**
+     * Accesseur de l'attribut `value`.
+     *
+     * @return Retourne la valeur de l'attribut.
+     */
+    int getValue() {
+        return this.value;
+    }
+
+    /**
+     * Modificateur de l'attribut `value`.
+     *
+     * @param _value Nouvelle valeur de l'attribut.
+     */
+    void setValue(int _value) {
+        this.value = _value;
+    }
+
+    /**
+     * Modificateur de l'attribut `grille`.
+     * <p>
+     * Modifie la grille associée à la case.
+     * Doit être utilisée pour éviter toute {@link NullPointerException} ou autre bug.
+     *
+     * @param _grille Nouvelle valeur de l'attribut.
+     */
+    void setGrille(Grille _grille) {
+        this.grille = _grille;
+    }
+
+    /**
      * Accesseur du contructeur.
      * <p>
      * Cette méthode vérifie que les paramètres convienne pour la création d'une case.
@@ -53,11 +119,11 @@ public class Case implements Parametres {
      */
     static Case verifyThenCreateCase(int _x, int _y, int _value) throws IllegalArgumentException {
         // Vérification des coordonnées.
-        if ( _x < 0 || _x >= Parametres.TAILLE ) {
-            throw new IllegalArgumentException( "Case: x has a wrong value." );
+        if (_x < 0 || _x >= Parametres.TAILLE) {
+            throw new IllegalArgumentException("Case: x has a wrong value.");
         }
-        if ( _y < 0 || _y >= Parametres.TAILLE ) {
-            throw new IllegalArgumentException( "Case: y has a wrong value." );
+        if (_y < 0 || _y >= Parametres.TAILLE) {
+            throw new IllegalArgumentException("Case: y has a wrong value.");
         }
 
         // Vérification de la valeur.
