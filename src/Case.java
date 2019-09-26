@@ -49,4 +49,9 @@ public class Case implements Parametres {
     public void setGrille( Grille _grille ) {
         this.grille = _grille;
     }
+
+    @Override
+    public String toString() {
+        return "Case(" + x + "," + y + "," + value + ")";
+    }
 }
