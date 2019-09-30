@@ -13,8 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe GrilleTest.
@@ -71,5 +70,78 @@ class GrilleTest {
     @Test
     void testNouvelleCase() {
         assertTrue(this.grille.nouvelleCase());
+    }
+
+    /**
+     * Fournit les cases nécéssaires pour bloquer tout mouvement dans la grille.
+     * <p>
+     * Permet de provoquer un retour positif de {@link Grille#partieFinie()}.
+     */
+    private void furnishValues_finish() {
+        for (int i = 0; i < Parametres.TAILLE; i++) {
+            for (int j = 0; j < Parametres.TAILLE; j++) {
+                int value;
+
+                if (i == j) {
+                    value = 4;
+                } else if (i % 2 == 0) {
+                    value = j % 2 == 0 ? 4 : 2;
+                } else {
+                    value = j % 2 == 0 ? 2 : 4;
+                }
+
+                Case _case = new Case(i, j, value);
+                _case.setGrille(this.grille);
+
+                this.grille.getGrille().add(_case);
+            }
+        }
+    }
+
+    /**
+     * Teste la méthode {@link Grille#partieFinie()}.
+     * <p>
+     * Cas où la grille ne devrait permettre aucun mouvement.
+     */
+    @Test
+    void partieFinie_finished() {
+        this.furnishValues_finish();
+
+        assertTrue(this.grille.partieFinie(),
+                "The grid is anormally not considered as finished." + this.grille.toString());
+    }
+
+    /**
+     * Teste la méthode {@link Grille#partieFinie()}.
+     * <p>
+     * Cas où la grille n'est pas remplie totalement.
+     */
+    @Test
+    void partieFinie_notFinished_notFilled() {
+        this.furnishValues_finish();
+        Case _case = new Case(0, 0, 2);
+        _case.setGrille(this.grille);
+        this.grille.getGrille().remove(_case);
+
+        assertFalse(this.grille.partieFinie(),
+                "The grid is anormally considered as finished. \n" + this.grille.toString());
+    }
+
+    /**
+     * Teste la méthode {@link Grille#partieFinie()}.
+     * <p>
+     * Cas où la grille est composée de voisins de même valeur.
+     */
+    @Test
+    void partieFinie_notFinished_hasSameValue() {
+        this.furnishValues_finish();
+
+        Case _case = new Case(0, 0, 2);
+        _case.setGrille(this.grille);
+        this.grille.getGrille().remove(_case);
+        this.grille.getGrille().add(_case);
+
+        assertFalse(this.grille.partieFinie(),
+                "The grid is anormally considered as finished.  \n" + this.grille.toString());
     }
 }

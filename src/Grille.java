@@ -141,4 +141,38 @@ public class Grille implements Parametres {
         cell.setGrille(this);
         return true;
     }
+
+    /**
+     * Détecte s'il reste des mouvements possibles.
+     * <p>
+     * Ne s'occupe que de retourner l'information ; l'appel de la méthode `gameOver()` ne se fait pas ici.
+     * Ne s'occupe pas de l'attribut `valeurMax`.
+     *
+     * @return {@code true} si la partie est "finie".
+     */
+    boolean partieFinie() {
+        int size = this.grille.size();
+
+        if (size < Math.pow(Parametres.TAILLE, 2)) {
+            return false;
+        }
+
+        int[] directions = {
+                Parametres.HAUT,
+                Parametres.GAUCHE,
+                Parametres.DROITE,
+                Parametres.BAS
+        };
+
+        for (Case _case : this.grille) {
+            for (int _direction : directions) {
+                Case _voisin = _case.getVoisinDirect(_direction);
+                if (_voisin != null && _case.valeurEgale(_voisin)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
