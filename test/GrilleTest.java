@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GrilleTest {
@@ -90,5 +93,60 @@ class GrilleTest {
         this.fusionStub( _case );
 
         assertEquals( 4, _case.getValue() );
+    }
+
+
+    private void furnishValues_getCasesExtremites() {
+        Case[] cases = {
+                new Case( 0, 0, 4 ),
+                new Case( 2, 0, 2 ),
+                new Case( 0, 2, 4 ),
+                new Case( 1, 2, 4 ),
+                new Case( 0, 3, 2 ),
+                new Case( 1, 3, 8 ),
+                new Case( 3, 3, 8 ),
+                };
+
+        for ( Case c : cases ) {
+            c.setGrille( this.grille );
+        }
+        this.grille.getGrille().addAll( Arrays.asList( cases ) );
+
+        String example = "[4, 0, 2, 0]\n" +
+                         "[0, 0, 0, 0]\n" +
+                         "[4, 4, 0, 0]\n" +
+                         "[2, 8, 0, 8]";
+
+        if ( !example.equals( "" + this.grille ) ) {
+            throw new IllegalArgumentException( "The example is not properly initialized. \nExpected: \n" +
+                                                "[4, 0, 2, 0]\n" +
+                                                "[0, 0, 0, 0]\n" +
+                                                "[4, 4, 0, 0]\n" +
+                                                "[2, 8, 0, 8]\n" +
+                                                "Got: \n" + this.grille );
+        }
+    }
+
+    private Case[] furnishExpected() {
+        Case[] cases = {
+                new Case( 2, 0, 2 ),
+                null,
+                new Case( 1, 2, 4 ),
+                new Case( 3, 3, 8 ),
+                };
+
+        for ( Case c : cases ) {
+            if ( c != null )
+                c.setGrille( this.grille );
+        }
+
+        return cases;
+    }
+
+    @Test
+    void getCasesExtremites_droite() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        this.furnishValues_getCasesExtremites();
+
+        assertArrayEquals( this.furnishExpected(), this.grille.getCasesExtremites( Parametres.DROITE ) );
     }
 }

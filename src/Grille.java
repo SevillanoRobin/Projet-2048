@@ -1,3 +1,5 @@
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
@@ -115,5 +117,83 @@ public class Grille implements Parametres {
         if ( this.valeurMax < newValue ) {
             this.valeurMax = newValue;
         }
+    }
+
+    /**
+     * retourne sous forme d’un tableau les 4 cases
+     * les plus proches de la direction choisie.
+     */
+    public Case[] getCasesExtremites( int _direction ) {
+        Case[][] tableau = new Case[TAILLE][TAILLE];
+
+        for ( Case c : this.grille ) {
+            tableau[c.getY()][c.getX()] = c;  // Pris de la correction du TP 2048 de L2.
+        }
+
+        Case[] res = new Case[Parametres.TAILLE];
+        Method usedMethod;
+        try {
+            switch ( _direction ) {
+                case Parametres.HAUT:
+                    usedMethod = Grille.class.getDeclaredMethod( "getHighestCase", int.class, Case[][].class );
+                    break;
+                case Parametres.BAS:
+                    usedMethod = Grille.class.getDeclaredMethod( "getLowestCase", int.class, Case[][].class );
+                    break;
+                case Parametres.GAUCHE:
+                    usedMethod = Grille.class.getDeclaredMethod( "getLeftestCase", int.class, Case[][].class );
+                    break;
+                case Parametres.DROITE:
+                    usedMethod = Grille.class.getDeclaredMethod( "getRightestCase", int.class, Case[][].class );
+                    break;
+                default:
+                    return null;
+            }
+        } catch ( NoSuchMethodException _e ) {
+            _e.printStackTrace();
+            return null;
+        }
+
+        for ( int i = 0; i < 4; i++ ) {
+            try {
+                res[i] = (Case) usedMethod.invoke( this, i, tableau );
+            } catch ( IllegalAccessException | InvocationTargetException _e ) {
+                _e.printStackTrace();
+            }
+        }
+
+        return res;
+    }
+
+    private Case getHighestCase( int _i, Case[][] _tableau ) {
+        Case _cell = null;
+        for ( int j = 0; j < 4 && _cell == null; j++ ) {
+            _cell = _tableau[j][_i];
+        }
+        return _cell;
+    }
+
+    private Case getLowestCase( int _i, Case[][] _tableau ) {
+        Case _cell = null;
+        for ( int j = 3; j >= 0 && _cell == null; j-- ) {
+            _cell = _tableau[j][_i];
+        }
+        return _cell;
+    }
+
+    private Case getLeftestCase( int _i, Case[][] _tableau ) {
+        Case _cell = null;
+        for ( int j = 0; j < 4 && _cell == null; j++ ) {
+            _cell = _tableau[_i][j];
+        }
+        return _cell;
+    }
+
+    private Case getRightestCase( int _i, Case[][] _tableau ) {
+        Case _cell = null;
+        for ( int j = 3; j >= 0 && _cell == null; j-- ) {
+            _cell = _tableau[_i][j];
+        }
+        return _cell;
     }
 }
