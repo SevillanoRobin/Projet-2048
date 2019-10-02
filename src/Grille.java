@@ -8,6 +8,8 @@
  *      - Sevillano Robin
  */
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
@@ -190,5 +192,118 @@ public class Grille implements Parametres {
         if (this.valeurMax < newValue) {
             this.valeurMax = newValue;
         }
+    }
+
+    /**
+     * Trouve quelles sont les 4 cases les plus proches de l'extremité de la direction choisie.
+     *
+     * @param _direction Direction choisie pour l'extremité.
+     *
+     * @return ces 4 cases sous la forme d'un tableau.
+     */
+    Case[] getCasesExtremites(int _direction) {
+        Case[][] tableau = new Case[TAILLE][TAILLE];
+
+        for (Case c : this.grille) {
+            tableau[c.getY()][c.getX()] = c;  // Pris de la correction du TP 2048 de L2.
+        }
+
+        Case[] res = new Case[Parametres.TAILLE];
+        Method usedMethod;
+        try {
+            switch (_direction) {
+                case Parametres.HAUT:
+                    usedMethod = Grille.class.getDeclaredMethod("getHighestCase", int.class, Case[][].class);
+                    break;
+                case Parametres.BAS:
+                    usedMethod = Grille.class.getDeclaredMethod("getLowestCase", int.class, Case[][].class);
+                    break;
+                case Parametres.GAUCHE:
+                    usedMethod = Grille.class.getDeclaredMethod("getLeftestCase", int.class, Case[][].class);
+                    break;
+                case Parametres.DROITE:
+                    usedMethod = Grille.class.getDeclaredMethod("getRightestCase", int.class, Case[][].class);
+                    break;
+                default:
+                    return null;
+            }
+        } catch (NoSuchMethodException _e) {
+            _e.printStackTrace();
+            return null;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            try {
+                res[i] = (Case) usedMethod.invoke(this, i, tableau);
+            } catch (IllegalAccessException | InvocationTargetException _e) {
+                _e.printStackTrace();
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     * Trouve la case la plus proche de l'extrémité superieure dans une colonne donnée.
+     *
+     * @param _i       numéro de la colonne donnée.
+     * @param _tableau tableau de cases correspondant à la grille.
+     *
+     * @return la case trouvée.
+     */
+    private Case getHighestCase(int _i, Case[][] _tableau) {
+        Case _cell = null;
+        for (int j = 0; j < 4 && _cell == null; j++) {
+            _cell = _tableau[j][_i];
+        }
+        return _cell;
+    }
+
+    /**
+     * Trouve la case la plus proche de l'extrémité inférieure dans une colonne donnée.
+     *
+     * @param _i       numéro de la colonne donnée.
+     * @param _tableau tableau de cases correspondant à la grille.
+     *
+     * @return la case trouvée.
+     */
+    private Case getLowestCase(int _i, Case[][] _tableau) {
+        Case _cell = null;
+        for (int j = 3; j >= 0 && _cell == null; j--) {
+            _cell = _tableau[j][_i];
+        }
+        return _cell;
+    }
+
+    /**
+     * Trouve la case la plus proche de l'extrémité de gauche dans une ligne donnée.
+     *
+     * @param _i       numéro de la ligne donnée.
+     * @param _tableau tableau de cases correspondant à la grille.
+     *
+     * @return la case trouvée.
+     */
+    private Case getLeftestCase(int _i, Case[][] _tableau) {
+        Case _cell = null;
+        for (int j = 0; j < 4 && _cell == null; j++) {
+            _cell = _tableau[_i][j];
+        }
+        return _cell;
+    }
+
+    /**
+     * Trouve la case la plus proche de l'extrémité de droite dans une ligne donnée.
+     *
+     * @param _i       numéro de la ligne donnée.
+     * @param _tableau tableau de cases correspondant à la grille.
+     *
+     * @return la case trouvée.
+     */
+    private Case getRightestCase(int _i, Case[][] _tableau) {
+        Case _cell = null;
+        for (int j = 3; j >= 0 && _cell == null; j--) {
+            _cell = _tableau[_i][j];
+        }
+        return _cell;
     }
 }
