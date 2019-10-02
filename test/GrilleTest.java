@@ -78,4 +78,17 @@ class GrilleTest {
 
         assertFalse( this.grille.partieFinie(), "The grid is considered as finished.  \n" + this.grille.toString() );
     }
+
+    private void fusionStub( Case _case ) {
+        int newValue = _case.getValue() * 2;
+        _case.setValue( newValue );
+    }
+
+    @Test
+    void fusion() {
+        Case _case = new Case( 0, 0, 2 );
+        this.fusionStub( _case );
+
+        assertEquals( 4, _case.getValue() );
+    }
 }

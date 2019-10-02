@@ -103,4 +103,17 @@ public class Grille implements Parametres {
 
         return true;
     }
+
+    /**
+     * multiplie la valeur de la case passée en paramètre par 2 et met
+     * éventuellement à jour la variable valeurMax
+     */
+    private void fusion( Case _case ) {
+        int newValue = _case.getValue() * 2;
+        _case.setValue( newValue );
+
+        if ( this.valeurMax < newValue ) {
+            this.valeurMax = newValue;
+        }
+    }
 }
