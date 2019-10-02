@@ -175,4 +175,20 @@ public class Grille implements Parametres {
 
         return true;
     }
+
+    /**
+     * Multiplie la valeur de la case passée en paramètre par 2.
+     * <p>
+     * Met la varianble `valeurMax` à jour, le cas échéant.
+     *
+     * @param _case Case fusionnée.
+     */
+    private void fusion(Case _case) {
+        int newValue = _case.getValue() * 2;
+        _case.setValue(newValue);
+
+        if (this.valeurMax < newValue) {
+            this.valeurMax = newValue;
+        }
+    }
 }

@@ -144,4 +144,32 @@ class GrilleTest {
         assertFalse(this.grille.partieFinie(),
                 "The grid is anormally considered as finished.  \n" + this.grille.toString());
     }
+
+    /**
+     * Pseudo-copie de la méthode privée `fusion()` de Grille.
+     * <p>
+     * Multiplie la valeur de la case passée en paramètre par 2.
+     *
+     * @param _case Case fusionnée.
+     */
+    private void fusionStub(Case _case) {
+        int newValue = _case.getValue() * 2;
+        _case.setValue(newValue);
+    }
+
+    /**
+     * Test de la méthode `fusion()` de Grille.
+     * <p>
+     * Utilise la pseudo-copie de cette classe.
+     */
+    @Test
+    void fusion() {
+        Case _case = Case.verifyThenCreateCase(0, 0, 2);
+
+        this.fusionStub(_case);
+        assertEquals(4, _case.getValue());
+
+        this.fusionStub(_case);
+        assertEquals(8, _case.getValue());
+    }
 }
