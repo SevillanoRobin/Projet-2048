@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Grid implements Parametres {
+public class Grid extends Movable {
 
 	private Tile[] grid;
-	private boolean fusion = true;
 
 
 	/**
@@ -15,6 +14,15 @@ public class Grid implements Parametres {
 	public Grid() {
 		this.grid = new Tile[SIZE];
 		newTile();
+	}
+	
+	
+	/**
+	 * Contruit une grille a partir d'un tableau de tuile
+	 * @return 
+	 */
+	public Grid(Tile[] _g) {
+		this.grid = _g;
 	}
 
 
@@ -37,23 +45,11 @@ public class Grid implements Parametres {
 
 
 	/**
-	 * Verification de fin de tour
-	 */
-	private void control() {
-		victory();
-		lose();
-		System.out.println(this);
-	}
-
-
-	/**
 	 * Verifie si le joueur a gagné
 	 */
 	public boolean victory() {
 		for (Tile t: grid)
 			if (t != null && t.getValue() == GOAL) {
-				System.out.println("Vous avez gagné, félicitation !");
-				System.exit(0);
 				return true;
 			}
 
@@ -62,7 +58,7 @@ public class Grid implements Parametres {
 
 
 	/**
-	 * Verifie si le joueur a perdu
+	 * renvoie vrai si le joueur a perdu
 	 */
 	public boolean lose() {
 		boolean control[] = {
@@ -71,18 +67,19 @@ public class Grid implements Parametres {
 			false,
 			false
 		};
+		
 		Tile[] tampon = copy();
 
-		control[0] = left(true);
+		control[0] = left(true, this);
 		override(tampon);
 
-		control[1] = right(true);
+		control[1] = right(true, this);
 		override(tampon);
 
-		control[2] = up(true);
+		control[2] = up(true, this);
 		override(tampon);
 
-		control[3] = down(true);
+		control[3] = down(true, this);
 		override(tampon);
 
 		for (boolean b: control) {
@@ -90,8 +87,6 @@ public class Grid implements Parametres {
 				return false;
 		}
 
-		System.out.println("Vous avez perdu.");
-		System.exit(1);
 		return true;
 	}
 
@@ -100,7 +95,7 @@ public class Grid implements Parametres {
 	 * Remplace la grille
 	 * @param tampon
 	 */
-	private void override(Tile[] _tampon) {
+	protected void override(Tile[] _tampon) {
 		for (int index = 0; index < SIZE; index++) {
 			try {
 				if (_tampon[index] != null)
@@ -118,7 +113,7 @@ public class Grid implements Parametres {
 	 * Crée une copie de la grille
 	 * @return
 	 */
-	private Tile[] copy() {
+	protected Tile[] copy() {
 		Tile[] tampon = new Tile[SIZE];
 
 		for (int index = 0; index < SIZE; index++) {
@@ -131,242 +126,55 @@ public class Grid implements Parametres {
 		}
 		return tampon;
 	}
+	
+	
+	/**
+	 * Meilleur score
+	 */
+	public int best() {
+		int score = 0;
+		
+		for(Tile t : grid)
+			if(t != null && t.getValue() > score)
+				score = t.getValue();
+		
+		return score;
+	}
+	
 
 
 	/**
 	 * Gère les mouvement de la grille
 	 * @param _d direction du mouvement
 	 */
-	protected boolean move(int _d) {
+	public boolean move(int _d) {
 		switch (_d) {
 
 			case LEFT:
-				return left(false);
+				return left(false, this);
 
 			case RIGHT:
-				return right(false);
+				return right(false, this);
 
 			case UP:
-				return up(false);
+				return up(false, this);
 
 			case DOWN:
-				return down(false);
+				return down(false, this);
 
 			default:
 				System.out.println("Erreur de déplacement");
 				return true;
-
 		}
 	}
-
-
+	
+	
 	/**
-	 * Effectue un mouvement entre deux tuile
-	 * @param _a première coordoné
-	 * @param _b seconde coordoné
-	 * @return boolean
+	 * renvoie l'objet
+	 * @return 
 	 */
-	private boolean moveTile(int _a, int _b) {
-
-		// Les case sont vide
-		if (grid[_a] == null && grid[_b] == null) {
-			return false;
-		}
-		// Mouvement de _b vers _a
-		else if (grid[_a] == null && grid[_b] != null) {
-			grid[_a] = grid[_b];
-			grid[_b] = null;
-
-			return true;
-		}
-
-		// Fusion de _a et _b
-		else if (grid[_b] != null && grid[_a].getValue() == grid[_b].getValue() && !fusion) {
-			grid[_a].setValue(grid[_a].getValue() * 2);
-			grid[_b] = null;
-
-			fusion = true;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-
-	/**
-	 * Deplacement des tuiles de la grille vers la gauche
-	 * @return boolean
-	 */
-	private boolean left(boolean _control) {
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(0, 1);
-		moves[1] = moveTile(1, 2);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(0, 1);
-		fusion = false; // On donne a nouveau la possibilité de faire une fusion pour prochaine ligne
-
-		// seconde ligne
-		moves[3] = moveTile(3, 4);
-		moves[4] = moveTile(4, 5);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(3, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(6, 7);
-		moves[7] = moveTile(7, 8);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(6, 7);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-					control();
-				}
-				return true;
-			}
-		}
-
-
-		return false;
-	}
-
-
-	/**
-	 * Deplacement des tuiles de la grille vers la droite
-	 * @return boolean
-	 */
-	private boolean right(boolean _control) {
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(2, 1);
-		moves[1] = moveTile(1, 0);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(2, 1);
-		fusion = false;
-
-		// seconde ligne
-		moves[3] = moveTile(5, 4);
-		moves[4] = moveTile(4, 3);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(5, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(8, 7);
-		moves[7] = moveTile(7, 6);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(8, 7);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-					control();
-				}
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * Deplacement des tuiles de la grille vers le haut
-	 * @return boolean
-	 */
-	private boolean up(boolean _control) {
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(0, 3);
-		moves[1] = moveTile(3, 6);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(0, 3);
-		fusion = false;
-
-		// seconde ligne
-		moves[3] = moveTile(1, 4);
-		moves[4] = moveTile(4, 7);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(1, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(2, 5);
-		moves[7] = moveTile(5, 8);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(2, 5);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-					control();
-				}
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * Deplacement des tuiles de la grille vers le bas
-	 * @return boolean
-	 */
-	private boolean down(boolean _control) {
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(6, 3);
-		moves[1] = moveTile(3, 0);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(6, 3);
-		fusion = false;
-
-		// seconde ligne
-		moves[3] = moveTile(7, 4);
-		moves[4] = moveTile(4, 1);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(7, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(8, 5);
-		moves[7] = moveTile(5, 2);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(8, 5);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-					control();
-				}
-				return true;
-			}
-		}
-
-		return false;
+	public Tile[] getGrid() {
+		return this.grid;
 	}
 
 
@@ -374,7 +182,7 @@ public class Grid implements Parametres {
 		String s = "|--------------|\n|";
 		for (int index = 0; index < SIZE; index++) {
 			if (grid[index] == null)
-				s += "	";
+				s += "    ";
 			else if (grid[index].getValue() < 9)
 				s += " " + grid[index].getValue() + "  ";
 			else if (grid[index].getValue() < 99)
