@@ -1,9 +1,19 @@
+/*
+ * Copyright (c) 02/11/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
 package application;
 
-import java.util.Scanner;
 import model.Grids;
 import model.Parametres;
 
+import java.util.Scanner;
 
 public class Main_Terminal implements Parametres {
 
