@@ -52,20 +52,22 @@ public class Grids extends Movable{
 
 		System.out.println(this);
 		System.out.println("La partie est finie. Votre score est " + this.best());
-		System.exit(1);
+		
 		return true;
 	}
 
 
 	/**
 	 * La partie est gagné
+	 * @return 
 	 */
-	public void victory() {
+	public boolean victory() {
 		if(best() >= GOAL) {
 			System.out.println(this);
 	        System.out.println("Bravo ! Vous avez atteint " + GOAL);
-	        System.exit(0);
+	        return true;
 		}
+		return false;
 	}
 
 
@@ -95,8 +97,6 @@ public class Grids extends Movable{
 
 		for(boolean b : verif)
 			if(b) {
-				victory();
-				lose();
 				System.out.println(this);
 				return true;
 			}
@@ -145,29 +145,4 @@ public class Grids extends Movable{
 		return result;
 	}
 	
-	
-	/**
-	 * Remplace les grilles
-	 * @param tampon
-	 */
-	private void override(Grid[] _tampon) {
-		for(int index  = 0; index < SIDE; index++) {
-			grids[index].override(_tampon[index].getGrid());
-		}
-	}
-
-
-	/**
-	 * Crée une copie des grilles
-	 * @return
-	 */
-	private Grid[] copy() {
-		Grid[] g = {null, null, null};
-		for(int index  = 0; index < SIDE; index++) {
-			g[index] = new Grid(grids[index].copy());
-		}
-		
-		return g;
-	}
-
 }

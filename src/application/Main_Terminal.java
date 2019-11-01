@@ -11,20 +11,20 @@ public class Main_Terminal implements Parametres {
 
 		Grids g = new Grids();
 		
-		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println(g);
-		while (true) {
-			System.out.println("Déplacer vers la Droite (d), Gauche (q), Haut (h), Bas (b), Devant (a) ou Derrier (e) ?");
+		while (!g.victory() && !g.lose()) {
+
+			System.out.println("Déplacer vers la Droite (d), Gauche (q), Haut (h), Bas (b), Devant (r) ou Derrier (f) ?");
 			String s = sc.nextLine();
 			if (!(s.equals("d") || s.equals("right") ||
 					s.equals("q") || s.equals("left") ||
 					s.equals("z") || s.equals("up") ||
 					s.equals("s") || s.equals("down") ||
-					s.equals("a") || s.equals("front") ||
-					s.equals("e") || s.equals("back")	)) {
-				System.out.println("Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (a) pour Devant ou (e) pour Derrier");
+					s.equals("r") || s.equals("front") ||
+					s.equals("f") || s.equals("back"))) {
+				System.out.println("Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (r) pour Devant ou (f) pour Derrier");
 			} else {
 				int direction;
 				if (s.equals("d") || s.equals("right")) {
@@ -35,7 +35,7 @@ public class Main_Terminal implements Parametres {
 					direction = UP;
 				} else if(s.equals("s") || s.equals("down")){
 					direction = DOWN;
-				} else if(s.equals("a") || s.equals("front")){
+				} else if(s.equals("r") || s.equals("front")){
 					direction = FRONT;
 				} else {
 					direction = BACK;
@@ -44,5 +44,7 @@ public class Main_Terminal implements Parametres {
 				g.move(direction);
 			}
 		}
+		sc.close();
+		System.exit(0);
 	}
 }

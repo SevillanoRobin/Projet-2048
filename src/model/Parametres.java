@@ -7,7 +7,7 @@ public interface Parametres {
 
 	static final int SIDE = 3;
 	static final int SIZE = SIDE * SIDE;
-	static final int GOAL = 2048;
+	static final int GOAL = 16;
 	static final int UP = -SIDE;
 	static final int RIGHT = 1;
 	static final int DOWN = SIDE;
