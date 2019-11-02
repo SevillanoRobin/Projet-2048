@@ -37,19 +37,31 @@ public class Main_Terminal implements Parametres {
 				System.out.println("Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (r) pour Devant ou (f) pour Derrier");
 			} else {
 				int direction;
-				if (s.equals("d") || s.equals("right")) {
-					direction = RIGHT;
-				} else if (s.equals("q") || s.equals("left")) {
-					direction = LEFT;
-				} else if (s.equals("z") || s.equals("up")) {
-					direction = UP;
-				} else if(s.equals("s") || s.equals("down")){
-					direction = DOWN;
-				} else if(s.equals("r") || s.equals("front")){
-					direction = FRONT;
-				} else {
-					direction = BACK;
-				}
+                switch (s) {
+                    case "d":
+                    case "right":
+                        direction = RIGHT;
+                        break;
+                    case "q":
+                    case "left":
+                        direction = LEFT;
+                        break;
+                    case "z":
+                    case "up":
+                        direction = UP;
+                        break;
+                    case "s":
+                    case "down":
+                        direction = DOWN;
+                        break;
+                    case "r":
+                    case "front":
+                        direction = FRONT;
+                        break;
+                    default:
+                        direction = BACK;
+                        break;
+                }
 
 				g.move(direction);
 			}
