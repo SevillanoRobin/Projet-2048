@@ -59,6 +59,7 @@ public class Main extends Application {
             // Association du contrôleur avec le stage et le pack de langue.
             MainMenu controller = loader.getController();
             controller.setBundle(bundle);
+            controller.setStage(primaryStage);
 
         } catch (Exception e) {
             e.printStackTrace();
