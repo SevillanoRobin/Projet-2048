@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright (c) 31/10/2019
+  ~ Copyright (c) 09/11/2019
   ~
   ~ Auteurs :
   ~      - Behm Guillaume
@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.menus.MainMenu">
+      fx:controller="controller.menus.mainMenu.MainMenuController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0"/>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">

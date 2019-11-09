@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus;
+package controller.menus.mainMenu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ public class MainMenuController {
     /**
      * Permet d'associer le {@link Stage stage} initialisé dans {@link application.Main}.
      * <p>
-     * Associe également un protocole pour s'occuper des requêtes de fermeture ({@link MainMenu#onQuit()}.
+     * Associe également un protocole pour s'occuper des requêtes de fermeture ({@link MainMenuController#onQuit()}.
      *
      * @param _stage Le {@link Stage stage} associé à ce contrôleur.
      */

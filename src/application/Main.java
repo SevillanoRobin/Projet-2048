@@ -10,7 +10,7 @@
 
 package application;
 
-import controller.menus.MainMenu;
+import controller.menus.mainMenu.MainMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -44,20 +44,21 @@ public class Main extends Application {
         try {
             // Initialisation de l'interface (scène), ainsi que sa langue et ses feuilles de styles.
             ResourceBundle bundle = ResourceBundle.getBundle("controller/menus/menus", Main.lang);
-            FXMLLoader loader = new FXMLLoader((MainMenu.class.getResource("/controller/menus/MainMenu.fxml")));
+            FXMLLoader loader = new FXMLLoader(
+                    (MainMenuController.class.getResource("/controller/menus/mainMenu/MainMenu.fxml")));
             loader.setResources(bundle);
             VBox root = loader.load();
             Scene scene = new Scene(root);
 
             // Vous pouvez utiliser la méthode addCSSFiles s'il y a plusieurs fichiers CSS à ajouter.
-            scene.getStylesheets().add("controller/menus/MainMenu.css");
+            scene.getStylesheets().add("controller/menus/mainMenu/MainMenu.css");
 
             // Association de la scène et du stage, et affichage.
             primaryStage.setScene(scene);
             primaryStage.show();
 
             // Association du contrôleur avec le stage et le pack de langue.
-            MainMenu controller = loader.getController();
+            MainMenuController controller = loader.getController();
             controller.setBundle(bundle);
             controller.setStage(primaryStage);
 
