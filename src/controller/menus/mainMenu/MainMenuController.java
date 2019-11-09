@@ -21,7 +21,10 @@ import javafx.stage.WindowEvent;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainMenu {
+/**
+ * Contrôleur associé au menu principal.
+ */
+public class MainMenuController {
 
     @FXML private Button newGameButton;
     @FXML private Button continueGameButton;
@@ -33,8 +36,14 @@ public class MainMenu {
     /** Pack de ressources associé à ce contrôleur. */
     private ResourceBundle bundle;
 
+    /**
+     * Invoquée à la fin de l'initialisation de la {@link javafx.scene.Scene scène}.
+     * <p>
+     * Permet de désactiver les boutons n'ayant pas encore d'implémentation.
+     */
     @FXML
     void initialize() {
+        this.newGameButton.setDisable(true);
         this.continueGameButton.setDisable(true);
         this.settingsButton.setDisable(true);
     }
