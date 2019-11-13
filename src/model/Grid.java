@@ -1,74 +1,92 @@
+/*
+ * Copyright (c) 15/11/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
 package model;
-import java.util.ArrayList;
-import java.util.Random;
 
 
 public class Grid extends Movable {
 
-	private Tile[] grid;
-
-
 	/**
-	 * Constructeur
+     * Constructeur par défaut.
 	 */
-	public Grid() {
+    Grid() {
 		this.grid = new Tile[SIZE];
-		newTile();
+        this.newTile();
 	}
-	
-	
+
+
 	/**
+     * Constructeur par paramètre.
+     *
 	 * Contruit une grille a partir d'un tableau de tuile
-	 * @return 
 	 */
-	public Grid(Tile[] _g) {
+    Grid(Tile[] _g) {
 		this.grid = _g;
 	}
 
 
 	/**
-	 * Ajoute une nouvelle tuile à la grille
+	 * Accesseur de l'attribut {@code grid} (tableau de {@link Tile tuile}).
+     *
+     * @return les tuiles.
 	 */
-	private void newTile() {
-		ArrayList < Integer > emptyTiles = new ArrayList < > ();
-
-		for (int index = 0; index < SIZE - 1; index++)
-			if (grid[index] == null)
-				emptyTiles.add(index);
-
-		if (emptyTiles.size() > 0) {
-			int pos = new Random().nextInt(emptyTiles.size());
-			grid[emptyTiles.get(pos)] = new Tile(pos);
-		}
-
+    public Tile[] getGrid() {
+		return this.grid;
 	}
 
-
-	/**
-	 * Verifie si le joueur a gagné
+    /**
+	 * Accesseur des éléments de l'attribut {@code grid} (tableau de {@link Tile tuile}).
+	 *
+	 * @param _ind Indice de la tuile dans le tableau.
+	 *
+	 * @return la tuile trouvée.
 	 */
-	public boolean victory() {
-		for (Tile t: grid)
-			if (t != null && t.getValue() == GOAL) {
-				return true;
-			}
-
-		return false;
+	public Tile getTile(int _ind) {
+		return this.grid[_ind];
 	}
 
-
 	/**
-	 * renvoie vrai si le joueur a perdu
+     * Modificateur de l'attribut {@code grid} (tableau de {@link Tile tuile}).
+     *
+     * @param _grid Une grille contant la nouvelle valeur de l'attribut.
+     */
+    private void setGrid(Grid _grid) {
+        this.grid = _grid.getGrid();
+    }
+
+    /**
+	 * Modificateur de l'attribut {@code grid} (tableau de {@link Tile tuile}).
+	 *
+	 * @param _grid Nouvelle valeur de l'attribut.
 	 */
-	public boolean lose() {
-		boolean control[] = {
-			false,
-			false,
-			false,
-			false
-		};
-		
-		Tile[] tampon = copy();
+	private void setGrid(Tile[] _grid) {
+		this.grid = _grid;
+	}
+
+    /**
+     * Verifie si le joueur a gagné
+     */
+    public boolean victory() {
+        for (Tile t: grid)
+            if (t != null && t.getValue() == GOAL) {
+                return true;
+            }
+
+        return false;
+    }
+
+    /**
+     * renvoie {@code false} si le joueur a perdu.
+     */
+    boolean stillPlayeable() {
+        Tile[] tampon = copy();
 
 		control[0] = left(true, this);
 		override(tampon);
@@ -93,9 +111,9 @@ public class Grid extends Movable {
 
 	/**
 	 * Remplace la grille
-	 * @param tampon
+     * @param _tampon
 	 */
-	protected void override(Tile[] _tampon) {
+    private void override(Tile[] _tampon) {
 		for (int index = 0; index < SIZE; index++) {
 			try {
 				if (_tampon[index] != null)
@@ -111,9 +129,9 @@ public class Grid extends Movable {
 
 	/**
 	 * Crée une copie de la grille
-	 * @return
+     * @return cette copie.
 	 */
-	protected Tile[] copy() {
+    private Tile[] copy() {
 		Tile[] tampon = new Tile[SIZE];
 
 		for (int index = 0; index < SIZE; index++) {
@@ -126,21 +144,21 @@ public class Grid extends Movable {
 		}
 		return tampon;
 	}
-	
-	
+
+
 	/**
 	 * Meilleur score
 	 */
 	public int best() {
 		int score = 0;
-		
+
 		for(Tile t : grid)
 			if(t != null && t.getValue() > score)
 				score = t.getValue();
-		
+
 		return score;
 	}
-	
+
 
 
 	/**
@@ -167,11 +185,12 @@ public class Grid extends Movable {
 				return true;
 		}
 	}
-	
-	
+
+
 	/**
-	 * renvoie l'objet
-	 * @return 
+     * Accesseur de l'attribut {@code grid}.
+     *
+     * @return la valeur de l'attribut.
 	 */
 	public Tile[] getGrid() {
 		return this.grid;
@@ -179,25 +198,26 @@ public class Grid extends Movable {
 
 
 	public String toString() {
-		String s = "|--------------|\n|";
+        StringBuilder s = new StringBuilder("|--------------|\n|");
+
 		for (int index = 0; index < SIZE; index++) {
 			if (grid[index] == null)
-				s += "    ";
+                s.append("    ");
 			else if (grid[index].getValue() < 9)
-				s += " " + grid[index].getValue() + "  ";
+                s.append(" ").append(grid[index].getValue()).append("  ");
 			else if (grid[index].getValue() < 99)
-				s += " " + grid[index].getValue() + " ";
+                s.append(" ").append(grid[index].getValue()).append(" ");
 			else if (grid[index].getValue() < 999)
-				s += grid[index].getValue();
+                s.append(grid[index].getValue());
 
-			s += "|";
+            s.append("|");
 
 			if (index == 2 || index == 5)
-				s += "\n|--------------|\n|";
+                s.append("\n|--------------|\n|");
 			if (index == 8)
-				s += "\n|--------------|\n";
+                s.append("\n|--------------|\n");
 		}
 
-		return s;
+        return s.toString();
 	}
 }

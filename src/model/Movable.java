@@ -13,12 +13,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Movable implements Parametres {
-	
-	private Tile[] grid;
+public abstract class Movable implements Parametres{
+
+    Tile[] grid;
 	boolean fusion = true;
 
-	
+
 	/**
 	 * Initialise la grille avant d'utiliser une methode
 	 */
@@ -26,7 +26,7 @@ public abstract class Movable implements Parametres {
 		this.grid = _g.getGrid();
 	}
 
-	
+
 	/**
 	 * Effectue un mouvement entre deux tuile
 	 * @param _a première coordoné
@@ -60,12 +60,12 @@ public abstract class Movable implements Parametres {
 			return false;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Ajoute une nouvelle tuile à la grille
 	 */
-	private void newTile() {
+	void newTile() {
 		ArrayList < Integer > emptyTiles = new ArrayList < > ();
 
 		for (int index = 0; index < SIZE - 1; index++)
@@ -85,9 +85,9 @@ public abstract class Movable implements Parametres {
 	 * @return boolean
 	 */
 	protected boolean left(boolean _control, Grid _g) {
-		
+
 		setGrid(_g);
-		
+
 		// tableau récapitulatif des mouvements
 		boolean moves[] = new boolean[9];
 
@@ -132,9 +132,9 @@ public abstract class Movable implements Parametres {
 	 * @return boolean
 	 */
 	protected boolean right(boolean _control, Grid _g) {
-		
+
 		setGrid(_g);
-		
+
 		// tableau récapitulatif des mouvements
 		boolean moves[] = new boolean[9];
 
@@ -180,7 +180,7 @@ public abstract class Movable implements Parametres {
 	protected boolean up(boolean _control, Grid _g) {
 
 		setGrid(_g);
-		
+
 		// tableau récapitulatif des mouvements
 		boolean moves[] = new boolean[9];
 
@@ -226,7 +226,7 @@ public abstract class Movable implements Parametres {
 	protected boolean down(boolean _control, Grid _g) {
 
 		setGrid(_g);
-		
+
 		// tableau récapitulatif des mouvements
 		boolean moves[] = new boolean[9];
 
@@ -263,6 +263,6 @@ public abstract class Movable implements Parametres {
 
 		return false;
 	}
-	
-	
+
+
 }
