@@ -1,12 +1,25 @@
+/*
+ * Copyright (c) 13/11/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
 package model;
+
 import java.util.Random;
+
+import static model.Parametres.SIZE;
 
 /**
  * 
  * @author Guillaume & Adrien
  *
  */
-public class Tile implements Parametres, Cloneable {
+public class Tile implements Cloneable {
 
 	private int pos;
 	private int value;

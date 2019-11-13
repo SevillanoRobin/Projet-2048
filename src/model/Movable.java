@@ -13,7 +13,9 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Movable implements Parametres{
+import static model.Parametres.SIZE;
+
+public abstract class Movable {
 
     Tile[] grid;
 	boolean fusion = true;

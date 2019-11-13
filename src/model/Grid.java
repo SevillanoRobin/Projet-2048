@@ -11,6 +11,8 @@
 package model;
 
 
+import static model.Parametres.*;
+
 public class Grid extends Movable {
 
 	/**

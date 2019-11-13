@@ -1,17 +1,24 @@
-package model;
-/**
+/*
+ * Copyright (c) 13/11/2019
  *
- * @author Sylvain
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
  */
+
+package model;
+
 public interface Parametres {
 
-	static final int SIDE = 3;
-	static final int SIZE = SIDE * SIDE;
-	static final int GOAL = 16;
-	static final int UP = -SIDE;
-	static final int RIGHT = 1;
-	static final int DOWN = SIDE;
-	static final int LEFT = -1;
-	static final int FRONT = 2;
-	static final int BACK = -2;
+	int SIDE = 3;
+	int SIZE = SIDE * SIDE;
+	int GOAL = 16;
+	int UP = -SIDE;
+	int RIGHT = 1;
+	int DOWN = SIDE;
+	int LEFT = -1;
+	int FRONT = 2;
+	int BACK = -2;
 }

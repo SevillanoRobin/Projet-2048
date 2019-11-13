@@ -11,11 +11,12 @@
 package application;
 
 import model.Grids;
-import model.Parametres;
 
 import java.util.Scanner;
 
-public class Main_Terminal implements Parametres {
+import static model.Parametres.*;
+
+public class Main_Terminal {
 
     public static void main(final String[] args) {
 
