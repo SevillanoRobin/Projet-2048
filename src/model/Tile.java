@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 15/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -66,6 +66,10 @@ public class Tile implements Cloneable, Serializable {
 
     // ---------------------- GETTER & SETTER ---------------------- //
 
+    public int getPos() {
+        return this.pos;
+    }
+
     /**
      * @param _x
      */
@@ -76,7 +80,7 @@ public class Tile implements Cloneable, Serializable {
     /**
      * @return
      */
-    int getValue() {
+    public int getValue() {
         return this.value;
     }
 

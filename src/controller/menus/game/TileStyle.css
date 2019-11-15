@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 04/12/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
+.tileCoreStyle {
+    -fx-alignment: center;
+    -fx-pref-height: 50;
+    -fx-pref-width: 50;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-font-size: 24;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: normal;
+    -fx-background-color: #df144c;
+
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+}
+
+.tile2 {
+    -fx-background-color: #ffbc45;
+}
+
+.tile4 {
+    -fx-background-color: #ff731e;
+}
+
+.tile8 {
+    -fx-background-color: #ff1813;
+}
+
+.tile16 {
+    -fx-background-color: #ff2191;
+}
+
+.tile32 {
+    -fx-background-color: rgb(178, 225, 1)
+}
+
+.tile64 {
+    -fx-background-color: rgb(238, 118, 142)
+}
+
+.tile128 {
+    -fx-background-color: rgb(33, 96, 18)
+}
+
+.tile256 {
+    -fx-background-color: rgb(135, 25, 201)
+}
+
+.tile512 {
+    -fx-background-color: rgb(117, 28, 239)
+}
+
+.tile1024 {
+    -fx-background-color: rgb(81, 76, 70)
+}
+
+.tile2048 {
+    -fx-background-color: rgb(30, 122, 190)
+}
