@@ -10,7 +10,6 @@
 
 package model;
 
-
 import static model.Parametres.*;
 
 public class Grid extends Movable {
@@ -23,16 +22,14 @@ public class Grid extends Movable {
         this.newTile();
 	}
 
-
 	/**
      * Constructeur par paramètre.
-     *
-	 * Contruit une grille a partir d'un tableau de tuile
+     * <p>
+     * Contruit une grille à partir d'un tableau de tuile.
 	 */
-    Grid(Tile[] _g) {
-		this.grid = _g;
+    Grid(Tile[] _tiles) {
+        this.grid = _tiles;
 	}
-
 
 	/**
 	 * Accesseur de l'attribut {@code grid} (tableau de {@link Tile tuile}).
@@ -90,30 +87,23 @@ public class Grid extends Movable {
     boolean stillPlayeable() {
         Tile[] tampon = copy();
 
-		control[0] = left(true, this);
+        boolean control0 = left(true, this);
 		override(tampon);
 
-		control[1] = right(true, this);
+        boolean control1 = right(true, this);
 		override(tampon);
 
-		control[2] = up(true, this);
+        boolean control2 = up(true, this);
 		override(tampon);
 
-		control[3] = down(true, this);
+        boolean control3 = down(true, this);
 		override(tampon);
 
-		for (boolean b: control) {
-			if (b)
-				return false;
+        return control0 || control1 || control2 || control3;
 		}
-
-		return true;
-	}
-
 
 	/**
 	 * Remplace la grille
-     * @param _tampon
 	 */
     private void override(Tile[] _tampon) {
 		for (int index = 0; index < SIZE; index++) {
@@ -128,9 +118,9 @@ public class Grid extends Movable {
 		}
 	}
 
-
 	/**
 	 * Crée une copie de la grille
+     *
      * @return cette copie.
 	 */
     private Tile[] copy() {
@@ -147,21 +137,18 @@ public class Grid extends Movable {
 		return tampon;
 	}
 
-
 	/**
 	 * Meilleur score
 	 */
-	public int best() {
+    int best() {
 		int score = 0;
 
-		for(Tile t : grid)
-			if(t != null && t.getValue() > score)
+        for (Tile t : grid)
+            if (t != null && t.getValue() > score)
 				score = t.getValue();
 
 		return score;
 	}
-
-
 
 	/**
 	 * Gère les mouvement de la grille
@@ -187,17 +174,6 @@ public class Grid extends Movable {
 				return true;
 		}
 	}
-
-
-	/**
-     * Accesseur de l'attribut {@code grid}.
-     *
-     * @return la valeur de l'attribut.
-	 */
-	public Tile[] getGrid() {
-		return this.grid;
-	}
-
 
 	public String toString() {
         StringBuilder s = new StringBuilder("|--------------|\n|");

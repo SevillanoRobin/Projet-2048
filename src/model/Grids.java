@@ -78,14 +78,14 @@ public class Grids {
 
         Grid[] tamp = reorganization(this.grids);
 		for(Grid g : tamp) {
-			if(!g.lose())
+			if(g.stillPlayeable())
 				return false;
 		}
 		//on remet la matrice dans le bon sens
 		setGrids(reorganization(reorganization(reorganization(tamp))));
 
 		for(Grid g : grids) {
-			if(!g.lose())
+			if(g.stillPlayeable())
 				return false;
 		}
 
