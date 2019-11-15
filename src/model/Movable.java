@@ -46,7 +46,7 @@ public abstract class Movable {
 			grid[_a] = grid[_b];
 			grid[_b] = null;
 
-			grid[_a].setX(_a);
+			grid[_a].setPos(_a);
 
 			return true;
 		}
