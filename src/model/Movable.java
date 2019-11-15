@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 15/11/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
 package model;
 
 import java.util.ArrayList;
@@ -33,6 +43,8 @@ public abstract class Movable implements Parametres {
 		else if (grid[_a] == null && grid[_b] != null) {
 			grid[_a] = grid[_b];
 			grid[_b] = null;
+
+			grid[_a].setX(_a);
 
 			return true;
 		}
