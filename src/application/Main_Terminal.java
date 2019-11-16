@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 02/11/2019
+ * Copyright (c) 16/11/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -27,7 +27,7 @@ public class Main_Terminal implements Parametres {
         while (!g.victory() && !g.lose()) {
 
             System.out.println(
-                    "Déplacer vers la Droite (d), Gauche (q), Haut (h), Bas (b), Devant (r) ou Derrier (f) ?");
+                    "Déplacer vers la Droite (d), Gauche (q), Haut (z), Bas (s), Devant (r) ou Derrière (f) ?");
             String s = sc.nextLine();
             if (!(s.equals("d") || s.equals("right") ||
                   s.equals("q") || s.equals("left") ||
@@ -36,7 +36,7 @@ public class Main_Terminal implements Parametres {
                   s.equals("r") || s.equals("front") ||
                   s.equals("f") || s.equals("back"))) {
                 System.out.println(
-                        "Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (r) pour Devant ou (f) pour Derrier");
+                        "Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (r) pour Devant ou (f) pour Derrière");
             } else {
                 int direction;
                 switch (s) {
