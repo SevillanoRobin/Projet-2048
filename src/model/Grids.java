@@ -60,7 +60,7 @@ public class Grids {
 	/**
 	 * Meilleur score
 	 */
-	public int best() {
+	private int best() {
 		int score = 0;
 
 		for(Grid g : grids)
