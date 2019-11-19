@@ -70,27 +70,6 @@ public class Grid {
     }
 
     /**
-	 * Modificateur de l'attribut {@code grid} (tableau de {@link Tile tuile}).
-	 *
-	 * @param _grid Nouvelle valeur de l'attribut.
-	 */
-	private void setGrid(Tile[] _grid) {
-		this.grid = _grid;
-	}
-
-    /**
-     * Verifie si le joueur a gagné
-     */
-    public boolean victory() {
-        for (Tile t: grid)
-            if (t != null && t.getValue() == GOAL) {
-                return true;
-            }
-
-        return false;
-    }
-
-    /**
      * renvoie {@code false} si le joueur a perdu.
      */
     boolean stillPlayeable() {
