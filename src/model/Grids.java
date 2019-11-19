@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/11/2019
+ * Copyright (c) 19/11/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -114,7 +114,7 @@ public class Grids {
 	/**
 	 * Gere les depacements des grilles
 	 */
-	public boolean move(int _d) {
+	public void move(int _d) {
         boolean[] verif = { false, false, false };
 
 		for(int index  = 0; index < SIDE; index++) {
@@ -138,9 +138,8 @@ public class Grids {
 		for(boolean b : verif)
 			if(b) {
 				System.out.println(this);
-				return true;
+				return;
 			}
-		return false;
 	}
 
 
