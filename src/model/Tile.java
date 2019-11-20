@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/11/2019
+ * Copyright (c) 20/11/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -55,7 +55,7 @@ public class Tile implements Cloneable {
 		return this.value;
 	}
 
-	void setValue(int _value) {
-		this.value = _value;
+	void doubleValue() {
+		this.value *= 2;
 	}
 }

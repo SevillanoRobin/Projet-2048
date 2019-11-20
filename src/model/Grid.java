@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/11/2019
+ * Copyright (c) 20/11/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -419,7 +419,7 @@ public class Grid {
 
         // Fusion de _a et _b
         else if (grid[_b] != null && grid[_a].getValue() == grid[_b].getValue() && !fusion) {
-            grid[_a].setValue(grid[_a].getValue() * 2);
+            grid[_a].doubleValue();
             grid[_b] = null;
 
             fusion = true;
