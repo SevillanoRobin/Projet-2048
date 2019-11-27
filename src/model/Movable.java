@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/11/2019
+ * Copyright (c) 27/11/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -134,7 +134,7 @@ public abstract class Movable implements Parametres {
 	protected boolean right(boolean _control, Grid _g) {
 		
 		setGrid(_g);
-		
+
 		// tableau récapitulatif des mouvements
 		boolean moves[] = new boolean[9];
 
@@ -228,7 +228,7 @@ public abstract class Movable implements Parametres {
 		setGrid(_g);
 		
 		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
+		boolean[] moves = new boolean[9];
 
 		// première ligne
 		moves[0] = moveTile(6, 3);
@@ -261,8 +261,178 @@ public abstract class Movable implements Parametres {
 			}
 		}
 
-		return false;
-	}
-	
-	
+        return false;
+    }
+
+    /**
+     * Retourne vrai s'il est possible d'effectuer un mouvement vers la gauche
+     * @param _g
+     * @return boolean
+     */
+    protected boolean left2(Grid _g) {
+
+        setGrid(_g);
+
+        // tableau récapitulatif des mouvements
+        boolean[] moves = new boolean[9];
+
+        // première ligne
+        moves[0] = moveTile(0, 1);
+        moves[1] = moveTile(1, 2);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[2] = moveTile(0, 1);
+        fusion = false; // On donne a nouveau la possibilité de faire une fusion pour prochaine ligne
+
+        // seconde ligne
+        moves[3] = moveTile(3, 4);
+        moves[4] = moveTile(4, 5);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[5] = moveTile(3, 4);
+        fusion = false;
+
+        // troisième ligne
+        moves[6] = moveTile(6, 7);
+        moves[7] = moveTile(7, 8);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[8] = moveTile(6, 7);
+        fusion = false;
+
+        // Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
+        for (boolean b : moves) {
+            if (b) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    /**
+     * Retourne vrai s'il est possible d'effectuer un mouvement vers la droite
+     * @param _g
+     * @return boolean
+     */
+    protected boolean right2(Grid _g) {
+
+        setGrid(_g);
+
+        // tableau récapitulatif des mouvements
+        boolean[] moves = new boolean[9];
+
+        // première ligne
+        moves[0] = moveTile(2, 1);
+        moves[1] = moveTile(1, 0);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[2] = moveTile(2, 1);
+        fusion = false;
+
+        // seconde ligne
+        moves[3] = moveTile(5, 4);
+        moves[4] = moveTile(4, 3);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[5] = moveTile(5, 4);
+        fusion = false;
+
+        // troisième ligne
+        moves[6] = moveTile(8, 7);
+        moves[7] = moveTile(7, 6);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[8] = moveTile(8, 7);
+        fusion = false;
+
+        // Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
+        for (boolean b : moves) {
+            if (b) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    
+    /**
+     * Retourne vrai s'il est possible d'effectuer un mouvement vers le haut
+     * @param _g
+     * @return boolean
+     */
+    protected boolean up2(Grid _g) {
+
+        setGrid(_g);
+
+        // tableau récapitulatif des mouvements
+        boolean[] moves = new boolean[9];
+
+        // première ligne
+        moves[0] = moveTile(0, 3);
+        moves[1] = moveTile(3, 6);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[2] = moveTile(0, 3);
+        fusion = false;
+
+        // seconde ligne
+        moves[3] = moveTile(1, 4);
+        moves[4] = moveTile(4, 7);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[5] = moveTile(1, 4);
+        fusion = false;
+
+        // troisième ligne
+        moves[6] = moveTile(2, 5);
+        moves[7] = moveTile(5, 8);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[8] = moveTile(2, 5);
+        fusion = false;
+
+        // Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
+        for (boolean b : moves) {
+            if (b) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Retourne vrai s'il est possible d'effectuer un mouvement vers le bas
+     * @param _g
+     * @return boolean
+     */
+     protected boolean down2(Grid _g) {
+
+        setGrid(_g);
+
+        // tableau récapitulatif des mouvements
+        boolean[] moves = new boolean[9];
+
+        // première ligne
+        moves[0] = moveTile(6, 3);
+        moves[1] = moveTile(3, 0);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[2] = moveTile(6, 3);
+        fusion = false;
+
+        // seconde ligne
+        moves[3] = moveTile(7, 4);
+        moves[4] = moveTile(4, 1);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[5] = moveTile(7, 4);
+        fusion = false;
+
+        // troisième ligne
+        moves[6] = moveTile(8, 5);
+        moves[7] = moveTile(5, 2);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        moves[8] = moveTile(8, 5);
+        fusion = false;
+
+        // Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
+        for (boolean b : moves) {
+            if (b) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
