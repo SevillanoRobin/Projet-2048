@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -6,7 +7,7 @@ import java.util.Random;
  * @author Guillaume & Adrien
  *
  */
-public class Tile implements Parametres, Cloneable {
+public class Tile implements Parametres, Cloneable, Serializable{
 
 	private int pos;
 	private int value;

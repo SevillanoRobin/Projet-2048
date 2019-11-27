@@ -1,9 +1,10 @@
 package model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Grid extends Movable {
+public class Grid extends Movable implements Serializable{
 
 	private Tile[] grid;
 

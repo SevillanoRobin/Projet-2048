@@ -10,8 +10,10 @@
 
 package model;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -138,7 +140,7 @@ public class Grids extends Movable implements Serializable {
             if (b) {
                 victory();
                 lose();
-               //this.affichage();
+                this.affichage();
                 return true;
             }
         }
@@ -266,6 +268,7 @@ public class Grids extends Movable implements Serializable {
 
 			oos.writeObject(this.grids);
 			oos.close();
+			System.out.println("Sauvegarder : " + System.getProperty("user.dir") + "2048_" + strDate + ".xt");
 		} catch (IOException _e) {
 			_e.printStackTrace();
 		}
@@ -273,8 +276,34 @@ public class Grids extends Movable implements Serializable {
 	}
 
 
-	public void load() {
-
+	public void load(String _path) {
+        // Deserialization 
+        try
+        {    
+            // Reading the object from a file 
+            FileInputStream file = new FileInputStream(_path); 
+            ObjectInputStream in = new ObjectInputStream(file); 
+              
+            // Method for deserialization of object 
+            this.grids = (Grid[])in.readObject(); 
+              
+            in.close(); 
+            file.close(); 
+              
+            System.out.println("Chargement complet");
+            
+            
+        } 
+          
+        catch(IOException ex) 
+        { 
+            System.out.println("IOException is caught"); 
+        } 
+          
+        catch(ClassNotFoundException ex) 
+        { 
+            System.out.println("ClassNotFoundException is caught"); 
+        } 
 	}
 
 }
