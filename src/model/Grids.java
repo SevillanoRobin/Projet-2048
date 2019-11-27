@@ -10,7 +10,13 @@
 
 package model;
 
-public class Grids extends Movable{
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Calendar;
+
+public class Grids extends Movable implements Serializable {
 
 	private Grid grids[];
 
@@ -57,7 +63,7 @@ public class Grids extends Movable{
                 if(t != null){
                     score = score + t.getValue();
                 }
-                
+
             }
 
         }
@@ -248,6 +254,27 @@ public class Grids extends Movable{
             }
         }
         System.out.println(s);
-    }
+	}
+
+
+	public void save() {
+		String strDate = Calendar.getInstance().getTime().toString();
+
+		try {
+			FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "2048_" + strDate + ".xt");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+			oos.writeObject(this.grids);
+			oos.close();
+		} catch (IOException _e) {
+			_e.printStackTrace();
+		}
+
+	}
+
+
+	public void load() {
+
+	}
 
 }

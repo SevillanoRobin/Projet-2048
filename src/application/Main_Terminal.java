@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/11/2019
+ * Copyright (c) 20/11/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -26,19 +26,21 @@ public class Main_Terminal implements Parametres {
         System.out.println(g);
         while (!g.victory() && !g.lose()) {
 
-            System.out.println(
-                    "Déplacer vers la Droite (d), Gauche (q), Haut (z), Bas (s), Devant (r) ou Derrière (f) ?");
+            System.out.println("Déplacer vers la Droite (d), Gauche (q), Haut (z), Bas (s), Devant (r) ou Derrière (f) ?");
+            System.out.println("Sauvegarder (e), charger (l)");
             String s = sc.nextLine();
             if (!(s.equals("d") || s.equals("right") ||
                   s.equals("q") || s.equals("left") ||
                   s.equals("z") || s.equals("up") ||
                   s.equals("s") || s.equals("down") ||
                   s.equals("r") || s.equals("front") ||
-                  s.equals("f") || s.equals("back"))) {
-                System.out.println(
-                        "Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (r) pour Devant ou (f) pour Derrière");
+                  s.equals("f") || s.equals("back") ||
+                  s.equals("e") || s.equals("save") ||
+                  s.equals("l") || s.equals("load"))) {
+                System.out.println("Vous devez écrire (d) pour Droite, (q) pour Gauche, (z) pour Haut, (s) pour Bas, (r) pour Devant ou (f) pour Derrière");
+                System.out.println("Sauvegarder (e), charger (l)");
             } else {
-                int direction;
+                int direction = BACK;
                 switch (s) {
                     case "d":
                     case "right":
@@ -60,8 +62,15 @@ public class Main_Terminal implements Parametres {
                     case "front":
                         direction = FRONT;
                         break;
+                    case "e":
+                    case "save":
+                        g.save();
+                        break;
+                    case "l":
+                    case "load":
+                        g.load();
+                        break;
                     default:
-                        direction = BACK;
                         break;
                 }
 
