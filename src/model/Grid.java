@@ -1,8 +1,15 @@
+/*
+ * Copyright (c) 28/11/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
 package model;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
-
 
 public class Grid extends Movable implements Serializable{
 
@@ -22,25 +29,6 @@ public class Grid extends Movable implements Serializable{
 	public Grid(Tile[] _g) {
 		this.grid = _g;
 	}
-
-
-	/**
-	 * Ajoute une nouvelle tuile à la grille
-	 */
-	private void newTile() {
-		ArrayList < Integer > emptyTiles = new ArrayList < > ();
-
-		for (int index = 0; index < SIZE - 1; index++)
-			if (grid[index] == null)
-				emptyTiles.add(index);
-
-		if (emptyTiles.size() > 0) {
-			int pos = new Random().nextInt(emptyTiles.size());
-			grid[emptyTiles.get(pos)] = new Tile(pos);
-		}
-
-	}
-
 
 	/**
 	 * Verifie si le joueur a gagné

@@ -65,7 +65,7 @@ public abstract class Movable implements Parametres {
 	/**
 	 * Ajoute une nouvelle tuile à la grille
 	 */
-	private void newTile() {
+	void newTile() {
 		ArrayList < Integer > emptyTiles = new ArrayList < > ();
 
 		for (int index = 0; index < SIZE - 1; index++)
