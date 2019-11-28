@@ -15,7 +15,7 @@ import java.util.Random;
 
 public abstract class Movable implements Parametres {
 	
-	private Tile[] grid;
+	protected Tile[] grid;
 	boolean fusion = true;
 
 	

@@ -6,14 +6,11 @@ import java.util.Random;
 
 public class Grid extends Movable implements Serializable{
 
-	private Tile[] grid;
-
-
 	/**
 	 * Constructeur
 	 */
 	public Grid() {
-		this.grid = new Tile[SIZE];
+		grid = new Tile[SIZE];
 		newTile();
 	}
 	
