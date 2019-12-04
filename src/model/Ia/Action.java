@@ -22,24 +22,41 @@ package model.Ia;
 public class Action{
     private String val ;
 
-    // constructeurs
+
+    /**
+     * Constructeur
+     */
     public  Action(){
     }
 
+    /**
+     * Constructeur
+     * @param act
+     */
     public  Action(String act){
 	val=act;
     }
 
     // getteurs et setteurs
+
+    /**
+     * Getter
+     * @return
+     */
     public String getAction(){
 	return(val);
     }
+
+    /**
+     * Setter
+     * @param s
+     */
     public void setAction(String s){
 	val=s;
     }
-    public void affiche(){
-	System.out.println(val);
-    }
+
+
+    @Override
     public String toString(){
 	return val;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -23,5 +23,11 @@ import model.Grids;
  */
 public interface IaStrategies {
     
+    /**
+     * Retourne le deplacement effectue de l'ia choisi
+     * @param grids
+     * @param profondeurMax
+     * @return
+     */
     String ia(Grids grids, int profondeurMax);
 }

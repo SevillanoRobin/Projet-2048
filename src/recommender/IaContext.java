@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -28,11 +28,14 @@ import java.util.ArrayList;
  */
 public class IaContext {
 
-    private static String strategyName;
+    public static String strategyName;
     private IaStrategies strategy;
-    private final ArrayList<IaStrategies> listStrategy;
-    private final ArrayList<String> listNameStrategy;
+    private ArrayList<IaStrategies> listStrategy;
+    private ArrayList<String> listNameStrategy;
 
+    /**
+     * Constructeur
+     */
     public IaContext() {
         this.listStrategy = new ArrayList<>();
         this.listNameStrategy = new ArrayList<>();
@@ -42,7 +45,9 @@ public class IaContext {
     }
 
     /**
-     * Adds a RecommenderStrategy and a String in the good list.
+     * Ajoute toutes les IA possibles dans deux listes. Une pour le nom de classe et l'autre pour le nom de l'IA
+     * @param classNameStrategy
+     * @param nameStrategy
      */
     private void addListInit(IaStrategies classNameStrategy, String nameStrategy) {
         this.listStrategy.add(classNameStrategy);
@@ -53,20 +58,18 @@ public class IaContext {
          return this.strategy.ia(grids, profondeurMax);
     }
     
-    /**
-     * Changes the name of the strategy and calls getOneRecommendation of the right strategy.
-     *
+        /**
+     * Change le nom de la strategie et appelle la methode ia de la bonne classe
      * @param iaStrategy
      * @param grids
      * @param profondeurMax
-     *
      * @return Result of getOneRecommendation.
      */
     public String setStrategyIa(String iaStrategy, Grids grids, int profondeurMax) {
         try {
             this.strategy = listStrategy.get(listNameStrategy.indexOf(iaStrategy)); 
-        } catch (Exception ex) { // if the stratefy is not in the list of strategy
-            this.strategy = listStrategy.get(listNameStrategy.indexOf("Random")); // find the default strategy
+        } catch (Exception ex) { // Si la strategie entree en parametre n'a pas ete trouve
+            this.strategy = listStrategy.get(listNameStrategy.indexOf("Random")); // Strategie par default
         }
         strategyName = iaStrategy;
         return this.ia(grids, profondeurMax);
