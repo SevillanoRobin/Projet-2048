@@ -48,8 +48,6 @@ public class MainMenuController {
     @FXML private Button continueGameButton;
     /** Bouton "Options". */
     @FXML private Button settingsButton;
-    /** Bouton "Quitter". */
-    @FXML private Button quitButton;
 
     /** Stage associé à ce contrôleur. */
     private Stage stage;
