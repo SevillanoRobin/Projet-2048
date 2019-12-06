@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 06/12/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -11,6 +11,8 @@
 package controller.menus.mainMenu;
 
 import controller.DialogBoxFactory;
+import controller.menus.ViewController;
+import controller.menus.ViewLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -34,18 +36,17 @@ import java.util.ResourceBundle;
  * séparer les responsabilités selon un <i>design pattern</i> de fabrique.
  * <p>
  * Ces attributs exigent des éléments créés par les classes chargeant le FXML, qui doivent donc être transférés,
- * au moyen des méthodes {@link MainMenuController#initStage(Stage)} et
- * {@link MainMenuController#initDialogFactory(ResourceBundle)} respectivement.
+ * au moyen des méthodes {@link #initStage(Stage)} et {@link #initBundle(ResourceBundle)} respectivement.
  * <p>
  * <p>
  * Les attributs de classe <i>FXMLPath</i> et <i>MainMenuCSS</i> ne changent pas d'un lancement à un autre,
  * et sont utilisés par plusieurs classes ({@link application.Main} et le future <i>GameController</i>.
  */
-public class MainMenuController {
+public class MainMenuController implements ViewController {
     /** Chemin menant au fichier FXML associé au menu principal. */
     public static final String FXMLPath = "/controller/menus/mainMenu/MainMenu.fxml";
-    /** Chemin menant au fichier CSS associé à . */
-    public static final String MainMenuCSS = "controller/menus/mainMenu/MainMenu.css";
+    /** Chemin menant au fichier CSS associé au menu. */
+    public static final String CSSPath = "controller/menus/mainMenu/MainMenu.css";
 
     /** Fabrique à boîte de dialogue associée à ce contrôleur. */
     private DialogBoxFactory dialogFactory;
@@ -77,12 +78,11 @@ public class MainMenuController {
     }
 
     /**
-     * Transfère l'attribut {@link Stage} depuis la classe accèdant au menu principal
-     * (par exemple, {@link application.Main}).
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link ViewLoader} accèdant au menu principal.
      *
      * <p>
      * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
-     * MainMenuController#isCloseable()} et de devoir obtenir une validation avant de fermer l'application.
+     * #isCloseable()} et de devoir obtenir une validation avant de fermer l'application.
      *
      * @param _stage
      *         Le {@link Stage stage} associé à ce contrôleur.
@@ -91,6 +91,7 @@ public class MainMenuController {
      *         Lancée si le {@link Stage} existe déjà à l'appel de cette méthode. <br>
      *         N'est pas censée être rattrapée, étant un problème de programmation.
      */
+    @Override
     public void initStage(Stage _stage) {
         if (this.stage != null) {
             throw new IllegalStateException("The stage already exists");
@@ -110,7 +111,7 @@ public class MainMenuController {
      * Transfère une instance {@link ResourceBundle} vers l'instance {@link DialogBoxFactory} afin d'obtenir des
      * boîtes de dialogues changeantes selon la langue de l'application.
      * <p>
-     * Devrait être appelée par la classe qui a créée la dite instance (par exemple, {@link application.Main}).
+     * Devrait être appelée par l'instance {@link ViewLoader} qui a instancié le pack.
      *
      * @param _bundle
      *         Le {@link ResourceBundle pack de ressources} associé à ce contrôleur.
@@ -121,12 +122,26 @@ public class MainMenuController {
      *         N'est pas censée être rattrapée, étant un problème de programmation.
      * @see DialogBoxFactory
      */
+    @Override
     public void initBundle(ResourceBundle _bundle) {
         if (dialogFactory == null) {
             this.dialogFactory = new DialogBoxFactory(_bundle);
         } else {
             this.dialogFactory.setBundle(_bundle);
         }
+    }
+
+    /**
+     * Permet l'accès au chemin du fichier CSS à travers une instance.
+     * <p>
+     * Cela permet à {@link ViewLoader} de ne pas avoir à utiliser un paramètre supplémentaire dans le constructeur,
+     * ainsi de ne pas forcer l'attribut <i>CSSPath</i> en tant qu'attribut de classe ou d'instance.
+     *
+     * @return Retourne le chemin vers le fichier CSS associé au contrôleur.
+     */
+    @Override
+    public String getCSSPath() {
+        return MainMenuController.CSSPath;
     }
 
     /**
@@ -157,7 +172,7 @@ public class MainMenuController {
      * Action correspondante au bouton "Quitter".
      * <p>
      * Envoit une requête de fermture au {@link Stage}, qui peut ensuite être validée ou annulée, au travers de
-     * la boîte de dialogue créée par la méthode {@link MainMenuController#isCloseable()}.
+     * la boîte de dialogue créée par la méthode {@link #isCloseable()}.
      *
      * @see javafx.scene.control.Alert la classe de la boîte de dialogue qui sera créée
      */
