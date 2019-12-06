@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/11/2019
+ * Copyright (c) 06/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -33,6 +33,17 @@ public class Main extends Application {
     private static Locale lang;
 
     /**
+     * Accesseur de l'attribut <i>lang</i>.
+     * <p>
+     * Permet de connaître la langue de l'application peu importe la classe qui le demande.
+     *
+     * @return la valeur de l'attribut.
+     */
+    public static Locale getLang() {
+        return Main.lang;
+    }
+
+    /**
      * Méthode appellée au lancement du Thread JavaFX.
      * <p>
      * Ferme l'application en cas de problème au chargement de la fenêtre.
@@ -44,23 +55,21 @@ public class Main extends Application {
         try {
             // Initialisation de l'interface (scène), ainsi que sa langue et ses feuilles de styles.
             ResourceBundle bundle = ResourceBundle.getBundle("controller/menus/menus", Main.lang);
-            FXMLLoader loader = new FXMLLoader(
-                    (MainMenuController.class.getResource("/controller/menus/mainMenu/MainMenu.fxml")));
+            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource(MainMenuController.FXMLPath));
             loader.setResources(bundle);
             VBox root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Vous pouvez utiliser la méthode addCSSFiles s'il y a plusieurs fichiers CSS à ajouter.
-            scene.getStylesheets().add("controller/menus/mainMenu/MainMenu.css");
 
             // Association de la scène et du stage, et affichage.
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(MainMenuController.MainMenuCSS);
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
             // Association du contrôleur avec le stage et le pack de langue.
             MainMenuController controller = loader.getController();
-            controller.setBundle(bundle);
-            controller.setStage(primaryStage);
+            controller.initBundle(bundle);
+            controller.initStage(primaryStage);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,20 +99,6 @@ public class Main extends Application {
         }
 
         Main.lang = Locale.FRENCH;
-    }
-
-    /**
-     * Utilisée par mesure de simplicité pour ajouter plusieurs fichiers CSS à une {@link Scene scène} donnée.
-     *
-     * @param _scene             {@link Scene Scène} à laquelle on veut ajouter des fichiers CSS.
-     * @param _fileRelativePaths Ensemble des liens relatifs en {@link String} menant aux fichiers CSS concernés.
-     *
-     * @see Scene#getStylesheets() pour ajouter un fichier CSS à une scène.
-     */
-    private static void addCSSFiles(Scene _scene, String... _fileRelativePaths) {
-        for (String _str : _fileRelativePaths) {
-            _scene.getStylesheets().add(_str);
-        }
     }
 
     /**

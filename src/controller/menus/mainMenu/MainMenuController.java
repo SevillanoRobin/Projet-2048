@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/11/2019
+ * Copyright (c) 06/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -36,8 +36,16 @@ import java.util.ResourceBundle;
  * Ces attributs exigent des éléments créés par les classes chargeant le FXML, qui doivent donc être transférés,
  * au moyen des méthodes {@link MainMenuController#initStage(Stage)} et
  * {@link MainMenuController#initDialogFactory(ResourceBundle)} respectivement.
+ * <p>
+ * <p>
+ * Les attributs de classe <i>FXMLPath</i> et <i>MainMenuCSS</i> ne changent pas d'un lancement à un autre,
+ * et sont utilisés par plusieurs classes ({@link application.Main} et le future <i>GameController</i>.
  */
 public class MainMenuController {
+    /** Chemin menant au fichier FXML associé au menu principal. */
+    public static final String FXMLPath = "/controller/menus/mainMenu/MainMenu.fxml";
+    /** Chemin menant au fichier CSS associé à . */
+    public static final String MainMenuCSS = "controller/menus/mainMenu/MainMenu.css";
 
     /** Fabrique à boîte de dialogue associée à ce contrôleur. */
     private DialogBoxFactory dialogFactory;
@@ -51,8 +59,6 @@ public class MainMenuController {
 
     /** Stage associé à ce contrôleur. */
     private Stage stage;
-    /** Pack de ressources associé à ce contrôleur. */
-    private ResourceBundle bundle;
 
     /**
      * Actions effectuées durant le {@link javafx.fxml.FXMLLoader chargement de la vue FXML}.
@@ -78,13 +84,14 @@ public class MainMenuController {
      * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
      * MainMenuController#isCloseable()} et de devoir obtenir une validation avant de fermer l'application.
      *
-     * @param _stage Le {@link Stage stage} associé à ce contrôleur.
+     * @param _stage
+     *         Le {@link Stage stage} associé à ce contrôleur.
      *
      * @throws IllegalStateException
      *         Lancée si le {@link Stage} existe déjà à l'appel de cette méthode. <br>
      *         N'est pas censée être rattrapée, étant un problème de programmation.
      */
-    public void setStage(Stage _stage) {
+    public void initStage(Stage _stage) {
         if (this.stage != null) {
             throw new IllegalStateException("The stage already exists");
         }
@@ -105,7 +112,8 @@ public class MainMenuController {
      * <p>
      * Devrait être appelée par la classe qui a créée la dite instance (par exemple, {@link application.Main}).
      *
-     * @param _bundle Le {@link ResourceBundle pack de ressources} associé à ce contrôleur.
+     * @param _bundle
+     *         Le {@link ResourceBundle pack de ressources} associé à ce contrôleur.
      *
      * @throws IllegalArgumentException
      *         Lancée si le {@link ResourceBundle pack} existe déjà à l'appel de cette méthode et ne change pas de
@@ -113,7 +121,7 @@ public class MainMenuController {
      *         N'est pas censée être rattrapée, étant un problème de programmation.
      * @see DialogBoxFactory
      */
-    public void setBundle(ResourceBundle _bundle) {
+    public void initBundle(ResourceBundle _bundle) {
         if (dialogFactory == null) {
             this.dialogFactory = new DialogBoxFactory(_bundle);
         } else {
