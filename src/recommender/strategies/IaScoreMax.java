@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -15,7 +15,11 @@
  */
 package recommender.strategies;
 
-import model.*;
+import model.Grids;
+import model.Ia.Action;
+import model.Ia.Etat;
+import model.Ia.Noeud;
+import model.Ia.Probleme;
 
 import java.util.ArrayList;
 

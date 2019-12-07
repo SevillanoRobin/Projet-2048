@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -10,12 +10,7 @@
 
 package model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Calendar;
 
 @SuppressWarnings("serial")
@@ -172,7 +167,7 @@ public class Grids extends Movable implements Serializable {
 	/**
 	 * Pivote la matrice de jeu
 	 */
-    Grid[] reorganization(Grid[] _gs) {
+	public Grid[] reorganization(Grid[] _gs) {
 		Tile[] result1 = new Tile[9];
 		Tile[] result2 = new Tile[9];
 		Tile[] result3 = new Tile[9];

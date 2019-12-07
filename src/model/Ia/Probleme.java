@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -13,7 +13,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.Ia;
+
+import model.Grids;
 
 import java.util.ArrayList;
 
@@ -26,24 +28,40 @@ public class Probleme {
     private final Grids grids;
     private final ArrayList<Action> listeactions;
 
-    //constructeur
+
+    /**
+     * Constructeur
+     * @param grids
+     */
     public Probleme(Grids grids) {
         this.listeactions = setactions();
         this.grids = grids;
 
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public Grids getGrids() {
         return grids;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public ArrayList<Action> getlisteactions() {
         return (listeactions);
     }
 
-    //initialisation 
-    private ArrayList<Action> setactions() {
-        ArrayList<Action> la = new ArrayList<Action>();
+
+    /**
+     * Ajoute toutes les actions possibles d'effectuer 
+     * @return
+     */
+    public ArrayList<Action> setactions() {
+        ArrayList<Action> la = new ArrayList<>();
         Action aa;
         aa = new Action();
         aa.setAction("Deplacement droite");

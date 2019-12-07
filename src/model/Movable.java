@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -78,11 +78,11 @@ public abstract class Movable implements Parametres {
 			grid[emptyTiles.get(pos)] = new Tile(pos);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Ajoute une nouvelle tuile à la grille
-	 * @param grids 
+	 * @param grids
 	 */
 	protected void newTile(Grid[] _grids) {
 		// Contient le numeros des grilles associé a l'index de leurs cases vides
@@ -107,7 +107,7 @@ public abstract class Movable implements Parametres {
      * @param _g
      * @return boolean
      */
-    protected boolean left(Grid _g) {
+    public boolean left(Grid _g) {
 
         setGrid(_g);
 
@@ -149,7 +149,7 @@ public abstract class Movable implements Parametres {
      * @param _g
      * @return boolean
      */
-    protected boolean right(Grid _g) {
+    public boolean right(Grid _g) {
 
         setGrid(_g);
 
@@ -193,7 +193,7 @@ public abstract class Movable implements Parametres {
      * @param _g
      * @return boolean
      */
-    protected boolean up(Grid _g) {
+    public boolean up(Grid _g) {
 
         setGrid(_g);
 
@@ -236,7 +236,7 @@ public abstract class Movable implements Parametres {
      * @param _g
      * @return boolean
      */
-     protected boolean down(Grid _g) {
+    public boolean down(Grid _g) {
 
         setGrid(_g);
 

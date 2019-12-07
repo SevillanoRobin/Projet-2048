@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -13,54 +13,76 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.Ia;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author utilisateur
+ */
 public class Noeud {
 
     private Etat e;
     private final ArrayList<Action> sol;
 
-    //constructeurs
-    private Noeud() {
+
+    /**
+     * Constructeur
+     */
+    public Noeud() {
         this.e = new Etat();
         this.sol = null;
     }
 
+    /**
+     * Fait une copie d'un noeud deja existant 
+     * @param ee
+     * @param aa
+     */
     public Noeud(Etat ee, ArrayList<Action> aa) {
         this.e = new Etat(ee);
-        this.sol = new ArrayList<Action>();
+        this.sol = new ArrayList<>();
         if (aa != null) {
             this.sol.addAll(aa);
         }
     }
 
-    //getteurs et setteurs
+
+    /**
+     * Getter
+     * @return
+     */
 
     public Etat getetat() {
         return (this.e);
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public ArrayList<Action> getlisteaction() {
         return (this.sol);
     }
 
-    private void setetat(Etat ee) {
+    /**
+     * Setter
+     * @param ee
+     */
+    public void setetat(Etat ee) {
         this.e = ee;
     }
 
-    //méthodes
+
+    /**
+     * Ajoute une action dans les solutions
+     * @param aa
+     */
     public void ajoutaction(Action aa) {
         this.sol.add(aa);
     }
 
-    public Noeud copy() { // renvoie une copie du noeud
-        Noeud n = new Noeud();
-        n.setetat(this.getetat());
-        n.sol.addAll(sol);
-        return (n);
-    }
 
     @Override
     public String toString() {

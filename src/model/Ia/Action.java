@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 07/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -13,7 +13,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.Ia;
 
 /**
  *
@@ -22,24 +22,41 @@ package model;
 public class Action{
     private String val ;
 
-    // constructeurs
+
+    /**
+     * Constructeur
+     */
     public  Action(){
     }
 
+    /**
+     * Constructeur
+     * @param act
+     */
     public  Action(String act){
 	val=act;
     }
 
     // getteurs et setteurs
+
+    /**
+     * Getter
+     * @return
+     */
     public String getAction(){
 	return(val);
     }
+
+    /**
+     * Setter
+     * @param s
+     */
     public void setAction(String s){
 	val=s;
     }
-    public void affiche(){
-	System.out.println(val);
-    }
+
+
+    @Override
     public String toString(){
 	return val;
     }
