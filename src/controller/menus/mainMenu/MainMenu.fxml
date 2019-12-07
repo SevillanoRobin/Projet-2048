@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright (c) 09/11/2019
+  ~ Copyright (c) 06/12/2019
   ~
   ~ Auteurs :
   ~      - Behm Guillaume
@@ -25,7 +25,7 @@
                         onAction="#onContinue" text="%mainMenu.continueGame" textAlignment="CENTER"/>
                 <Button fx:id="settingsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#onSettings" text="%mainMenu.options"/>
-                <Button fx:id="quitButton" alignment="CENTER" cancelButton="true" contentDisplay="CENTER"
+                <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER"
                         mnemonicParsing="false" onAction="#onQuit" text="%mainMenu.quit"/>
             </children>
         </VBox>
