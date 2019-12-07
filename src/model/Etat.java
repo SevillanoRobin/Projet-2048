@@ -28,8 +28,7 @@ public class Etat {
     private int scoreMax;
     private int scoreGrid;
 
-    public Etat() {    //constructeurs
-    }
+    public Etat() {}
     public Etat(Grids ensemble, String deplacement) {
         this.ensemble = new Grids(ensemble);
         this.deplacement = deplacement;
@@ -37,6 +36,7 @@ public class Etat {
         this.scoreGrid = ensemble.scoreTotalGrille();
     }
 
+    
     public Etat(Etat ee) {
         this.ensemble = new Grids(ee.getGrids());
         this.deplacement = ee.getDeplacement();
@@ -44,52 +44,64 @@ public class Etat {
         this.scoreGrid = ee.getScoreGrid();
     }
 
+    
     /*public String toString() {
         return "Ensemble grille : " + this.ensemble + " deplacmeent : " + this.deplacement + " score Max : " + this.scoreMax + " score Grid : " + this.scoreGrid;
     }*/
 
+    
     //getteurs et setteurs
     public Grids getGrids() {
         return this.ensemble;
     }
 
+    
     public String getDeplacement() {
         return this.deplacement;
     }
 
+    
     public int getScoreMax() {
         return this.scoreMax;
     }
 
+    
     private int getScoreGrid() {
         return this.scoreGrid;
     }
+    
 
     public void setEnsembleGrile(Grids ensemble) {
         this.ensemble = ensemble;
     }
 
+    
     public void setDeplacement(String dep) {
         this.deplacement = dep;
     }
+    
 
     public void setScoreMax(int _scoreMax) {
         this.scoreMax = _scoreMax;
     }
 
+    
     //méthodes
     public boolean estbut(Probleme pb) { //teste si l'état est égal à l'état but du problème
         return (pb.getGrids().best() == GOAL);
     }
+    
 
     public boolean estegal(Etat e) {
         return this.ensemble == e.getGrids() && this.deplacement.equals(e.getDeplacement());
     }
 
+    
     /*public void affiche() {
         System.out.println(this.ensemble + " " + this.deplacement + " " + this.scoreMax);
     }*/
 
+    
     // applique une action a à l'état courant. Le probleme est passé en paramètre pour connaitre la contenance maximale de chaque cruche
     public Etat AppliqueAction(Action a, Grids grids) {
         Etat e;
@@ -145,43 +157,44 @@ public class Etat {
         return (e);
     }
 
+    
     private boolean valide(String direction) {
         boolean valide = false;
         int indice = 0;
         if (direction.equals("d")) {
             while (!valide && indice < this.ensemble.getGrids().length) {
-                valide = this.ensemble.right2(this.ensemble.getGrids()[indice]);
+                valide = this.ensemble.right(this.ensemble.getGrids()[indice]);
                 indice++;
             }
         } else if (direction.equals("q")) {
             while (!valide && indice < this.ensemble.getGrids().length) {
-                valide = this.ensemble.left2(this.ensemble.getGrids()[indice]);
+                valide = this.ensemble.left(this.ensemble.getGrids()[indice]);
                 indice++;
             }
         } else if (direction.equals("z")) {
             while (!valide && indice < this.ensemble.getGrids().length) {
-                valide = this.ensemble.up2(this.ensemble.getGrids()[indice]);
+                valide = this.ensemble.up(this.ensemble.getGrids()[indice]);
                 indice++;
             }
         } else if (direction.equals("s")) {
             while (!valide && indice < this.ensemble.getGrids().length) {
-                valide = this.ensemble.down2(this.ensemble.getGrids()[indice]);
+                valide = this.ensemble.down(this.ensemble.getGrids()[indice]);
                 indice++;
             }
         } else if (direction.equals("r")) {
             this.ensemble.reorganization(this.ensemble.getGrids());
             while (!valide && indice < this.ensemble.getGrids().length) {
-                valide = this.ensemble.down2(this.ensemble.getGrids()[indice]);
+                valide = this.ensemble.down(this.ensemble.getGrids()[indice]);
                 indice++;
             }
         } else {
             this.ensemble.reorganization(this.ensemble.getGrids());
             while (!valide && indice < this.ensemble.getGrids().length) {
-                valide = this.ensemble.up2(this.ensemble.getGrids()[indice]);
+                valide = this.ensemble.up(this.ensemble.getGrids()[indice]);
                 indice++;
             }
         }
         return valide;
     }
 
-} // fin classe
+}

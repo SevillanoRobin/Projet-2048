@@ -11,6 +11,8 @@
 package model;
 import java.io.Serializable;
 
+
+@SuppressWarnings("serial")
 public class Grid extends Movable implements Serializable{
 
 	/**
@@ -56,16 +58,16 @@ public class Grid extends Movable implements Serializable{
 		
 		Tile[] tampon = copy();
 
-		control[0] = left(true, this);
+		control[0] = left(this);
 		override(tampon);
 
-		control[1] = right(true, this);
+		control[1] = right(this);
 		override(tampon);
 
-		control[2] = up(true, this);
+		control[2] = up(this);
 		override(tampon);
 
-		control[3] = down(true, this);
+		control[3] = down(this);
 		override(tampon);
 
 		for (boolean b: control) {
@@ -137,16 +139,16 @@ public class Grid extends Movable implements Serializable{
 		switch (_d) {
 
 			case LEFT:
-				return left(false, this);
+				return left(this);
 
 			case RIGHT:
-				return right(false, this);
+				return right(this);
 
 			case UP:
-				return up(false, this);
+				return up(this);
 
 			case DOWN:
-				return down(false, this);
+				return down(this);
 
 			default:
 				System.out.println("Erreur de déplacement");

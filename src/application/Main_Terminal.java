@@ -69,7 +69,7 @@ public class Main_Terminal implements Parametres {
                         break;
                     case "l":
                     case "load":
-                        System.out.print("Saisir le chemin de la sauvegarde : \t\t");
+                        System.out.print("Saisir le chemin de la sauvegarde : \t");
                         g.load(sc.nextLine());
                         break;
                     default:

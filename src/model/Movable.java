@@ -13,12 +13,13 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public abstract class Movable implements Parametres {
-	
+
 	protected Tile[] grid;
 	boolean fusion = true;
 
-	
+
 	/**
 	 * Initialise la grille avant d'utiliser une methode
 	 */
@@ -26,7 +27,7 @@ public abstract class Movable implements Parametres {
 		this.grid = _g.getGrid();
 	}
 
-	
+
 	/**
 	 * Effectue un mouvement entre deux tuile
 	 * @param _a première coordoné
@@ -60,8 +61,8 @@ public abstract class Movable implements Parametres {
 			return false;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Ajoute une nouvelle tuile à la grille
 	 */
@@ -76,200 +77,37 @@ public abstract class Movable implements Parametres {
 			int pos = new Random().nextInt(emptyTiles.size());
 			grid[emptyTiles.get(pos)] = new Tile(pos);
 		}
-
 	}
-
-
+	
+	
 	/**
-	 * Deplacement des tuiles de la grille vers la gauche
-	 * @return boolean
+	 * Ajoute une nouvelle tuile à la grille
+	 * @param grids 
 	 */
-	protected boolean left(boolean _control, Grid _g) {
-		
-		setGrid(_g);
-		
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
+	protected void newTile(Grid[] _grids) {
+		// Contient le numeros des grilles associé a l'index de leurs cases vides
+		ArrayList <Integer[]> emptyTiles = new ArrayList <> ();
 
-		// première ligne
-		moves[0] = moveTile(0, 1);
-		moves[1] = moveTile(1, 2);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(0, 1);
-		fusion = false; // On donne a nouveau la possibilité de faire une fusion pour prochaine ligne
-
-		// seconde ligne
-		moves[3] = moveTile(3, 4);
-		moves[4] = moveTile(4, 5);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(3, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(6, 7);
-		moves[7] = moveTile(7, 8);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(6, 7);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-				}
-				return true;
+		for(int i = 0; i < 3; i++) {
+			for (int index = 0; index < SIZE - 1; index++)
+				if(_grids[i].getGrid()[index] == null) {
+					Integer tp[] = {i, index};
+					emptyTiles.add(tp);
 			}
 		}
-
-
-		return false;
+		if (emptyTiles.size() > 0) {
+			int pos = new Random().nextInt(emptyTiles.size());
+			_grids[emptyTiles.get(pos)[0]].getGrid()[emptyTiles.get(pos)[1]] = new Tile(pos);
+		}
 	}
 
-
-	/**
-	 * Deplacement des tuiles de la grille vers la droite
-	 * @return boolean
-	 */
-	protected boolean right(boolean _control, Grid _g) {
-		
-		setGrid(_g);
-
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(2, 1);
-		moves[1] = moveTile(1, 0);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(2, 1);
-		fusion = false;
-
-		// seconde ligne
-		moves[3] = moveTile(5, 4);
-		moves[4] = moveTile(4, 3);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(5, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(8, 7);
-		moves[7] = moveTile(7, 6);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(8, 7);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-				}
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * Deplacement des tuiles de la grille vers le haut
-	 * @return boolean
-	 */
-	protected boolean up(boolean _control, Grid _g) {
-
-		setGrid(_g);
-		
-		// tableau récapitulatif des mouvements
-		boolean moves[] = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(0, 3);
-		moves[1] = moveTile(3, 6);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(0, 3);
-		fusion = false;
-
-		// seconde ligne
-		moves[3] = moveTile(1, 4);
-		moves[4] = moveTile(4, 7);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(1, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(2, 5);
-		moves[7] = moveTile(5, 8);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(2, 5);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-				}
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * Deplacement des tuiles de la grille vers le bas
-	 * @return boolean
-	 */
-	protected boolean down(boolean _control, Grid _g) {
-
-		setGrid(_g);
-		
-		// tableau récapitulatif des mouvements
-		boolean[] moves = new boolean[9];
-
-		// première ligne
-		moves[0] = moveTile(6, 3);
-		moves[1] = moveTile(3, 0);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[2] = moveTile(6, 3);
-		fusion = false;
-
-		// seconde ligne
-		moves[3] = moveTile(7, 4);
-		moves[4] = moveTile(4, 1);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[5] = moveTile(7, 4);
-		fusion = false;
-
-		// troisième ligne
-		moves[6] = moveTile(8, 5);
-		moves[7] = moveTile(5, 2);
-		// si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
-		moves[8] = moveTile(8, 5);
-		fusion = false;
-
-		// Si un mouvement a été fait on le retourne et on crée une nouvelle tuile
-		for (boolean b: moves) {
-			if (b) {
-				if (!_control) {
-					newTile();
-				}
-				return true;
-			}
-		}
-
-        return false;
-    }
 
     /**
      * Retourne vrai s'il est possible d'effectuer un mouvement vers la gauche
      * @param _g
      * @return boolean
      */
-    protected boolean left2(Grid _g) {
+    protected boolean left(Grid _g) {
 
         setGrid(_g);
 
@@ -311,7 +149,7 @@ public abstract class Movable implements Parametres {
      * @param _g
      * @return boolean
      */
-    protected boolean right2(Grid _g) {
+    protected boolean right(Grid _g) {
 
         setGrid(_g);
 
@@ -348,14 +186,14 @@ public abstract class Movable implements Parametres {
 
         return false;
     }
-    
-    
+
+
     /**
      * Retourne vrai s'il est possible d'effectuer un mouvement vers le haut
      * @param _g
      * @return boolean
      */
-    protected boolean up2(Grid _g) {
+    protected boolean up(Grid _g) {
 
         setGrid(_g);
 
@@ -398,7 +236,7 @@ public abstract class Movable implements Parametres {
      * @param _g
      * @return boolean
      */
-     protected boolean down2(Grid _g) {
+     protected boolean down(Grid _g) {
 
         setGrid(_g);
 

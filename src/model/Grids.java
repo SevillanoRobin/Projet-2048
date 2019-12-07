@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
 
+@SuppressWarnings("serial")
 public class Grids extends Movable implements Serializable {
 
 	private Grid grids[];
@@ -122,7 +123,7 @@ public class Grids extends Movable implements Serializable {
 			if(_d == FRONT) {
 				Grid tamp[] = reorganization(this.grids);
 				verif[index] = tamp[index].move(DOWN);
-				//on remet la matrice dans le bon sens
+				//on remet la matrice dans le bon sens 
 				setGrids(reorganization(reorganization(reorganization(tamp))));
 			}
 			else if(_d == BACK) {
@@ -138,20 +139,23 @@ public class Grids extends Movable implements Serializable {
 
         for (boolean b : verif) {
             if (b) {
+            	newTile(getGrids());
                 victory();
                 lose();
                 this.affichage();
                 return true;
             }
         }
+        
         return false;
     }
 
+	
     public Grid[] getGrids() {
         return this.grids;
-
     }
 
+    
 	private void setGrids(Grid[] _gs) {
 		this.grids =_gs;
 	}
