@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -11,8 +11,8 @@
 package controller.menus.mainMenu;
 
 import controller.DialogBoxFactory;
-import controller.menus.ViewController;
-import controller.menus.ViewLoader;
+import controller.ViewController;
+import controller.ViewLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;

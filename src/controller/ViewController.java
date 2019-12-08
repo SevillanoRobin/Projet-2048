@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus;
+package controller;
 
 import controller.menus.mainMenu.MainMenuController;
 import javafx.stage.Stage;

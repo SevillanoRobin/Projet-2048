@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus;
+package controller;
 
 import application.GameApplication;
 import controller.menus.mainMenu.MainMenuController;
