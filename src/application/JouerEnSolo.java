@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -117,7 +117,7 @@ public class JouerEnSolo implements Parametres {
                         }
                     }
                 } else if (s.equals("sauvegarder")) {
-
+                    g.save();
                 } else {
                     System.exit(0);
                 }
