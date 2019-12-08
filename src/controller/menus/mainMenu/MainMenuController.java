@@ -45,8 +45,8 @@ import java.util.ResourceBundle;
 public class MainMenuController implements ViewController {
     /** Chemin menant au fichier FXML associé au menu principal. */
     public static final String FXMLPath = "/controller/menus/mainMenu/MainMenu.fxml";
-    /** Chemin menant au fichier CSS associé au menu. */
-    public static final String CSSPath = "controller/menus/mainMenu/MainMenu.css";
+    /** Chemin menant au fichier CSS associé au menu, <b>sans</b> le masque de thème et l'extension. */
+    public static final String CSSPath = "controller/menus/mainMenu/MainMenu";
 
     /** Fabrique à boîte de dialogue associée à ce contrôleur. */
     private DialogBoxFactory dialogFactory;

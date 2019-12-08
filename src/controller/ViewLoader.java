@@ -125,7 +125,7 @@ public class ViewLoader<T extends ViewController> {
      */
     private void initSceneAndStage(VBox _root) {
         Scene scene = new Scene(_root);
-        scene.getStylesheets().add(this.controller.getCSSPath());
+        scene.getStylesheets().add(this.controller.getCSSPath() + GameApplication.getThemeSuffix());
 
         // Association de la scène et du stage, et affichage.
         this.stage.setScene(scene);

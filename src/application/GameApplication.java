@@ -10,6 +10,7 @@
 
 package application;
 
+import controller.Theme;
 import controller.ViewLoader;
 import controller.menus.mainMenu.MainMenuController;
 import javafx.application.Application;
@@ -23,14 +24,18 @@ import java.util.Locale;
  * Hérite de la classe abstraite {@link Application} afin de pouvoir obtenir des protocoles particuliers au démarrage
  * et à la fin de l'exécution de l'application.
  * <p>
- * Comprend la langue utilisée par l'application ({@link #LANG}) en tant qu'attribut de classe privé avec un
- * accesseur public et modificateur <i>package-private</i>.
+ * Comprend des paramètres utilisés par l'application en tant qu'attributs de classe privés :
+ *      - La {@link #LANG langue} utilisée avec un accesseur public et un modificateur <i>package-private</i>.
+ *      - Le {@link #THEME thème} utilisé avec un accesseur et un modificateur publics.
  *
  * @see Locale
+ * @see Theme
  */
 public class GameApplication extends Application {
     /** Langue utilisée par l'application. */
     private static Locale LANG;
+    /** Thème utilisé par l'interface de l'application. */
+    private static Theme THEME = Theme.LIGHT;
 
     static void launchApplication(String... _args) {
         GameApplication.launch(_args);
@@ -94,5 +99,40 @@ public class GameApplication extends Application {
             throw new IllegalArgumentException("The wished language isn't implemented.");
         }
         GameApplication.LANG = _LANG;
+    }
+
+    /**
+     * Accesseur de l'attribut <i>THEME</i>.
+     * <p>
+     * Permet de connaître le thème de l'application peu importe la classe qui le demande.
+     *
+     * @return la valeur de l'attribut.
+     */
+    public static Theme getTHEME() {
+        return GameApplication.THEME;
+    }
+
+    /**
+     * Accesseur de l'attribut <i>keySuffix</i> de l'attribut <i>THEME</i> pour les chemins de fichiers CSS.
+     * <p>
+     * Permet de connaître le chemin du fichier CSS associé peu importe la classe qui le demande.
+     *
+     * @return la valeur de l'attribut.
+     */
+    public static String getThemeSuffix() {
+        return GameApplication.THEME.getKeySuffix();
+    }
+
+    /**
+     * Modificateur de l'attribut <i>THEME</i>.
+     * <p>
+     * Permet de modifier le thème de l'application peu importe la classe qui le demande.
+     * Typiquement utilisé par le menu d'options du {@link MainMenuController menu principal}.
+     *
+     * @param _THEME
+     *         La nouvelle valeur de l'attribut.
+     */
+    public static void setTHEME(Theme _THEME) {
+        GameApplication.THEME = _THEME;
     }
 }
