@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -10,7 +10,7 @@
 
 package controller.menus;
 
-import application.Main;
+import application.GameApplication;
 import controller.menus.mainMenu.MainMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -68,7 +68,7 @@ public class ViewLoader<T extends ViewController> {
     private ViewLoader(Stage _stage, String _FXMLPath) {
         this.stage = _stage;
 
-        this.bundle = ResourceBundle.getBundle("controller/menus/menus", Main.getLang());
+        this.bundle = ResourceBundle.getBundle("controller/menus/menus", GameApplication.getLANG());
 
         URL FXMLfile = ViewLoader.class.getResource(_FXMLPath);
         this.loader = new FXMLLoader(FXMLfile);

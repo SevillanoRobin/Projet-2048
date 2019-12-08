@@ -18,19 +18,6 @@ import java.util.Locale;
  * Classe principale.
  */
 public class Main {
-    /** Langue utilisée par l'interface de l'application. */
-    private static Locale lang;
-
-    /**
-     * Accesseur de l'attribut <i>lang</i>.
-     * <p>
-     * Permet de connaître la langue de l'application peu importe la classe qui le demande.
-     *
-     * @return la valeur de l'attribut.
-     */
-    public static Locale getLang() {
-        return Main.lang;
-    }
 
     /**
      * Vérifie pour la présence de paramètres de langue, et ajuste la langue en fonction du résultat.
@@ -41,10 +28,10 @@ public class Main {
     private static void checkForLangArgs(List<String> _args) {
         int langInd = _args.indexOf("-lang");
         if (langInd != -1 && "en".equals(_args.get(langInd + 1))) {
-            Main.lang = Locale.getDefault();
+            GameApplication.setLANG(Locale.getDefault());
         }
 
-        Main.lang = Locale.FRENCH;
+        GameApplication.setLANG(Locale.FRENCH);
     }
 
     /**
