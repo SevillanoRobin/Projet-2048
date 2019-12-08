@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,27 +8,23 @@
  *      - Sevillano Robin
  */
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recommender;
 
 import model.Grids;
 import recommender.strategies.IaRandom;
+import recommender.strategies.IaReductionNombreTuile;
 import recommender.strategies.IaScoreMax;
 import recommender.strategies.IaStrategies;
 
 import java.util.ArrayList;
 
 /**
+ * Conext de l'IA
  *
- * @author utilisateur
+ * @author Robin
  */
 public class IaContext {
 
-    public static String strategyName;
     private IaStrategies strategy;
     private ArrayList<IaStrategies> listStrategy;
     private ArrayList<String> listNameStrategy;
@@ -42,10 +38,13 @@ public class IaContext {
 
         this.addListInit(new IaScoreMax(), "ScoreMax");
         this.addListInit(new IaRandom(), "Random");
+        this.addListInit(new IaReductionNombreTuile(), "ReductionNombreTuile");
     }
 
     /**
-     * Ajoute toutes les IA possibles dans deux listes. Une pour le nom de classe et l'autre pour le nom de l'IA
+     * Ajoute toutes les IA possibles dans deux listes.
+     * Une pour le nom de classe et l'autre pour le nom de l'IA
+     *
      * @param classNameStrategy
      * @param nameStrategy
      */
@@ -55,23 +54,20 @@ public class IaContext {
     }
 
     private String ia(Grids grids, int profondeurMax) {
-         return this.strategy.ia(grids, profondeurMax);
+        return this.strategy.ia(grids, profondeurMax);
     }
-    
-        /**
+
+    /**
      * Change le nom de la strategie et appelle la methode ia de la bonne classe
+     *
      * @param iaStrategy
      * @param grids
      * @param profondeurMax
+     *
      * @return Result of getOneRecommendation.
      */
     public String setStrategyIa(String iaStrategy, Grids grids, int profondeurMax) {
-        try {
-            this.strategy = listStrategy.get(listNameStrategy.indexOf(iaStrategy)); 
-        } catch (Exception ex) { // Si la strategie entree en parametre n'a pas ete trouve
-            this.strategy = listStrategy.get(listNameStrategy.indexOf("Random")); // Strategie par default
-        }
-        strategyName = iaStrategy;
+        this.strategy = listStrategy.get(listNameStrategy.indexOf(iaStrategy));
         return this.ia(grids, profondeurMax);
 
     }

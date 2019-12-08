@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,11 +8,6 @@
  *      - Sevillano Robin
  */
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Ia;
 
 import model.Grids;
@@ -20,27 +15,29 @@ import model.Grids;
 import java.util.ArrayList;
 
 /**
+ * Permet d'initialiser un problème.
  *
- * @author utilisateur
+ * @author Robin
  */
 public class Probleme {
 
-    private final Grids grids;
-    private final ArrayList<Action> listeactions;
+    private Grids grids;
+    private ArrayList<Action> listeactions;
 
 
     /**
      * Constructeur
+     *
      * @param grids
      */
     public Probleme(Grids grids) {
         this.listeactions = setactions();
         this.grids = grids;
-
     }
 
     /**
      * Getter
+     *
      * @return
      */
     public Grids getGrids() {
@@ -49,6 +46,7 @@ public class Probleme {
 
     /**
      * Getter
+     *
      * @return
      */
     public ArrayList<Action> getlisteactions() {
@@ -57,29 +55,30 @@ public class Probleme {
 
 
     /**
-     * Ajoute toutes les actions possibles d'effectuer 
+     * Ajoute toutes les actions possibles d'effectuer
+     *
      * @return
      */
     public ArrayList<Action> setactions() {
         ArrayList<Action> la = new ArrayList<>();
         Action aa;
         aa = new Action();
-        aa.setAction("Deplacement droite");
+        aa.setAction("Déplacement droite");
         la.add(aa);
         aa = new Action();
-        aa.setAction("Deplacement gauche");
+        aa.setAction("Déplacement gauche");
         la.add(aa);
         aa = new Action();
-        aa.setAction("Deplacement haut");
+        aa.setAction("Déplacement haut");
         la.add(aa);
         aa = new Action();
-        aa.setAction("Deplacement bas");
+        aa.setAction("Déplacement bas");
         la.add(aa);
         aa = new Action();
-        aa.setAction("Deplacement etages superieurs");
+        aa.setAction("Déplacement étages supérieurs");
         la.add(aa);
         aa = new Action();
-        aa.setAction("Deplacement etages inferieurs");
+        aa.setAction("Déplacement étages inférieurs");
         la.add(aa);
         return (la);
     }

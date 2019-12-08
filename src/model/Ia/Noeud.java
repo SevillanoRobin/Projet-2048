@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,23 +8,19 @@
  *      - Sevillano Robin
  */
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Ia;
 
 import java.util.ArrayList;
 
 /**
+ * Noeud constituant d'un graphe
  *
- * @author utilisateur
+ * @author Robin
  */
 public class Noeud {
 
     private Etat e;
-    private final ArrayList<Action> sol;
+    private ArrayList<Action> sol;
 
 
     /**
@@ -36,7 +32,8 @@ public class Noeud {
     }
 
     /**
-     * Fait une copie d'un noeud deja existant 
+     * Fait une copie d'un noeud deja existant
+     *
      * @param ee
      * @param aa
      */
@@ -51,6 +48,7 @@ public class Noeud {
 
     /**
      * Getter
+     *
      * @return
      */
 
@@ -60,6 +58,7 @@ public class Noeud {
 
     /**
      * Getter
+     *
      * @return
      */
     public ArrayList<Action> getlisteaction() {
@@ -68,6 +67,7 @@ public class Noeud {
 
     /**
      * Setter
+     *
      * @param ee
      */
     public void setetat(Etat ee) {
@@ -77,18 +77,21 @@ public class Noeud {
 
     /**
      * Ajoute une action dans les solutions
+     *
      * @param aa
      */
     public void ajoutaction(Action aa) {
         this.sol.add(aa);
     }
 
-
+    /**
+     * @return
+     */
     @Override
     public String toString() {
         return "Noeud{" + "e=" + e.getDeplacement() + ", sol=" + sol + '}';
     }
-    
-    
+
+
 }
 

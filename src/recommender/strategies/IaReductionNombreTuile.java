@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 08/12/2019
  *
@@ -21,18 +22,17 @@ import java.util.ArrayList;
 import static model.Parametres.*;
 
 /**
- * IA aleatoire
+ * IA base sur la recherche d'un score total maximum
  *
  * @author Robin
  */
-public class IaRandom implements IaStrategies {
+public class IaReductionNombreTuile implements IaStrategies {
 
     /**
-     * Methode principale qui lance l'ia random
+     * Methode principale qui lance l'ia score max
      *
      * @param grids
      * @param pronfondeurMax
-     *
      * @return
      */
     public String ia(Grids grids, int pronfondeurMax) {
@@ -42,6 +42,8 @@ public class IaRandom implements IaStrategies {
         ArrayList<Noeud> listefils = new ArrayList<>(), l;
         Noeud n, noeudtete;
         Probleme pb = new Probleme(grids);
+
+        int max = 0;
 
         //initialisation de la solution à un etat "vide"
         sol = new ArrayList<>();
@@ -56,6 +58,8 @@ public class IaRandom implements IaStrategies {
 
         int pronfondeur = 0;
         while (!trouve && pronfondeur < pronfondeurMax) { // j'itère tant que je ne trouve pas l'état but
+            // je récupère la tête de la liste d'attente et je la supprime
+
             int longueurListe = l.size();
             int compteur = 0;
 
@@ -67,8 +71,8 @@ public class IaRandom implements IaStrategies {
                     sol = noeudtete.getlisteaction();
                 } else { // sinon, j'applique chaque action
                     for (Action _listeaction : listeactions) {
-                        e = noeudtete.getetat().AppliqueAction(_listeaction,
-                                noeudtete.getetat().getGrids()); // j'exécute AppliqueAction sur le noeud de tete de la liste, avec la ieme action, et j'obtiens l'état e
+                        e = noeudtete.getetat().AppliqueAction(_listeaction, new Grids(
+                                noeudtete.getetat().getGrids().getGrids())); // j'exécute AppliqueAction sur le noeud de tete de la liste, avec la ieme action, et j'obtiens l'état e
                         //je construis le noeud résultant : e en tant que nouvel état, la liste des actions associées à l'ancien noeud : noeudtete
                         if (e != null) {
                             n = new Noeud(e, noeudtete.getlisteaction());
@@ -83,15 +87,29 @@ public class IaRandom implements IaStrategies {
             pronfondeur++;
 
         }
-        if (sol.size() != 0) { // si une solution a ete trouve, on la retourne
+
+        if (sol.size() != 0) {
             return sol.get(0).getAction();
-        } else if (listefils.size() == 0) { // si aucun mouvement n'est possible, on renvoit null
+        } else if (listefils.size() == 0) {
             return null;
         } else {
 
-            int nb = (int) (Math.random() *
-                            listefils.size()); // on choisi aléatoirement un noeud parmis les plus optimale
-            switch (listefils.get(nb).getlisteaction().get(0).getAction()) {
+            for (Noeud ne : listefils) { // on cherche à trouver le maximum de point que l'on peut avoir
+                if (max < ne.getetat().getGrids().scoreTotalGrilleMajore()) {
+                    max = ne.getetat().getGrids().scoreTotalGrilleMajore();
+                }
+            }
+            System.out.println("C'est max : "+max);
+            ArrayList<Noeud> listeNoeudPossible = new ArrayList<>();
+            for (Noeud ne : listefils) {
+                if (max == ne.getetat().getGrids().scoreTotalGrilleMajore()) { // on ajoute toutes les possibilités optimales
+                    System.out.println(ne);
+                    listeNoeudPossible.add(ne);
+                }
+            }
+            int nb = (int) (Math.random() * listeNoeudPossible.size()); // on choisi aléatoirement un noeud parmis les plus optimale
+            System.out.println(listeNoeudPossible.get(nb).getlisteaction().get(0));
+            switch (listeNoeudPossible.get(nb).getlisteaction().get(0).getAction()) {
                 case "Déplacement droite":
                     grids.move(false, RIGHT);
                     break;
@@ -112,7 +130,7 @@ public class IaRandom implements IaStrategies {
                     break;
             }
             grids.affichage();
-            return listefils.get(nb).getlisteaction().get(0).getAction(); // on renvoit l'action qui a ete effectue
+            return listeNoeudPossible.get(nb).getlisteaction().get(0).getAction();
         }
     }
 }
