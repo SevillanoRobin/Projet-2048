@@ -37,7 +37,7 @@ public class JouerEnSolo implements Parametres {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         g.affichage();
-        while (!g.lose() && !(g.victory())) {
+        while (g.stillPlayeable() && !(g.victory())) {
             System.out.println("Déplacement vers la droite (d), gauche (q), haut (z), Bas (s), étages inférieurs (f) ou étages supérieurs (r) ?");
             System.out.println("Autres options : laisser l'IA jouer une fois (ia), sauvegarder et quitter (sauvegarder) ou quitter sans sauvegarder(quitter)");
             String s = sc.nextLine();
@@ -96,7 +96,7 @@ public class JouerEnSolo implements Parametres {
                             reponse = ia.setStrategyIa("ReductionNombreTuile", g, 1);
                         }
                         System.out.println(reponse + " a été effectué");
-                        while (continuer.equals("") == true && reponse != null && !(g.victory())) {
+                        while (continuer.equals("") && reponse != null && !(g.victory())) {
                             System.out.println("Appuyer sur entrée pour que la même ia fasse le prochain mouvement ou sur n'importe quelle autre touche pour revenenir aux autres options");
                             sc = new Scanner(System.in);
                             continuer = sc.nextLine();

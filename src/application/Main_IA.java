@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -28,7 +28,7 @@ public class Main_IA {
         Grids grids = new Grids();
         grids.affichage();
 
-        while (!grids.lose() || !grids.victory()) {
+        while (grids.stillPlayeable() || !grids.victory()) {
             System.out.println(ia.setStrategyIa("ReductionNombreTuile", grids, 1));
             grids.affichage();
         }
