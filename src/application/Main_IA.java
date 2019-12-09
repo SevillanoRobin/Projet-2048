@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 27/11/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -19,19 +19,18 @@ import model.Grids;
 import recommender.IaContext;
 
 /**
- *
- * @author utilisateur
+ * @author Robin
  */
-public class Maintest {
+public class Main_IA {
 
     public static void main(String[] args) {
         IaContext ia = new IaContext();
         Grids grids = new Grids();
-        for (int i=0; i < 100; i++) {
-            grids.affichage();
-            System.out.println(ia.setStrategyIa("Random", grids, 1));
+        grids.affichage();
+
+        while (!grids.lose() || !grids.victory()) {
+            System.out.println(ia.setStrategyIa("ReductionNombreTuile", grids, 1));
             grids.affichage();
         }
-
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 04/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -20,7 +20,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author utilisateur
+ * @author Robin
  */
 public class InformationDatabase {
 

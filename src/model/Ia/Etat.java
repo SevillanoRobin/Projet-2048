@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 07/12/2019
+ * Copyright (c) 08/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,11 +8,6 @@
  *      - Sevillano Robin
  */
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Ia;
 
 import model.Grids;
@@ -20,8 +15,9 @@ import model.Grids;
 import static model.Parametres.*;
 
 /**
+ * Constituant d'un noeud
  *
- * @author utilisateur
+ * @author Robin
  */
 public class Etat {
 
@@ -33,16 +29,17 @@ public class Etat {
     /**
      * Constructeur
      */
-    public Etat() {    
+    public Etat() {
     }
 
     /**
      * Constructeur
+     *
      * @param ensemble
      * @param deplacement
      */
     public Etat(Grids ensemble, String deplacement) {
-        this.ensemble = new Grids(ensemble);
+        this.ensemble = new Grids(ensemble.getGrids());
         this.deplacement = deplacement;
         this.scoreMax = ensemble.best();
         this.scoreGrid = ensemble.scoreTotalGrille();
@@ -50,17 +47,19 @@ public class Etat {
 
     /**
      * Fait une copie d'un etat existant
+     *
      * @param ee
      */
     public Etat(Etat ee) {
-        this.ensemble = new Grids(ee.getGrids());
+        this.ensemble = new Grids(ee.getGrids().getGrids());
         this.deplacement = ee.getDeplacement();
-        this.scoreMax = ee.getScoreMax();
-        this.scoreGrid = ee.getScoreGrid();
+        this.scoreMax = this.ensemble.best();
+        this.scoreGrid = this.ensemble.scoreTotalGrille();
     }
 
     /**
      * Getter
+     *
      * @return
      */
     public Grids getGrids() {
@@ -69,6 +68,7 @@ public class Etat {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getDeplacement() {
@@ -77,22 +77,27 @@ public class Etat {
 
     /**
      * Getter
+     *
      * @return
      */
     public int getScoreMax() {
+        this.scoreMax = ensemble.best();
         return this.scoreMax;
     }
 
     /**
      * Getter
+     *
      * @return
      */
     public int getScoreGrid() {
+        this.scoreGrid = ensemble.scoreTotalGrille();
         return this.scoreGrid;
     }
 
     /**
      * Setter
+     *
      * @param ensemble
      */
     public void setEnsembleGrile(Grids ensemble) {
@@ -101,6 +106,7 @@ public class Etat {
 
     /**
      * Setter
+     *
      * @param dep
      */
     public void setDeplacement(String dep) {
@@ -109,17 +115,20 @@ public class Etat {
 
     /**
      * Setter
-     * @param scoreMax
+     *
+     * @param _scoreMax
      */
-    public void setScoreMax(int scoreMax) {
-        this.scoreMax = scoreMax;
+    public void setScoreMax(int _scoreMax) {
+        this.scoreMax = _scoreMax;
     }
 
-    //méthodes
+    /// --- METHODES --- ///
 
     /**
-     * Retoutne vrai si la valeur but est atteinte 
+     * Retoutne vrai si la valeur but est atteinte
+     *
      * @param pb
+     *
      * @return
      */
     public boolean estbut(Probleme pb) { //teste si l'état est égal à l'état but du problème
@@ -128,62 +137,67 @@ public class Etat {
 
     /**
      * Retourne vrai si l'etat passe en parametre est egal a celui qui appelle la methode
+     *
      * @param e
+     *
      * @return
      */
     public boolean estegal(Etat e) {
         return this.ensemble == e.getGrids() && this.deplacement.equals(e.getDeplacement());
     }
+
     /**
      * Applique l'action passe en parametre
+     *
      * @param a
      * @param grids
+     *
      * @return
      */
     public Etat AppliqueAction(Action a, Grids grids) {
         Etat e;
         switch (a.getAction()) {
-            case "Deplacement droite":
+            case "Déplacement droite":
                 e = new Etat(grids, "d");
                 if (e.valide("d")) {
-                    e.getGrids().move(RIGHT);
-                    e = new Etat(this.ensemble, "d");
+                    e.getGrids().move(true, RIGHT);
+                    e = new Etat(e.getGrids(), "d");
                 } else {
                     e = null;
                 }
                 break;
-            case "Deplacement gauche":
+            case "Déplacement gauche":
                 e = new Etat(grids, "q");
                 if (e.valide("q")) {
-                    e.getGrids().move(LEFT);
-                    e = new Etat(this.ensemble, "q");
+                    e.getGrids().move(true, LEFT);
+                    e = new Etat(e.getGrids(), "q");
                 } else {
                     e = null;
                 }
                 break;
-            case "Deplacement haut":
+            case "Déplacement haut":
                 e = new Etat(grids, "z");
                 if (e.valide("z")) {
-                    e.getGrids().move(UP);
-                    e = new Etat(this.ensemble, "z");
+                    e.getGrids().move(true, UP);
+                    e = new Etat(e.getGrids(), "z");
                 } else {
                     e = null;
                 }
                 break;
-            case "Deplacement bas":
+            case "Déplacement bas":
                 e = new Etat(grids, "s");
                 if (e.valide("s")) {
-                    e.getGrids().move(DOWN);
-                    e = new Etat(this.ensemble, "s");
+                    e.getGrids().move(true, DOWN);
+                    e = new Etat(e.getGrids(), "s");
                 } else {
                     e = null;
                 }
                 break;
-            case "Deplacement etages superieurs":
+            case "Déplacement etages superieurs":
                 e = new Etat(grids, "r");
                 if (e.valide("r")) {
-                    e.getGrids().move(FRONT);
-                    e = new Etat(this.ensemble, "r");
+                    e.getGrids().move(true, FRONT);
+                    e = new Etat(e.getGrids(), "r");
                 } else {
                     e = null;
                 }
@@ -191,8 +205,8 @@ public class Etat {
             default:
                 e = new Etat(grids, "f");
                 if (e.valide("f")) {
-                    e.getGrids().move(BACK);
-                    e = new Etat(this.ensemble, "f");
+                    e.getGrids().move(true, BACK);
+                    e = new Etat(e.getGrids(), "f");
                 } else {
                     e = null;
                 }
@@ -203,7 +217,9 @@ public class Etat {
 
     /**
      * Retourne vrai si la direction passe en parametre est possible a executer
+     *
      * @param direction
+     *
      * @return
      */
     public boolean valide(String direction) {
@@ -235,14 +251,14 @@ public class Etat {
                 }
                 break;
             case "r":
-                this.ensemble.reorganization(this.ensemble.getGrids());
+                this.ensemble = new Grids(this.ensemble.reorganization(this.ensemble.getGrids()));
                 while (!valide && indice < this.ensemble.getGrids().length) {
                     valide = this.ensemble.down(this.ensemble.getGrids()[indice]);
                     indice++;
                 }
                 break;
             default:
-                this.ensemble.reorganization(this.ensemble.getGrids());
+                this.ensemble = new Grids(this.ensemble.reorganization(this.ensemble.getGrids()));
                 while (!valide && indice < this.ensemble.getGrids().length) {
                     valide = this.ensemble.up(this.ensemble.getGrids()[indice]);
                     indice++;

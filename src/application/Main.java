@@ -45,7 +45,9 @@ public class Main {
     public static void main(String[] args) {
         List<String> arguments = Arrays.asList(args);
         if (arguments.contains("text")) {
-            Main_Terminal.main(args);
+            JouerEnSolo.main(args);
+        } else if (arguments.contains("IA")) {
+            Main_IA.main(args);
         } else {
             checkForLangArgs(arguments);
             GameApplication.launch(args);
