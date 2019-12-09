@@ -9,15 +9,19 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Grille de jeu
  *
  * @author Robin
  */
-public class Grid extends Movable {
+public class Grid implements Parametres {
 
     private Tile[] grid;
     private int bestValue;
+    private boolean fusion = true;
 
     /**
      * Constructeur
@@ -45,16 +49,16 @@ public class Grid extends Movable {
     boolean lose() {
         Tile[] tampon = copy();
 
-        boolean control0 = left(this);
+        boolean control0 = left();
         override(tampon);
 
-        boolean control1 = right(this);
+        boolean control1 = right();
         override(tampon);
 
-        boolean control2 = up(this);
+        boolean control2 = up();
         override(tampon);
 
-        boolean control3 = down(this);
+        boolean control3 = down();
         override(tampon);
 
         return !(control0 || control1 || control2 || control3);
@@ -100,7 +104,6 @@ public class Grid extends Movable {
 
     /**
      * Meilleur valeur
-     *
      */
     private void parseBestValue() {
         for (Tile t : grid) {
@@ -122,17 +125,144 @@ public class Grid extends Movable {
     boolean move(int _d) {
         switch (_d) {
             case LEFT:
-                return left(this);
+                return left();
             case RIGHT:
-                return right(this);
+                return right();
             case UP:
-                return up(this);
+                return up();
             case DOWN:
-                return down(this);
+                return down();
             default:
                 System.out.println("Erreur de déplacement");
                 return true;
         }
+    }
+
+
+    /**
+     * Déplacement des tuiles de la grille vers la gauche
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la gauche
+     */
+    public boolean left() {
+        // première ligne
+        fusion = false;
+        boolean move0 = moveTile(0, 1);
+        boolean move1 = moveTile(1, 2);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move2 = moveTile(0, 1);
+        fusion = false; // On donne a nouveau la possibilité de faire une fusion pour prochaine ligne
+
+        // seconde ligne
+        boolean move3 = moveTile(3, 4);
+        boolean move4 = moveTile(4, 5);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move5 = moveTile(3, 4);
+        fusion = false;
+
+        // troisième ligne
+        boolean move6 = moveTile(6, 7);
+        boolean move7 = moveTile(7, 8);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move8 = moveTile(6, 7);
+        fusion = false;
+
+        return move0 || move1 || move2 || move3 || move4 || move5 || move6 || move7 || move8;
+    }
+
+    /**
+     * Déplacement des tuiles de la grille vers la droite
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la droite
+     */
+    public boolean right() {
+        // première ligne
+        fusion = false;
+        boolean move0 = moveTile(2, 1);
+        boolean move1 = moveTile(1, 0);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move2 = moveTile(2, 1);
+        fusion = false;
+
+        // seconde ligne
+        boolean move3 = moveTile(5, 4);
+        boolean move4 = moveTile(4, 3);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move5 = moveTile(5, 4);
+        fusion = false;
+
+        // troisième ligne
+        boolean move6 = moveTile(8, 7);
+        boolean move7 = moveTile(7, 6);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move8 = moveTile(8, 7);
+        fusion = false;
+
+        return move0 || move1 || move2 || move3 || move4 || move5 || move6 || move7 || move8;
+    }
+
+    /**
+     * Déplacement des tuiles de la grille vers le haut
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le haut
+     */
+    public boolean up() {
+        fusion = false;
+        // première ligne
+        boolean move0 = moveTile(0, 3);
+        boolean move1 = moveTile(3, 6);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move2 = moveTile(0, 3);
+        fusion = false;
+
+        // seconde ligne
+        boolean move3 = moveTile(1, 4);
+        boolean move4 = moveTile(4, 7);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move5 = moveTile(1, 4);
+        fusion = false;
+
+        // troisième ligne
+        boolean move6 = moveTile(2, 5);
+        boolean move7 = moveTile(5, 8);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move8 = moveTile(2, 5);
+        fusion = false;
+
+        return move0 || move1 || move2 || move3 || move4 || move5 || move6 || move7 || move8;
+    }
+
+    /**
+     * Déplacement des tuiles de la grille vers le bas
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le bas
+     */
+    public boolean down() {
+        // première ligne
+        fusion = false;
+        boolean move0 = moveTile(6, 3);
+        boolean move1 = moveTile(3, 0);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move2 = moveTile(6, 3);
+        fusion = false;
+
+        // seconde ligne
+        boolean move3 = moveTile(7, 4);
+        boolean move4 = moveTile(4, 1);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move5 = moveTile(7, 4);
+
+        fusion = false;
+
+        // troisième ligne
+        boolean move6 = moveTile(8, 5);
+        boolean move7 = moveTile(5, 2);
+        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        boolean move8 = moveTile(8, 5);
+
+        fusion = false;
+
+        return move0 || move1 || move2 || move3 || move4 || move5 || move6 || move7 || move8;
     }
 
     /**
@@ -179,6 +309,69 @@ public class Grid extends Movable {
         return s.toString();
     }
 
+    /**
+     * Effectue un mouvement entre deux tuiles
+     *
+     * @param _a
+     *         première coordonnée
+     * @param _b
+     *         seconde coordonnée
+     *
+     * @return boolean
+     */
+    private boolean moveTile(int _a, int _b) {
+
+        // Les case sont vide
+        if (grid[_a] == null && grid[_b] == null) {
+            return false;
+        } // Mouvement de _b vers _a
+        else if (grid[_a] == null && grid[_b] != null) {
+            grid[_a] = grid[_b];
+            grid[_b] = null;
+
+            grid[_a].setX(_a);
+            return true;
+        } // Fusion de _a et _b
+        else if (grid[_b] != null && grid[_a].getValue() == grid[_b].getValue() && !fusion) {
+            int newValue = grid[_a].getValue() * 2;
+            grid[_a].setValue(newValue);
+            grid[_b] = null;
+
+            if (this.bestValue < newValue) {
+                this.bestValue = newValue;
+            }
+
+            fusion = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Ajoute une nouvelle tuile à la grille
+     *
+     * @return
+     */
+    int newTile() {
+        ArrayList<Integer> emptyTiles = new ArrayList<>();
+
+        for (int index = 0; index < SIZE - 1; index++) {
+            if (grid[index] == null) {
+                emptyTiles.add(index);
+            }
+        }
+
+        if (emptyTiles.size() > 0) {
+            int pos = new Random().nextInt(emptyTiles.size());
+            Tile tile = new Tile(pos);
+            grid[emptyTiles.get(pos)] = tile;
+            return tile.getValue();
+        }
+
+        return 0;
+    }
+
     /// --- ACCESSEURS & MODIFICATEURS --- ///
 
     /**
@@ -192,9 +385,5 @@ public class Grid extends Movable {
 
     int getBestValue() {
         return this.bestValue;
-    }
-
-    void setBestValue(int _bestValue) {
-        this.bestValue = _bestValue;
     }
 }

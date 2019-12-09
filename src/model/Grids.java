@@ -17,7 +17,7 @@ import java.util.Calendar;
  *
  * @author Robin
  */
-public class Grids extends Movable implements Serializable {
+public class Grids implements Serializable, Parametres {
 
     private Grid[] grids;
 
@@ -149,7 +149,7 @@ public class Grids extends Movable implements Serializable {
 
         for (boolean b : verif) {
             if (b) {
-                for ( int i = 0; i < 100; i++) {
+                for (int i = 0; i < 100; i++) {
                     int random = (int) (Math.random() * this.grids.length);
                     Grid randomGrid = this.grids[random];
 
@@ -179,23 +179,49 @@ public class Grids extends Movable implements Serializable {
         }
     }
 
+
     /**
-     * Getter
+     * Déplacement des tuiles de la grille vers la gauche
      *
-     * @return
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la gauche
      */
-    public Grid[] getGrids() {
-        return this.grids;
+    public boolean left(Grid _g) {
+        return _g.left();
     }
 
+    /**
+     * Déplacement des tuiles de la grille vers la droite
+     *
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la droite
+     */
+    public boolean right(Grid _g) {
+        return _g.right();
+    }
 
     /**
-     * Setter
+     * Déplacement des tuiles de la grille vers le haut
      *
-     * @param _gs
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le haut
      */
-    private void setGrids(Grid[] _gs) {
-        this.grids = _gs;
+    public boolean up(Grid _g) {
+        return _g.up();
+    }
+
+    /**
+     * Déplacement des tuiles de la grille vers le bas
+     *
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le bas
+     */
+    public boolean down(Grid _g) {
+        return _g.down();
     }
 
     @Override
@@ -248,7 +274,7 @@ public class Grids extends Movable implements Serializable {
      *
      * @return
      */
-    public Grid[] reorganizationInverse(Grid[] _gs) {
+    private Grid[] reorganizationInverse(Grid[] _gs) {
         Tile[] result1 = new Tile[9];
         Tile[] result2 = new Tile[9];
         Tile[] result3 = new Tile[9];
@@ -403,5 +429,25 @@ public class Grids extends Movable implements Serializable {
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException is caught");
         }
+    }
+
+    /// --- ACCESSEURS & MODIFICATEURS --- ///
+
+    /**
+     * Getter
+     *
+     * @return
+     */
+    public Grid[] getGrids() {
+        return this.grids;
+    }
+
+    /**
+     * Setter
+     *
+     * @param _gs
+     */
+    private void setGrids(Grid[] _gs) {
+        this.grids = _gs;
     }
 }
