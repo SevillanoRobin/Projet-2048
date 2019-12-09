@@ -118,6 +118,7 @@ public class JouerEnSolo implements Parametres {
                     }
                 } else if (s.equals("sauvegarder")) {
                     g.save();
+                    System.exit(0);
                 } else {
                     System.exit(0);
                 }
