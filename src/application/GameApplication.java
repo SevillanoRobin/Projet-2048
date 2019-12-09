@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -31,6 +31,10 @@ import java.util.Locale;
 public class GameApplication extends Application {
     /** Langue utilisée par l'application. */
     private static Locale LANG;
+
+    static void launchApplication(String... _args) {
+        GameApplication.launch(_args);
+    }
 
     /**
      * Démarre l'application une fois initialisée et prête à être lancée par le sytème.

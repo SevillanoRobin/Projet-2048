@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -50,7 +50,7 @@ public class Main {
             Main_IA.main(args);
         } else {
             checkForLangArgs(arguments);
-            GameApplication.launch(args);
+            GameApplication.launchApplication(args);
         }
     }
 }
