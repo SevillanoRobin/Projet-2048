@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -16,7 +16,7 @@ import java.util.Random;
 /**
  * @author Guillaume & Adrien
  */
-public class Tile implements Parametres, Cloneable, Serializable {
+public class Tile implements Cloneable, Serializable {
 
     private int pos;
     private int value;
@@ -26,7 +26,7 @@ public class Tile implements Parametres, Cloneable, Serializable {
      * @param _value
      */
     public Tile(int _x, int _value) {
-        if (_x < 0 || _x >= SIZE) {
+        if (_x < 0 || _x >= Parameters.SIZE) {
             throw new IllegalArgumentException("tile: position has a wrong value.");
         } else {
             this.pos = _x;

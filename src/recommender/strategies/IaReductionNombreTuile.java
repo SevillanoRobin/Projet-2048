@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -16,10 +16,9 @@ import model.Ia.Action;
 import model.Ia.Etat;
 import model.Ia.Noeud;
 import model.Ia.Probleme;
+import model.Parameters;
 
 import java.util.ArrayList;
-
-import static model.Parametres.*;
 
 /**
  * IA base sur la recherche d'un score total maximum
@@ -111,22 +110,22 @@ public class IaReductionNombreTuile implements IaStrategies {
             System.out.println(listeNoeudPossible.get(nb).getlisteaction().get(0));
             switch (listeNoeudPossible.get(nb).getlisteaction().get(0).getAction()) {
                 case "Déplacement droite":
-                    grids.move(false, RIGHT);
+                    grids.move(false, Parameters.RIGHT);
                     break;
                 case "Déplacement gauche":
-                    grids.move(false, LEFT);
+                    grids.move(false, Parameters.LEFT);
                     break;
                 case "Déplacement haut":
-                    grids.move(false, UP);
+                    grids.move(false, Parameters.UP);
                     break;
                 case "Déplacement bas":
-                    grids.move(false, DOWN);
+                    grids.move(false, Parameters.DOWN);
                     break;
                 case "Déplacement etages superieurs":
-                    grids.move(false, FRONT);
+                    grids.move(false, Parameters.FRONT);
                     break;
                 default:
-                    grids.move(false, BACK);
+                    grids.move(false, Parameters.BACK);
                     break;
             }
             grids.affichage();

@@ -16,7 +16,7 @@
 package application;
 
 import model.Grids;
-import model.Parametres;
+import model.Parameters;
 import recommender.IaContext;
 
 import java.util.Scanner;
@@ -25,7 +25,7 @@ import java.util.Scanner;
  * Permet de jouer en console
  * @author Robin
  */
-public class JouerEnSolo implements Parametres {
+public class JouerEnSolo {
 
     /**
      * Main de la classe
@@ -44,17 +44,17 @@ public class JouerEnSolo implements Parametres {
             if (s.equals("d") || s.equals("q") || s.equals("z") || s.equals("s") || s.equals("f") || s.equals("r")) {
                 int direction;
                 if (s.equals("d")) {
-                    direction = RIGHT;
+                    direction = Parameters.RIGHT;
                 } else if (s.equals("q")) {
-                    direction = LEFT;
+                    direction = Parameters.LEFT;
                 } else if (s.equals("z")) {
-                    direction = UP;
+                    direction = Parameters.UP;
                 } else if (s.equals("s")) {
-                    direction = DOWN;
+                    direction = Parameters.DOWN;
                 } else if (s.equals("r")) {
-                    direction = FRONT;
+                    direction = Parameters.FRONT;
                 } else {
-                    direction = BACK;
+                    direction = Parameters.BACK;
                 }
 
                 Grids copy = new Grids(g.getGrids());
