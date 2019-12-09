@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class Grid implements Parametres {
 
-    private Tile[] grid;
+    private final Tile[] grid;
     private int bestValue;
     private boolean fusion = true;
 
@@ -144,7 +144,7 @@ public class Grid implements Parametres {
      *
      * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la gauche
      */
-    public boolean left() {
+    boolean left() {
         // première ligne
         fusion = false;
         boolean move0 = moveTile(0, 1);
@@ -175,7 +175,7 @@ public class Grid implements Parametres {
      *
      * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la droite
      */
-    public boolean right() {
+    boolean right() {
         // première ligne
         fusion = false;
         boolean move0 = moveTile(2, 1);
@@ -206,7 +206,7 @@ public class Grid implements Parametres {
      *
      * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le haut
      */
-    public boolean up() {
+    boolean up() {
         fusion = false;
         // première ligne
         boolean move0 = moveTile(0, 3);
@@ -237,7 +237,7 @@ public class Grid implements Parametres {
      *
      * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le bas
      */
-    public boolean down() {
+    boolean down() {
         // première ligne
         fusion = false;
         boolean move0 = moveTile(6, 3);
