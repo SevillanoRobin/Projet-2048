@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -18,22 +18,6 @@ package model.Ia;
 public class Action {
     private String val;
 
-
-    /**
-     * Constructeur
-     */
-    public Action() {
-    }
-
-    /**
-     * Constructeur
-     *
-     * @param act
-     */
-    public Action(String act) {
-        val = act;
-    }
-
     // getteurs et setteurs
 
     /**
@@ -50,7 +34,7 @@ public class Action {
      *
      * @param s
      */
-    public void setAction(String s) {
+    void setAction(String s) {
         val = s;
     }
 

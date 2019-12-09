@@ -10,6 +10,7 @@
 
 package model.Ia;
 
+import model.Grid;
 import model.Grids;
 import model.Parameters;
 
@@ -23,7 +24,6 @@ public class Etat {
     private Grids ensemble;
     private String deplacement; // lettre entree en ligne de commande
     private int scoreMax;
-    private int scoreGrid;
 
     /**
      * Constructeur
@@ -41,7 +41,6 @@ public class Etat {
         this.ensemble = new Grids(ensemble.getGrids());
         this.deplacement = deplacement;
         this.scoreMax = ensemble.best();
-        this.scoreGrid = ensemble.scoreTotalGrille();
     }
 
     /**
@@ -49,11 +48,10 @@ public class Etat {
      *
      * @param ee
      */
-    public Etat(Etat ee) {
+    Etat(Etat ee) {
         this.ensemble = new Grids(ee.getGrids().getGrids());
         this.deplacement = ee.getDeplacement();
         this.scoreMax = this.ensemble.best();
-        this.scoreGrid = this.ensemble.scoreTotalGrille();
     }
 
     /**
@@ -70,7 +68,7 @@ public class Etat {
      *
      * @return
      */
-    public String getDeplacement() {
+    String getDeplacement() {
         return this.deplacement;
     }
 
@@ -84,43 +82,6 @@ public class Etat {
         return this.scoreMax;
     }
 
-    /**
-     * Getter
-     *
-     * @return
-     */
-    public int getScoreGrid() {
-        this.scoreGrid = ensemble.scoreTotalGrille();
-        return this.scoreGrid;
-    }
-
-    /**
-     * Setter
-     *
-     * @param ensemble
-     */
-    public void setEnsembleGrile(Grids ensemble) {
-        this.ensemble = ensemble;
-    }
-
-    /**
-     * Setter
-     *
-     * @param dep
-     */
-    public void setDeplacement(String dep) {
-        this.deplacement = dep;
-    }
-
-    /**
-     * Setter
-     *
-     * @param _scoreMax
-     */
-    public void setScoreMax(int _scoreMax) {
-        this.scoreMax = _scoreMax;
-    }
-
     /// --- METHODES --- ///
 
     /**
@@ -132,17 +93,6 @@ public class Etat {
      */
     public boolean estbut(Probleme pb) { //teste si l'état est égal à l'état but du problème
         return (pb.getGrids().best() == Parameters.GOAL);
-    }
-
-    /**
-     * Retourne vrai si l'etat passe en parametre est egal a celui qui appelle la methode
-     *
-     * @param e
-     *
-     * @return
-     */
-    public boolean estegal(Etat e) {
-        return this.ensemble == e.getGrids() && this.deplacement.equals(e.getDeplacement());
     }
 
     /**
@@ -221,45 +171,46 @@ public class Etat {
      *
      * @return
      */
-    public boolean valide(String direction) {
+    private boolean valide(String direction) {
         boolean valide = false;
         int indice = 0;
+        Grid[] grids = this.ensemble.getGrids();
         switch (direction) {
             case "d":
-                while (!valide && indice < this.ensemble.getGrids().length) {
-                    valide = this.ensemble.right(this.ensemble.getGrids()[indice]);
+                while (!valide && indice < grids.length) {
+                    valide = this.ensemble.right(grids[indice]);
                     indice++;
                 }
                 break;
             case "q":
-                while (!valide && indice < this.ensemble.getGrids().length) {
-                    valide = this.ensemble.left(this.ensemble.getGrids()[indice]);
+                while (!valide && indice < grids.length) {
+                    valide = this.ensemble.left(grids[indice]);
                     indice++;
                 }
                 break;
             case "z":
-                while (!valide && indice < this.ensemble.getGrids().length) {
-                    valide = this.ensemble.up(this.ensemble.getGrids()[indice]);
+                while (!valide && indice < grids.length) {
+                    valide = this.ensemble.up(grids[indice]);
                     indice++;
                 }
                 break;
             case "s":
-                while (!valide && indice < this.ensemble.getGrids().length) {
-                    valide = this.ensemble.down(this.ensemble.getGrids()[indice]);
+                while (!valide && indice < grids.length) {
+                    valide = this.ensemble.down(grids[indice]);
                     indice++;
                 }
                 break;
             case "r":
-                this.ensemble = new Grids(this.ensemble.reorganization(this.ensemble.getGrids()));
-                while (!valide && indice < this.ensemble.getGrids().length) {
-                    valide = this.ensemble.down(this.ensemble.getGrids()[indice]);
+                this.ensemble = new Grids(this.ensemble.reorganization(grids));
+                while (!valide && indice < grids.length) {
+                    valide = this.ensemble.down(grids[indice]);
                     indice++;
                 }
                 break;
             default:
-                this.ensemble = new Grids(this.ensemble.reorganization(this.ensemble.getGrids()));
-                while (!valide && indice < this.ensemble.getGrids().length) {
-                    valide = this.ensemble.up(this.ensemble.getGrids()[indice]);
+                this.ensemble = new Grids(this.ensemble.reorganization(grids));
+                while (!valide && indice < grids.length) {
+                    valide = this.ensemble.up(grids[indice]);
                     indice++;
                 }
                 break;
