@@ -43,25 +43,31 @@ public class JouerEnSolo {
             String s = sc.nextLine();
             if (s.equals("d") || s.equals("q") || s.equals("z") || s.equals("s") || s.equals("f") || s.equals("r")) {
                 int direction;
-                if (s.equals("d")) {
-                    direction = Parameters.RIGHT;
-                } else if (s.equals("q")) {
-                    direction = Parameters.LEFT;
-                } else if (s.equals("z")) {
-                    direction = Parameters.UP;
-                } else if (s.equals("s")) {
-                    direction = Parameters.DOWN;
-                } else if (s.equals("r")) {
-                    direction = Parameters.FRONT;
-                } else {
-                    direction = Parameters.BACK;
+                switch (s) {
+                    case "d":
+                        direction = Parameters.RIGHT;
+                        break;
+                    case "q":
+                        direction = Parameters.LEFT;
+                        break;
+                    case "z":
+                        direction = Parameters.UP;
+                        break;
+                    case "s":
+                        direction = Parameters.DOWN;
+                        break;
+                    case "r":
+                        direction = Parameters.FRONT;
+                        break;
+                    default:
+                        direction = Parameters.BACK;
+                        break;
                 }
 
                 Grids copy = new Grids(g.getGrids());
                 g.move(false,direction);
                 if (g.equals(copy.getGrids())) {
-                    System.out.println("");
-                    System.out.println("Le mouvement n'a pas été effectué, veuillez saisir un déplacement valide");
+                    System.out.println("\nLe mouvement n'a pas été effectué, veuillez saisir un déplacement valide");
                 } else {
                     g.affichage();
                 }
@@ -86,7 +92,7 @@ public class JouerEnSolo {
                     System.out.println("Appuyer sur entrée pour que la même ia fasse le prochain mouvement ou sur n'importe quelle autre touche pour revenenir aux autres options");
                     sc = new Scanner(System.in);
                     String continuer = sc.nextLine();
-                    String reponse = "";
+                    String reponse;
                     if (continuer.equals("")) {
                         if (s.equals("1")) {
                             reponse = ia.setStrategyIa("Random", g, 1);
