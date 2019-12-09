@@ -17,7 +17,7 @@ import java.util.Random;
  *
  * @author Robin
  */
-public class Grid implements Parametres {
+public class Grid {
 
     private final Tile[] grid;
     private int bestValue;
@@ -27,7 +27,7 @@ public class Grid implements Parametres {
      * Constructeur
      */
     Grid() {
-        this.grid = new Tile[SIZE];
+        this.grid = new Tile[Parameters.SIZE];
         this.bestValue = newTile();
     }
 
@@ -70,7 +70,7 @@ public class Grid implements Parametres {
      * @param _tampon
      */
     private void override(Tile[] _tampon) {
-        for (int index = 0; index < SIZE; index++) {
+        for (int index = 0; index < Parameters.SIZE; index++) {
             try {
                 if (_tampon[index] != null) {
                     grid[index] = (Tile) _tampon[index].clone();
@@ -89,8 +89,8 @@ public class Grid implements Parametres {
      * @return
      */
     Tile[] copy() {
-        Tile[] tampon = new Tile[SIZE];
-        for (int index = 0; index < SIZE; index++) {
+        Tile[] tampon = new Tile[Parameters.SIZE];
+        for (int index = 0; index < Parameters.SIZE; index++) {
             try {
                 if (grid[index] != null) {
                     tampon[index] = (Tile) grid[index].clone();
@@ -124,13 +124,13 @@ public class Grid implements Parametres {
      */
     boolean move(int _d) {
         switch (_d) {
-            case LEFT:
+            case Parameters.LEFT:
                 return left();
-            case RIGHT:
+            case Parameters.RIGHT:
                 return right();
-            case UP:
+            case Parameters.UP:
                 return up();
-            case DOWN:
+            case Parameters.DOWN:
                 return down();
             default:
                 System.out.println("Erreur de déplacement");
@@ -270,7 +270,7 @@ public class Grid implements Parametres {
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < SIDE; i++) {
+        for (int i = 0; i < Parameters.SIDE; i++) {
             if (i == 0) {
                 s.append("|--------------|");
             } else {
@@ -278,28 +278,28 @@ public class Grid implements Parametres {
             }
         }
 
-        for (int x = 0; x < SIDE; x++) {
+        for (int x = 0; x < Parameters.SIDE; x++) {
             s.append("\n|");
-            for (int index = 0; index < SIDE; index++) {
-                for (int y = 0; y < SIDE; y++) {
-                    if (this.grid[x * SIDE + y] == null) {
+            for (int index = 0; index < Parameters.SIDE; index++) {
+                for (int y = 0; y < Parameters.SIDE; y++) {
+                    if (this.grid[x * Parameters.SIDE + y] == null) {
                         s.append("    ");
-                    } else if (this.grid[x * SIDE + y].getValue() < 9) {
-                        s.append(" ").append(this.grid[x * SIDE + y].getValue()).append("  ");
-                    } else if (this.grid[x * SIDE + y].getValue() < 99) {
-                        s.append(" ").append(this.grid[x * SIDE + y].getValue()).append(" ");
-                    } else if (this.grid[x * SIDE + y].getValue() < 999) {
-                        s.append(this.grid[x * SIDE + y].getValue());
+                    } else if (this.grid[x * Parameters.SIDE + y].getValue() < 9) {
+                        s.append(" ").append(this.grid[x * Parameters.SIDE + y].getValue()).append("  ");
+                    } else if (this.grid[x * Parameters.SIDE + y].getValue() < 99) {
+                        s.append(" ").append(this.grid[x * Parameters.SIDE + y].getValue()).append(" ");
+                    } else if (this.grid[x * Parameters.SIDE + y].getValue() < 999) {
+                        s.append(this.grid[x * Parameters.SIDE + y].getValue());
                     }
                     s.append("|");
                 }
-                if (index + 1 < SIDE) {
+                if (index + 1 < Parameters.SIDE) {
                     s.append("  |");
                 }
             }
         }
         s.append("\n");
-        for (int i = 0; i < SIDE; i++) {
+        for (int i = 0; i < Parameters.SIDE; i++) {
             if (i == 0) {
                 s.append("|--------------|");
             } else {
@@ -356,7 +356,7 @@ public class Grid implements Parametres {
     int newTile() {
         ArrayList<Integer> emptyTiles = new ArrayList<>();
 
-        for (int index = 0; index < SIZE - 1; index++) {
+        for (int index = 0; index < Parameters.SIZE - 1; index++) {
             if (grid[index] == null) {
                 emptyTiles.add(index);
             }

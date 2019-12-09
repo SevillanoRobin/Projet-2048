@@ -17,7 +17,7 @@ import java.util.Calendar;
  *
  * @author Robin
  */
-public class Grids implements Serializable, Parametres {
+public class Grids implements Serializable {
 
     private Grid[] grids;
 
@@ -38,8 +38,8 @@ public class Grids implements Serializable, Parametres {
      * @param grid
      */
     public Grids(Grid[] grid) {
-        this.grids = new Grid[SIDE];
-        for (int index = 0; index < SIDE; index++) {
+        this.grids = new Grid[Parameters.SIDE];
+        for (int index = 0; index < Parameters.SIDE; index++) {
             this.grids[index] = new Grid(grid[index].copy());
         }
     }
@@ -123,7 +123,7 @@ public class Grids implements Serializable, Parametres {
      * @return
      */
     public boolean victory() {
-        return best() >= GOAL;
+        return best() >= Parameters.GOAL;
     }
 
     /**
@@ -135,14 +135,14 @@ public class Grids implements Serializable, Parametres {
     public void move(boolean simulation, int _d) {
         boolean[] verif = { false, false, false };
 
-        if (_d == FRONT) {
-            moveBackOrForth(verif, DOWN);
+        if (_d == Parameters.FRONT) {
+            moveBackOrForth(verif, Parameters.DOWN);
 
-        } else if (_d == BACK) {
-            moveBackOrForth(verif, UP);
+        } else if (_d == Parameters.BACK) {
+            moveBackOrForth(verif, Parameters.UP);
 
         } else {
-            for (int index = 0; index < SIDE; index++) {
+            for (int index = 0; index < Parameters.SIDE; index++) {
                 verif[index] = grids[index].move(_d);
             }
         }
@@ -166,7 +166,7 @@ public class Grids implements Serializable, Parametres {
 
     private void moveBackOrForth(boolean[] _verif, int _direction) {
         Grids tamp = new Grids(reorganization(this.grids));
-        for (int index = 0; index < SIDE; index++) {
+        for (int index = 0; index < Parameters.SIDE; index++) {
             _verif[index] = tamp.getGrids()[index].move(_direction);
         }
 
@@ -246,15 +246,15 @@ public class Grids implements Serializable, Parametres {
         Tile[] result3 = new Tile[9];
 
         int index2 = 2, index3 = 0;
-        for (int index1 = 0; index1 < SIZE; index1++) {
+        for (int index1 = 0; index1 < Parameters.SIZE; index1++) {
             if (_gs[index2].getGrid()[index3] != null) {
                 result1[index1] = _gs[index2].getGrid()[index3];
             }
-            if (_gs[index2].getGrid()[index3 + SIDE] != null) {
-                result2[index1] = _gs[index2].getGrid()[index3 + SIDE];
+            if (_gs[index2].getGrid()[index3 + Parameters.SIDE] != null) {
+                result2[index1] = _gs[index2].getGrid()[index3 + Parameters.SIDE];
             }
-            if (_gs[index2].getGrid()[index3 + (SIDE * 2)] != null) {
-                result3[index1] = _gs[index2].getGrid()[index3 + (SIDE * 2)];
+            if (_gs[index2].getGrid()[index3 + (Parameters.SIDE * 2)] != null) {
+                result3[index1] = _gs[index2].getGrid()[index3 + (Parameters.SIDE * 2)];
             }
 
             index3++;
@@ -280,31 +280,31 @@ public class Grids implements Serializable, Parametres {
         Tile[] result3 = new Tile[9];
 
         for (int grille = 1; grille < 4; grille++) {
-            for (int ligne = 0; ligne < SIDE; ligne++) {
-                for (int colonne = 0; colonne < SIDE; colonne++) {
+            for (int ligne = 0; ligne < Parameters.SIDE; ligne++) {
+                for (int colonne = 0; colonne < Parameters.SIDE; colonne++) {
                     if (grille == 1) {
                         if (ligne == 0) {
                             result3[colonne] = _gs[grille - 1].getGrid()[colonne];
                         } else if (ligne == 1) {
-                            result2[colonne] = _gs[grille - 1].getGrid()[colonne + SIDE];
+                            result2[colonne] = _gs[grille - 1].getGrid()[colonne + Parameters.SIDE];
                         } else {
-                            result1[colonne] = _gs[grille - 1].getGrid()[colonne + SIDE * ligne];
+                            result1[colonne] = _gs[grille - 1].getGrid()[colonne + Parameters.SIDE * ligne];
                         }
                     } else if (grille == 2) {
                         if (ligne == 0) {
-                            result3[colonne + SIDE] = _gs[grille - 1].getGrid()[colonne];
+                            result3[colonne + Parameters.SIDE] = _gs[grille - 1].getGrid()[colonne];
                         } else if (ligne == 1) {
-                            result2[colonne + SIDE] = _gs[grille - 1].getGrid()[SIDE + colonne];
+                            result2[colonne + Parameters.SIDE] = _gs[grille - 1].getGrid()[Parameters.SIDE + colonne];
                         } else {
-                            result1[SIDE + colonne] = _gs[grille - 1].getGrid()[colonne + SIDE * ligne];
+                            result1[Parameters.SIDE + colonne] = _gs[grille - 1].getGrid()[colonne + Parameters.SIDE * ligne];
                         }
                     } else {
                         if (ligne == 0) {
-                            result3[colonne + SIDE * 2] = _gs[grille - 1].getGrid()[colonne];
+                            result3[colonne + Parameters.SIDE * 2] = _gs[grille - 1].getGrid()[colonne];
                         } else if (ligne == 1) {
-                            result2[colonne + SIDE * 2] = _gs[grille - 1].getGrid()[colonne + SIDE];
+                            result2[colonne + Parameters.SIDE * 2] = _gs[grille - 1].getGrid()[colonne + Parameters.SIDE];
                         } else {
-                            result1[ligne * SIDE + colonne] = _gs[grille - 1].getGrid()[colonne + SIDE * ligne];
+                            result1[ligne * Parameters.SIDE + colonne] = _gs[grille - 1].getGrid()[colonne + Parameters.SIDE * ligne];
                         }
                     }
 
@@ -319,7 +319,7 @@ public class Grids implements Serializable, Parametres {
      */
     public void affichage() {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < SIDE; i++) {
+        for (int i = 0; i < Parameters.SIDE; i++) {
             if (i == 0) {
                 s.append("|--------------------|");
             } else {
@@ -327,14 +327,14 @@ public class Grids implements Serializable, Parametres {
             }
         }
 
-        for (int x = 0; x < SIDE; x++) {
+        for (int x = 0; x < Parameters.SIDE; x++) {
             s.append("\n|");
-            for (int index = 0; index < SIDE; index++) {
-                for (int y = 0; y < SIDE; y++) {
-                    if (grids[index].getGrid()[x * SIDE + y] == null) {
+            for (int index = 0; index < Parameters.SIDE; index++) {
+                for (int y = 0; y < Parameters.SIDE; y++) {
+                    if (grids[index].getGrid()[x * Parameters.SIDE + y] == null) {
                         s.append("      ");
                     } else {
-                        int givenGridValue = grids[index].getGrid()[x * SIDE + y].getValue();
+                        int givenGridValue = grids[index].getGrid()[x * Parameters.SIDE + y].getValue();
                         if (givenGridValue < 9) {
                             s.append("  ").append(givenGridValue).append("   ");
                         } else if (givenGridValue < 99) {
@@ -347,13 +347,13 @@ public class Grids implements Serializable, Parametres {
                     }
                     s.append("|");
                 }
-                if (index + 1 < SIDE) {
+                if (index + 1 < Parameters.SIDE) {
                     s.append("  |");
                 }
             }
         }
         s.append("\n");
-        for (int i = 0; i < SIDE; i++) {
+        for (int i = 0; i < Parameters.SIDE; i++) {
             if (i == 0) {
                 s.append("|--------------------|");
             } else {
@@ -371,8 +371,8 @@ public class Grids implements Serializable, Parametres {
      * @return
      */
     public boolean equals(Grid[] g) {
-        for (int grille = 0; grille < SIDE; grille++) {
-            for (int t = 0; t < SIZE; t++) {
+        for (int grille = 0; grille < Parameters.SIDE; grille++) {
+            for (int t = 0; t < Parameters.SIZE; t++) {
                 Tile tile1 = this.grids[grille].getGrid()[t];
                 Tile tile2 = g[grille].getGrid()[t];
 

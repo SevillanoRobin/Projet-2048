@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -24,14 +24,6 @@ public class Noeud {
 
 
     /**
-     * Constructeur
-     */
-    public Noeud() {
-        this.e = new Etat();
-        this.sol = null;
-    }
-
-    /**
      * Fait une copie d'un noeud deja existant
      *
      * @param ee
@@ -51,7 +43,6 @@ public class Noeud {
      *
      * @return
      */
-
     public Etat getetat() {
         return (this.e);
     }
@@ -63,15 +54,6 @@ public class Noeud {
      */
     public ArrayList<Action> getlisteaction() {
         return (this.sol);
-    }
-
-    /**
-     * Setter
-     *
-     * @param ee
-     */
-    public void setetat(Etat ee) {
-        this.e = ee;
     }
 
 
