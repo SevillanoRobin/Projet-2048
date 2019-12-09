@@ -17,8 +17,8 @@ import java.util.Random;
  */
 public abstract class Movable implements Parametres {
 
-    protected Tile[] grid;
-    boolean fusion = true;
+    private Tile[] grid;
+    private boolean fusion = true;
 
     /**
      * Initialise la grille avant d'utiliser une methode
@@ -67,40 +67,10 @@ public abstract class Movable implements Parametres {
     }
 
     /**
-     * Déplace une tuile de la grille g2 emplacment b vers la grille g1 emplacment a
-     *
-     * @param _a
-     * @param _b
-     * @param g1
-     * @param g2
-     *
-     * @return
-     */
-    private boolean moveTileDifferentGrid(int _a, int _b, Grid g1, Grid g2) {
-        // Les case sont vide
-        if (g1.getGrid()[_a] == null && g2.getGrid()[_b] == null) {
-            return false;
-        } // Mouvement de _b vers _a
-        else if (g1.getGrid()[_a] == null && g2.getGrid()[_b] != null) {
-            g1.getGrid()[_a] = g2.getGrid()[_b];
-            g2.getGrid()[_b] = null;
-            return true;
-        } // Fusion de _a et _b
-        else if (g2.getGrid()[_b] != null && g1.getGrid()[_a].getValue() == g2.getGrid()[_b].getValue() && !fusion) {
-            g1.getGrid()[_a].setValue(g1.getGrid()[_a].getValue() * 2);
-            g2.getGrid()[_b] = null;
-            fusion = true;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Ajoute une nouvelle tuile à la grille
      * @return
      */
-    public int newTile() {
+    int newTile() {
         ArrayList<Integer> emptyTiles = new ArrayList<>();
 
         for (int index = 0; index < SIZE - 1; index++) {
@@ -131,7 +101,7 @@ public abstract class Movable implements Parametres {
         setGrid(_g);
 
         // tableau récapitulatif des mouvements
-        boolean moves[] = new boolean[9];
+        boolean[] moves = new boolean[9];
 
         // première ligne
         fusion = false;
