@@ -53,8 +53,8 @@ public class Grids extends Movable implements Serializable {
         int score = 0;
 
         for (Grid g : grids) {
-            if (g.best() > score) {
-                score = g.best();
+            if (g.getBestValue() > score) {
+                score = g.getBestValue();
             }
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -51,8 +51,13 @@ public abstract class Movable implements Parametres {
             return true;
         } // Fusion de _a et _b
         else if (grid[_b] != null && grid[_a].getValue() == grid[_b].getValue() && !fusion) {
-            grid[_a].setValue(grid[_a].getValue() * 2);
+            int newValue = grid[_a].getValue() * 2;
+            grid[_a].setValue(newValue);
             grid[_b] = null;
+
+            if (this instanceof Grid && ((Grid) this).getBestValue() < newValue) {
+                ((Grid) this).setBestValue(newValue);
+            }
 
             fusion = true;
             return true;
@@ -93,8 +98,9 @@ public abstract class Movable implements Parametres {
 
     /**
      * Ajoute une nouvelle tuile à la grille
+     * @return
      */
-    private void newTile() {
+    public int newTile() {
         ArrayList<Integer> emptyTiles = new ArrayList<>();
 
         for (int index = 0; index < SIZE - 1; index++) {
@@ -105,9 +111,12 @@ public abstract class Movable implements Parametres {
 
         if (emptyTiles.size() > 0) {
             int pos = new Random().nextInt(emptyTiles.size());
-            grid[emptyTiles.get(pos)] = new Tile(pos);
+            Tile tile = new Tile(pos);
+            grid[emptyTiles.get(pos)] = tile;
+            return tile.getValue();
         }
 
+        return 0;
     }
 
     /**

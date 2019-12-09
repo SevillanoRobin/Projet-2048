@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -9,9 +9,6 @@
  */
 package model;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
  * Grille de jeu
  *
@@ -20,13 +17,14 @@ import java.util.Random;
 public class Grid extends Movable {
 
     private Tile[] grid;
+    private int bestValue;
 
     /**
      * Constructeur
      */
-    public Grid() {
+    Grid() {
         this.grid = new Tile[SIZE];
-        newTile();
+        this.bestValue = newTile();
     }
 
     /**
@@ -34,51 +32,9 @@ public class Grid extends Movable {
      *
      * @param _g
      */
-    public Grid(Tile[] _g) {
+    Grid(Tile[] _g) {
         this.grid = _g;
-    }
-
-    /**
-     * Setter
-     *
-     * @param grid
-     */
-    public void setGrid(Tile[] grid) {
-        this.grid = grid;
-    }
-
-    /**
-     * Ajoute une nouvelle tuile à la grille
-     */
-    public void newTile() {
-        ArrayList<Integer> emptyTiles = new ArrayList<>();
-
-        for (int index = 0; index < SIZE - 1; index++) {
-            if (grid[index] == null) {
-                emptyTiles.add(index);
-            }
-        }
-
-        if (emptyTiles.size() > 0) {
-            int pos = new Random().nextInt(emptyTiles.size());
-            grid[emptyTiles.get(pos)] = new Tile(pos);
-        }
-
-    }
-
-    /**
-     * Verifie si le joueur a gagné
-     *
-     * @return
-     */
-    public boolean victory() {
-        for (Tile t : grid) {
-            if (t != null && t.getValue() == GOAL) {
-                return true;
-            }
-        }
-
-        return false;
+        this.parseBestValue();
     }
 
     /**
@@ -86,36 +42,22 @@ public class Grid extends Movable {
      *
      * @return
      */
-    public boolean lose() {
-        boolean control[] = {
-                false,
-                false,
-                false,
-                false
-        };
-
+    boolean lose() {
         Tile[] tampon = copy();
 
-        control[0] = left(this);
+        boolean control0 = left(this);
         override(tampon);
 
-        control[1] = right(this);
+        boolean control1 = right(this);
         override(tampon);
 
-        control[2] = up(this);
+        boolean control2 = up(this);
         override(tampon);
 
-        control[3] = down(this);
+        boolean control3 = down(this);
         override(tampon);
 
-
-        for (boolean b : control) {
-            if (b) {
-                return false;
-            }
-        }
-
-        return true;
+        return !(control0 || control1 || control2 || control3);
     }
 
     /**
@@ -123,7 +65,7 @@ public class Grid extends Movable {
      *
      * @param _tampon
      */
-    protected void override(Tile[] _tampon) {
+    private void override(Tile[] _tampon) {
         for (int index = 0; index < SIZE; index++) {
             try {
                 if (_tampon[index] != null) {
@@ -142,7 +84,7 @@ public class Grid extends Movable {
      *
      * @return
      */
-    protected Tile[] copy() {
+    Tile[] copy() {
         Tile[] tampon = new Tile[SIZE];
         for (int index = 0; index < SIZE; index++) {
             try {
@@ -157,20 +99,15 @@ public class Grid extends Movable {
     }
 
     /**
-     * Meilleur score
+     * Meilleur valeur
      *
-     * @return
      */
-    public int best() {
-        int score = 0;
-
+    private void parseBestValue() {
         for (Tile t : grid) {
-            if (t != null && t.getValue() > score) {
-                score = t.getValue();
+            if (t != null && t.getValue() > bestValue) {
+                bestValue = t.getValue();
             }
         }
-
-        return score;
     }
 
 
@@ -182,21 +119,16 @@ public class Grid extends Movable {
      *
      * @return
      */
-    public boolean move(int _d) {
+    boolean move(int _d) {
         switch (_d) {
-
             case LEFT:
                 return left(this);
-
             case RIGHT:
                 return right(this);
-
             case UP:
                 return up(this);
-
             case DOWN:
                 return down(this);
-
             default:
                 System.out.println("Erreur de déplacement");
                 return true;
@@ -204,55 +136,65 @@ public class Grid extends Movable {
     }
 
     /**
-     * renvoie l'objet
-     *
-     * @return
-     */
-    public Tile[] getGrid() {
-        return this.grid;
-    }
-
-    /**
      * @return
      */
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < SIDE; i++) {
             if (i == 0) {
-                s += "|--------------|";
+                s.append("|--------------|");
             } else {
-                s += "  |--------------|";
+                s.append("  |--------------|");
             }
         }
 
         for (int x = 0; x < SIDE; x++) {
-            s = s + "\n|";
+            s.append("\n|");
             for (int index = 0; index < SIDE; index++) {
                 for (int y = 0; y < SIDE; y++) {
                     if (this.grid[x * SIDE + y] == null) {
-                        s += "    ";
+                        s.append("    ");
                     } else if (this.grid[x * SIDE + y].getValue() < 9) {
-                        s += " " + this.grid[x * SIDE + y].getValue() + "  ";
+                        s.append(" ").append(this.grid[x * SIDE + y].getValue()).append("  ");
                     } else if (this.grid[x * SIDE + y].getValue() < 99) {
-                        s += " " + this.grid[x * SIDE + y].getValue() + " ";
+                        s.append(" ").append(this.grid[x * SIDE + y].getValue()).append(" ");
                     } else if (this.grid[x * SIDE + y].getValue() < 999) {
-                        s += this.grid[x * SIDE + y].getValue();
+                        s.append(this.grid[x * SIDE + y].getValue());
                     }
-                    s += "|";
+                    s.append("|");
                 }
                 if (index + 1 < SIDE) {
-                    s += "  |";
+                    s.append("  |");
                 }
             }
         }
-        s = s + "\n";
+        s.append("\n");
         for (int i = 0; i < SIDE; i++) {
             if (i == 0) {
-                s += "|--------------|";
+                s.append("|--------------|");
             } else {
-                s += "  |--------------|";
+                s.append("  |--------------|");
             }
         }
-        return s;
+        return s.toString();
+    }
+
+    /// --- ACCESSEURS & MODIFICATEURS --- ///
+
+    /**
+     * renvoie l'objet
+     *
+     * @return
+     */
+    Tile[] getGrid() {
+        return this.grid;
+    }
+
+    int getBestValue() {
+        return this.bestValue;
+    }
+
+    void setBestValue(int _bestValue) {
+        this.bestValue = _bestValue;
     }
 }
