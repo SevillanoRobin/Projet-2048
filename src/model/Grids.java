@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 09/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -17,15 +17,14 @@ import java.util.Calendar;
  *
  * @author Robin
  */
-public class Grids extends Movable implements Serializable {
+public class Grids implements Serializable, Parametres {
 
-    private Grid grids[];
+    private Grid[] grids;
 
     /**
      * Constructeur de la matrice 3D
      */
     public Grids() {
-
         grids = new Grid[3];
 
         for (int index = 0; index < 3; index++) {
@@ -38,7 +37,7 @@ public class Grids extends Movable implements Serializable {
      *
      * @param grid
      */
-    public Grids(Grid grid[]) {
+    public Grids(Grid[] grid) {
         this.grids = new Grid[SIDE];
         for (int index = 0; index < SIDE; index++) {
             this.grids[index] = new Grid(grid[index].copy());
@@ -54,8 +53,8 @@ public class Grids extends Movable implements Serializable {
         int score = 0;
 
         for (Grid g : grids) {
-            if (g.best() > score) {
-                score = g.best();
+            if (g.getBestValue() > score) {
+                score = g.getBestValue();
             }
         }
 
@@ -68,17 +67,7 @@ public class Grids extends Movable implements Serializable {
      * @return
      */
     public int scoreTotalGrille() {
-        int score = 0;
-        for (Grid g : this.grids) {
-            for (Tile t : g.getGrid()) {
-                if (t != null) {
-                    score = score + t.getValue();
-                }
-
-            }
-
-        }
-        return score;
+        return scoreTotalGrille_Core(1);
     }
 
     /**
@@ -87,59 +76,45 @@ public class Grids extends Movable implements Serializable {
      * @return
      */
     public int scoreTotalGrilleMajore() {
-        Grids copy = new Grids(this.grids);
+        return scoreTotalGrille_Core(1.5);
+    }
+
+    private int scoreTotalGrille_Core(double _multiplicator) {
         int score = 0;
         for (Grid g : this.grids) {
             for (Tile t : g.getGrid()) {
                 if (t != null) {
-                    score = score + (t.getValue() * (t.getValue() / 2));
+                    score += t.getValue() * _multiplicator;
                 }
-
             }
-
         }
         return score;
     }
 
     /**
-     * Verifie si les 3 grilles son bloquées
+     * Verifie si les 3 grilles sont bloquées
+     * <p>
+     * Vérifie au travers d'une grille réorganisée (temp) et des grilles courantes.
      *
      * @return boolean
      */
-    public boolean lose() {
-
-        Grid tamp[] = reorganization(this.grids);
-        boolean lose[] = new boolean[SIDE];
-        int index = 0;
-        for (Grid g : tamp) {
-            lose[index] = g.lose();
-            index++;
-        }
+    public boolean stillPlayeable() {
+        int nbGrids = this.grids.length;
         int nbBoolean = 0;
-        for (boolean b : lose) {
-            if (b) {
+
+        Grid[] temp = reorganization(this.grids);
+
+        for (int i = 0; i < nbGrids; i++) {
+            if (temp[i].lose()) {
                 nbBoolean++;
             }
-        }
-        //on remet la matrice dans le bon sens
-        index = 0;
-        for (Grid g : grids) {
-            if (g.lose()) {
-                lose[index] = g.lose();
-                index++;
-            }
-        }
-        for (boolean b : lose) {
-            if (b) {
+
+            if (this.grids[i].lose()) {
                 nbBoolean++;
             }
-        }
-        if (nbBoolean == lose.length * 2) {
-            return true;
-        } else {
-            return false;
         }
 
+        return nbBoolean != nbGrids * 2;
     }
 
     /**
@@ -148,11 +123,7 @@ public class Grids extends Movable implements Serializable {
      * @return
      */
     public boolean victory() {
-        if (best() >= GOAL) {
-            return true;
-        } else {
-            return false;
-        }
+        return best() >= GOAL;
     }
 
     /**
@@ -160,96 +131,106 @@ public class Grids extends Movable implements Serializable {
      *
      * @param simulation
      * @param _d
-     *
-     * @return
      */
-    public boolean move(boolean simulation, int _d) {
-        boolean verif[] = { false, false, false };
+    public void move(boolean simulation, int _d) {
+        boolean[] verif = { false, false, false };
 
         if (_d == FRONT) {
-            Grids tamp = new Grids(reorganization(this.grids));
-            for (int index = 0; index < SIDE; index++) {
-                verif[index] = tamp.getGrids()[index].move(DOWN);
-
-            }
-            tamp.setGrids(this.reorganizationInverse(tamp.getGrids())); //on remet la matrice dans le bon sens
-            if (this.equals(tamp.grids)) {
-                verif[0] = false;
-            } else {
-                this.grids = tamp.grids;
-                verif[0] = true;
-            }
+            moveBackOrForth(verif, DOWN);
 
         } else if (_d == BACK) {
-            Grids tamp = new Grids(reorganization(this.grids));
-            for (int index = 0; index < SIDE; index++) {
-                verif[index] = tamp.getGrids()[index].move(UP);
-            }
-            tamp.setGrids(this.reorganizationInverse(tamp.getGrids())); //on remet la matrice dans le bon sens
-            if (this.equals(tamp.grids)) {
-                verif[0] = false;
-            } else {
-                this.grids = tamp.grids;
-                verif[0] = true;
-            } ;
+            moveBackOrForth(verif, UP);
+
         } else {
             for (int index = 0; index < SIDE; index++) {
                 verif[index] = grids[index].move(_d);
             }
-
         }
 
-        boolean estRentre = false;
         for (boolean b : verif) {
             if (b) {
-                estRentre = true;
-                boolean ajoutPossible = false;
-                int pasPossible = 0;
-                while (!ajoutPossible && pasPossible < 100) {
+                for (int i = 0; i < 100; i++) {
                     int random = (int) (Math.random() * this.grids.length);
-                    for (int i = 0; i < this.grids[random].getGrid().length; i++) {
-                        if (this.grids[random].getGrid()[i] == null && simulation == false) {
-                            this.grids[random].newTile();
-                            return true;
+                    Grid randomGrid = this.grids[random];
+
+                    for (int j = 0; j < randomGrid.getGrid().length; j++) {
+                        if (randomGrid.getGrid()[j] == null && !simulation) {
+                            randomGrid.newTile();
+                            return;
                         }
                     }
-                    pasPossible++;
                 }
             }
         }
-        if (estRentre == true) {
-            return true;
+    }
+
+    private void moveBackOrForth(boolean[] _verif, int _direction) {
+        Grids tamp = new Grids(reorganization(this.grids));
+        for (int index = 0; index < SIDE; index++) {
+            _verif[index] = tamp.getGrids()[index].move(_direction);
+        }
+
+        tamp.setGrids(this.reorganizationInverse(tamp.getGrids())); //on remet la matrice dans le bon sens
+        if (this.equals(tamp.grids)) {
+            _verif[0] = false;
         } else {
-            return false;
+            this.grids = tamp.grids;
+            _verif[0] = true;
         }
     }
 
+
     /**
-     * Getter
+     * Déplacement des tuiles de la grille vers la gauche
      *
-     * @return
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la gauche
      */
-    public Grid[] getGrids() {
-        return this.grids;
+    public boolean left(Grid _g) {
+        return _g.left();
     }
 
+    /**
+     * Déplacement des tuiles de la grille vers la droite
+     *
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers la droite
+     */
+    public boolean right(Grid _g) {
+        return _g.right();
+    }
 
     /**
-     * Setter
+     * Déplacement des tuiles de la grille vers le haut
      *
-     * @param _gs
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le haut
      */
-    private void setGrids(Grid[] _gs) {
-        this.grids = _gs;
+    public boolean up(Grid _g) {
+        return _g.up();
+    }
+
+    /**
+     * Déplacement des tuiles de la grille vers le bas
+     *
+     * @param _g
+     *
+     * @return Retourne vrai s'il est possible d'effectuer un mouvement vers le bas
+     */
+    public boolean down(Grid _g) {
+        return _g.down();
     }
 
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Grid g : grids) {
-            s += g.toString();
+            s.append(g.toString());
         }
-        return s;
+        return s.toString();
     }
 
     /**
@@ -283,8 +264,7 @@ public class Grids extends Movable implements Serializable {
             }
         }
 
-        Grid[] result = { new Grid(result1), new Grid(result2), new Grid(result3) };
-        return result;
+        return new Grid[] { new Grid(result1), new Grid(result2), new Grid(result3) };
     }
 
     /**
@@ -294,7 +274,7 @@ public class Grids extends Movable implements Serializable {
      *
      * @return
      */
-    public Grid[] reorganizationInverse(Grid[] _gs) {
+    private Grid[] reorganizationInverse(Grid[] _gs) {
         Tile[] result1 = new Tile[9];
         Tile[] result2 = new Tile[9];
         Tile[] result3 = new Tile[9];
@@ -307,7 +287,7 @@ public class Grids extends Movable implements Serializable {
                             result3[colonne] = _gs[grille - 1].getGrid()[colonne];
                         } else if (ligne == 1) {
                             result2[colonne] = _gs[grille - 1].getGrid()[colonne + SIDE];
-                        } else if (ligne == 2) {
+                        } else {
                             result1[colonne] = _gs[grille - 1].getGrid()[colonne + SIDE * ligne];
                         }
                     } else if (grille == 2) {
@@ -315,15 +295,15 @@ public class Grids extends Movable implements Serializable {
                             result3[colonne + SIDE] = _gs[grille - 1].getGrid()[colonne];
                         } else if (ligne == 1) {
                             result2[colonne + SIDE] = _gs[grille - 1].getGrid()[SIDE + colonne];
-                        } else if (ligne == 2) {
+                        } else {
                             result1[SIDE + colonne] = _gs[grille - 1].getGrid()[colonne + SIDE * ligne];
                         }
-                    } else if (grille == 3) {
+                    } else {
                         if (ligne == 0) {
                             result3[colonne + SIDE * 2] = _gs[grille - 1].getGrid()[colonne];
                         } else if (ligne == 1) {
                             result2[colonne + SIDE * 2] = _gs[grille - 1].getGrid()[colonne + SIDE];
-                        } else if (ligne == 2) {
+                        } else {
                             result1[ligne * SIDE + colonne] = _gs[grille - 1].getGrid()[colonne + SIDE * ligne];
                         }
                     }
@@ -331,76 +311,53 @@ public class Grids extends Movable implements Serializable {
                 }
             }
         }
-        Grid[] result = { new Grid(result1), new Grid(result2), new Grid(result3) };
-        return result;
-    }
-
-    /**
-     * Remplace les grilles
-     *
-     * @param tampon
-     */
-    private void override(Grid[] _tampon) {
-        for (int index = 0; index < SIDE; index++) {
-            grids[index].override(_tampon[index].getGrid());
-        }
-    }
-
-    /**
-     * Crée une copie des grilles
-     *
-     * @return
-     */
-    private Grid[] copy() {
-        Grid[] g = { null, null, null };
-        for (int index = 0; index < SIDE; index++) {
-            g[index] = new Grid(grids[index].copy());
-        }
-
-        return g;
+        return new Grid[] { new Grid(result1), new Grid(result2), new Grid(result3) };
     }
 
     /**
      * Permet l'affichage des grilles en console
      */
     public void affichage() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < SIDE; i++) {
             if (i == 0) {
-                s = s + "|--------------------|";
+                s.append("|--------------------|");
             } else {
-                s = s + "  |--------------------|";
+                s.append("  |--------------------|");
             }
         }
 
         for (int x = 0; x < SIDE; x++) {
-            s = s + "\n|";
+            s.append("\n|");
             for (int index = 0; index < SIDE; index++) {
                 for (int y = 0; y < SIDE; y++) {
                     if (grids[index].getGrid()[x * SIDE + y] == null) {
-                        s += "      ";
-                    } else if (grids[index].getGrid()[x * SIDE + y].getValue() < 9) {
-                        s += "  " + grids[index].getGrid()[x * SIDE + y].getValue() + "   ";
-                    } else if (grids[index].getGrid()[x * SIDE + y].getValue() < 99) {
-                        s += "  " + grids[index].getGrid()[x * SIDE + y].getValue() + "  ";
-                    } else if (grids[index].getGrid()[x * SIDE + y].getValue() < 999) {
-                        s += "  " + grids[index].getGrid()[x * SIDE + y].getValue() + " ";
-                    } else if (grids[index].getGrid()[x * SIDE + y].getValue() < 9999) {
-                        s += " " + grids[index].getGrid()[x * SIDE + y].getValue() + " ";
+                        s.append("      ");
+                    } else {
+                        int givenGridValue = grids[index].getGrid()[x * SIDE + y].getValue();
+                        if (givenGridValue < 9) {
+                            s.append("  ").append(givenGridValue).append("   ");
+                        } else if (givenGridValue < 99) {
+                            s.append("  ").append(givenGridValue).append("  ");
+                        } else if (givenGridValue < 999) {
+                            s.append("  ").append(givenGridValue).append(" ");
+                        } else if (givenGridValue < 9999) {
+                            s.append(" ").append(givenGridValue).append(" ");
+                        }
                     }
-                    s = s + "|";
+                    s.append("|");
                 }
                 if (index + 1 < SIDE) {
-                    s = s + "  |";
+                    s.append("  |");
                 }
             }
         }
-        s = s + "\n";
+        s.append("\n");
         for (int i = 0; i < SIDE; i++) {
             if (i == 0) {
-                s = s + "|--------------------|";
+                s.append("|--------------------|");
             } else {
-                s = s + "  |--------------------|";
+                s.append("  |--------------------|");
             }
         }
         System.out.println(s);
@@ -413,16 +370,19 @@ public class Grids extends Movable implements Serializable {
      *
      * @return
      */
-    public boolean equals(Grid g[]) {
+    public boolean equals(Grid[] g) {
         for (int grille = 0; grille < SIDE; grille++) {
             for (int t = 0; t < SIZE; t++) {
-                if (this.grids[grille].getGrid()[t] != null && g[grille].getGrid()[t] != null) {
-                    if (!(this.grids[grille].getGrid()[t].compareValeur(g[grille].getGrid()[t]))) {
+                Tile tile1 = this.grids[grille].getGrid()[t];
+                Tile tile2 = g[grille].getGrid()[t];
+
+                if (tile1 != null && tile2 != null) {
+                    if (!(tile1.compareValeur(tile2))) {
                         return false;
                     }
-                } else if (this.grids[grille].getGrid()[t] == null && g[grille].getGrid()[t] != null) {
+                } else if (tile1 == null && tile2 != null) {
                     return false;
-                } else if (this.grids[grille].getGrid()[t] != null && g[grille].getGrid()[t] == null) {
+                } else if (tile1 != null) {
                     return false;
                 }
 
@@ -469,5 +429,25 @@ public class Grids extends Movable implements Serializable {
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException is caught");
         }
+    }
+
+    /// --- ACCESSEURS & MODIFICATEURS --- ///
+
+    /**
+     * Getter
+     *
+     * @return
+     */
+    public Grid[] getGrids() {
+        return this.grids;
+    }
+
+    /**
+     * Setter
+     *
+     * @param _gs
+     */
+    private void setGrids(Grid[] _gs) {
+        this.grids = _gs;
     }
 }
