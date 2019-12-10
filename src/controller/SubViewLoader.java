@@ -11,6 +11,7 @@
 package controller;
 
 import controller.menus.mainMenu.MainMenuController;
+import controller.menus.mainMenu.settings.SettingsController;
 import javafx.stage.Stage;
 
 /**
@@ -47,6 +48,7 @@ public final class SubViewLoader extends AbstractViewLoader<ViewController> {
      *         Typiquement accessible par des attributs de classes dans les contrôleurs (<b>T</b>).
      *
      * @see AbstractViewLoader#AbstractViewLoader(Stage, String)
+     * @see #createSettingsMenuLoader()
      */
     private SubViewLoader(String _FXMLPath) {
         super(_FXMLPath);
@@ -80,5 +82,19 @@ public final class SubViewLoader extends AbstractViewLoader<ViewController> {
      */
     public void close() {
         this.stage.close();
+    }
+
+    /**
+     * Méthode de fabrique.
+     * <p>
+     * Fournit une instance pouvant charger le menu des options.
+     *
+     * @return Retourne une instance {@link AbstractViewLoader} chargée de s'occuper du menu des options.
+     *
+     * @see #SubViewLoader(String)
+     * @see javafx.application.Application#start(Stage)
+     */
+    public static SubViewLoader createSettingsMenuLoader() {
+        return new SubViewLoader(SettingsController.FXMLPath);
     }
 }

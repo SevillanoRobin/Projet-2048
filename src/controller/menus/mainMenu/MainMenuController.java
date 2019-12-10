@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 10/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -12,6 +12,7 @@ package controller.menus.mainMenu;
 
 import controller.AbstractViewController;
 import controller.DialogBoxFactory;
+import controller.SubViewLoader;
 import controller.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,7 +28,7 @@ import java.util.Optional;
  * Le menu est principalement composé de quatre boutons : <br>
  *      - Un bouton "Nouvelle Partie", lançant une partie <i>from scratch</i>. [non-implémenté] <br>
  *      - Un bouton "Continuer une Partie", lançant une partie depuis une sauvegarde. [non-implémenté] <br>
- *      - Un bouton "Options", pour changer quelques paramètres. [non-implémentés] <br>
+ *      - Un bouton "Options", pour changer quelques paramètres. <br>
  *      - Un bouton "Quitter", lançant une requête pour fermer l'application.
  *
  * <p>
@@ -53,8 +54,6 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     @FXML private Button newGameButton;
     /** Bouton "Charger une Partie". */
     @FXML private Button continueGameButton;
-    /** Bouton "Options". */
-    @FXML private Button settingsButton;
 
     /**
      * Actions effectuées durant le {@link javafx.fxml.FXMLLoader chargement de la vue FXML}.
@@ -69,7 +68,6 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     void initialize() {
         this.newGameButton.setDisable(true);
         this.continueGameButton.setDisable(true);
-        this.settingsButton.setDisable(true);
     }
 
     /**
@@ -89,11 +87,24 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     }
 
     /**
-     * [Non-implémentée] Action correspondante au bouton "Options".
+     * Action correspondante au bouton "Options".
+     * <p>
+     * Ouvre une menu des options, grâce au {@link SubViewLoader}.
+     * <p>
+     * Si le menu principal est fermé alors que le menu des options est ouvert, alors on le ferme également.
+     *
+     * @see SubViewLoader
+     * @see controller.menus.mainMenu.settings.SettingsController
      */
     @FXML
     private void onSettings() {
-        // TODO: Implement setting features.
+        SubViewLoader viewLoader = SubViewLoader.createSettingsMenuLoader();
+        viewLoader.loadView();
+
+        // Si cette vue est fermée, alors la sous-vue le sera également.
+        this.stage.setOnHiding(event -> viewLoader.close());
+        viewLoader.showAndWait();
+        this.stage.setOnHiding(null);
     }
 
     /**
