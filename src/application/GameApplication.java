@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 10/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -55,8 +55,9 @@ public class GameApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        ViewLoader<MainMenuController> viewLoader = ViewLoader.createMainMenuLoader(primaryStage);
+        ViewLoader viewLoader = ViewLoader.createMainMenuLoader(primaryStage);
         viewLoader.loadView();
+        viewLoader.show();
     }
 
     /**

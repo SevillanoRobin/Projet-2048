@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 10/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * Interface ViewController.
  * <p>
  * Fournit un archétype de méthodes pour les contrôleurs de vue (y compris la vue de jeu), afin de pouvoir
- * créer un chargeur d'interface ({@link ViewLoader}) général et dépendant d'un paramètre <i>T</i> plutôt que
+ * créer un chargeur d'interface ({@link ViewLoader}) général plutôt que
  * d'implémentations redondantes pour chaque contrôleur.
  *
  * <p>
