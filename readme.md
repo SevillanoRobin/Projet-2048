@@ -10,8 +10,10 @@
 
 #### Enseignant :
  * M. Castagnos Silvain
- 
- ____
+____
 ### Liens utiles
+ * [*Pull Requests* du projet](https://github.com/SevillanoRobin/Projet-2048-Behm-Claudel-Richez-Sevillano/pulls)
+ 
+ 
  * [Notes sur l'utilisation de Git (aide)](misc/git-help.md)
  * [Capture d'écran des spécifications](misc/specs.png)
