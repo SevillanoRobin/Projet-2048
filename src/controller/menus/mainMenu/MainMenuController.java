@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 /**
  * Contrôleur associé au menu principal.
@@ -40,11 +41,12 @@ import java.util.Optional;
  * séparer les responsabilités selon un <i>design pattern</i> de fabrique.
  *
  * <p>
- * Les attributs de classe <i>FXMLPath</i> et <i>MainMenuCSS</i> ne changent pas d'un lancement à un autre,
- * et sont utilisés par plusieurs classes ({@link application.Main}, les sous-menus et le future <i>GameController</i>.
+ * Les attributs de classe {@link #FXMLPath} et {@link #CSSPath} ne changent pas d'un lancement à un autre,
+ * et sont utilisés par les {@link controller.ViewLoader chargeurs de vue}.
  *
  * @see AbstractViewController
  * @see ViewController
+ * @see controller.ViewLoader
  */
 public class MainMenuController extends AbstractViewController implements ViewController {
     /** Chemin menant au fichier FXML associé au menu principal. */
@@ -52,6 +54,8 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     /** Chemin menant au fichier CSS associé au menu, <b>sans</b> le masque de thème et l'extension. */
     public static final String CSSPath = "controller/menus/mainMenu/MainMenu";
 
+    /** Pack de ressource associé à cette vue. */
+    private ResourceBundle bundle;
     /** Bouton "Nouvelle Partie". */
     @FXML private Button newGameButton;
     /** Bouton "Charger une Partie". */
@@ -70,6 +74,52 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     void initialize() {
         this.newGameButton.setDisable(true);
         this.continueGameButton.setDisable(true);
+    }
+
+    /**
+     * Transfère une instance {@link ResourceBundle} vers l'instance {@link DialogBoxFactory} afin d'obtenir des
+     * boîtes de dialogues changeantes selon la langue de l'application.
+     * <p>
+     * Devrait être appelée par l'instance {@link controller.ViewLoader} qui a instancié le pack.
+     * <p>
+     * Peut être surchargée avec un appel sur cette méthode si la classe utilise également l'instance du {@link
+     * ResourceBundle pack de ressources}.
+     *
+     * @param _bundle
+     *         Le {@link ResourceBundle pack de ressources} associé à ce contrôleur.
+     *
+     * @throws IllegalArgumentException
+     *         Lancée si le {@link ResourceBundle pack} existe déjà à l'appel de cette méthode et ne change pas de
+     *         langue. <br>
+     *         N'est pas censée être rattrapée, étant un problème de programmation.
+     * @see DialogBoxFactory
+     */
+    @Override
+    public void initBundle(ResourceBundle _bundle) {
+        super.initBundle(_bundle);
+        this.bundle = _bundle;
+    }
+
+    /**
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link controller.ViewLoader} accèdant à la vue.
+     *
+     * <p>
+     * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
+     * #isCloseable()} et de devoir obtenir une validation avant de fermer la fenêtre.
+     * <p>
+     * Peut être surchargée avec un appel sur cette méthode si la classe modifie d'autres propriétés du {@link Stage}.
+     *
+     * @param _stage
+     *         Le {@link Stage stage} associé à ce contrôleur.
+     *
+     * @throws IllegalStateException
+     *         Lancée si le {@link Stage} existe déjà à l'appel de cette méthode. <br>
+     *         N'est pas censée être rattrapée, étant un problème de programmation.
+     */
+    @Override
+    public void initStage(Stage _stage) {
+        super.initStage(_stage);
+        this.stage.setTitle(this.bundle.getString("mainMenu"));
     }
 
     /**
@@ -115,10 +165,12 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     /**
      * Action correspondante au bouton "Quitter".
      * <p>
-     * Envoit une requête de fermture au {@link Stage}, qui peut ensuite être validée ou annulée, au travers de
+     * Envoit une requête de fermeture au {@link Stage}, qui peut ensuite être validée ou annulée, au travers de
      * la boîte de dialogue créée par la méthode {@link #isCloseable()}.
      *
-     * @see javafx.scene.control.Alert la classe de la boîte de dialogue qui sera créée
+     * @see javafx.scene.control.Alert
+     * @see Stage#fireEvent(javafx.event.Event)
+     * @see WindowEvent#WINDOW_CLOSE_REQUEST
      */
     @FXML
     private void onQuit() {
