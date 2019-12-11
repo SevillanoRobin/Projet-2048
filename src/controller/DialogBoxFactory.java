@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 10/12/2019
+ * Copyright (c) 11/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -11,6 +11,7 @@
 package controller;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -116,6 +117,10 @@ public class DialogBoxFactory {
 
         alert.setTitle(bundle.getString("themes.confirm"));
         alert.setContentText(bundle.getString("themes.confirm.desc"));
+
+        alert.getButtonTypes().remove(ButtonType.OK);
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.NO);
 
         return alert;
     }

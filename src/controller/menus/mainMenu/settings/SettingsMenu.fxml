@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright (c) 10/12/2019
+  ~ Copyright (c) 11/12/2019
   ~
   ~ Auteurs :
   ~      - Behm Guillaume
@@ -43,7 +43,7 @@
         <!-- https://stackoverflow.com/a/32427404/10935530 -->
         <ButtonBar buttonMinWidth="100.0" buttonOrder="U+L_HE+FBIX_NCYOA_R" minHeight="35.0" minWidth="355.0">
             <buttons>
-                <Button fx:id="validateButton" defaultButton="true" mnemonicParsing="false" onAction="#onValidate"
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onValidate"
                         text="OK"/>
                 <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#onCancel" text="%settings.cancel"/>

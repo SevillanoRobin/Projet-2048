@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 10/12/2019
+ * Copyright (c) 11/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -10,10 +10,12 @@
 
 package controller.menus.mainMenu;
 
+import application.GameApplication;
 import controller.AbstractViewController;
 import controller.DialogBoxFactory;
 import controller.SubViewLoader;
 import controller.ViewController;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -104,6 +106,9 @@ public class MainMenuController extends AbstractViewController implements ViewCo
         // Si cette vue est fermée, alors la sous-vue le sera également.
         this.stage.setOnHiding(event -> viewLoader.close());
         viewLoader.showAndWait();
+
+        // On actualise le CSS à la fermeture des paramètres.
+        this.refreshCSS();
         this.stage.setOnHiding(null);
     }
 
@@ -137,5 +142,19 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     protected boolean isCloseable() {
         Optional<ButtonType> result = this.dialogFactory.CloseRequestDialog().showAndWait();
         return result.isPresent() && result.get().equals(ButtonType.OK);
+    }
+
+    /**
+     * Rafraichit le fichier CSS associé.
+     * <p>
+     * Utilise {@link ObservableList#clear()}, donc il faudra modifier cette méthode si on y associé plus d'un
+     * fichier CSS (thèmes ou autres).
+     *
+     * @see javafx.scene.Scene#getStylesheets()
+     */
+    private void refreshCSS() {
+        ObservableList<String> CSSFiles = this.stage.getScene().getStylesheets();
+        CSSFiles.clear();
+        CSSFiles.add(MainMenuController.CSSPath + GameApplication.getThemeSuffix());
     }
 }

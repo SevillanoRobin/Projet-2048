@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 10/12/2019
+ * Copyright (c) 11/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -17,7 +17,10 @@ import controller.Theme;
 import controller.ViewController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -67,9 +70,6 @@ public class SettingsController extends AbstractViewController implements ViewCo
     /** Suivi du thème actuel de la fenêtre. */
     private Toggle currentSceneTheme;
 
-    /** Bouton "OK", utilisé pour valider les changements et fermer la fenêtre. */
-    @FXML private Button validateButton;
-
     /** Groupe de boutons radio associés aux thèmes. */
     @FXML private ToggleGroup themeToggle;
     /** Bouton radio associé au thème clair. */
@@ -90,8 +90,6 @@ public class SettingsController extends AbstractViewController implements ViewCo
      */
     @FXML
     private void initialize() {
-        this.validateButton.setDisable(true);
-
         // Initialisation des attributs.
         this.hasChanged = false;
         this.currentSceneTheme = parseApplicationTheme();
@@ -184,7 +182,7 @@ public class SettingsController extends AbstractViewController implements ViewCo
      * Est habilitée à annuler le choix de thème de la fenêtre.
      *
      * @return   - {@code true} s'il n'y a pas de changements <br>
-     *           - {@code true} si l'utilisateur clique sur les boutons <i>OK</i>. <br>
+     *           - {@code true} si l'utilisateur clique sur les boutons <i>OUI</i> ou <i>NON</i>. <br>
      *           - {@code false} sinon.
      *
      * @see Alert
@@ -198,14 +196,31 @@ public class SettingsController extends AbstractViewController implements ViewCo
             if (dialogResult.isPresent()) {
                 ButtonType buttonType = dialogResult.get();
 
-                if (buttonType == ButtonType.OK) {
-                    System.err.println("OK Button feature not yet implemented.");
+                if (buttonType == ButtonType.YES) {
+                    this.validateThemeChange();
                     return true;
                 } else return buttonType == ButtonType.NO;
             }
             return false;
         }
         return true;
+    }
+
+    /**
+     * Change le thème de l'application.
+     * <p>
+     * Si le thème choisi est le même que le thème actuel de l'application, le changement n'est pas pris en compte.
+     */
+    private void validateThemeChange() {
+        Toggle selectedToggle = this.themeToggle.getSelectedToggle();
+
+        if (selectedToggle != this.parseApplicationTheme()) {
+            if (selectedToggle == this.lightTheme) {
+                GameApplication.setTHEME(Theme.LIGHT);
+            } else {
+                GameApplication.setTHEME(Theme.DARK);
+            }
+        }
     }
 
     /**
@@ -240,6 +255,7 @@ public class SettingsController extends AbstractViewController implements ViewCo
      *         Thème sous la forme du bouton radio associé.
      *
      * @see #previewThemeChange()
+     * @see #validateThemeChange()
      */
     private void previewSelectedTheme(Toggle _theme) {
         ObservableList<String> stylesheets = this.stage.getScene().getStylesheets();
@@ -255,16 +271,18 @@ public class SettingsController extends AbstractViewController implements ViewCo
     /// --- FXML Methods --- ///
 
     /**
-     * [non-implémentée] Action correspondante au bouton "OK".
+     * Action correspondante au bouton "OK".
      * <p>
-     * Applique les changements à la fenêtre seulement, et la laisse ouverte.
+     * Applique les changements à l'application, au travers de {@link #validateThemeChange()}, et ferme la fenêtre.
      *
+     * @see #validateThemeChange()
      * @see #onValidate()
-     * @see #previewThemeChange()
+     * @see #onPreview()
      */
     @FXML
     void onValidate() {
-        System.err.println("OK Button feature not yet implemented.");
+        this.validateThemeChange();
+        this.stage.close();
     }
 
     /**
