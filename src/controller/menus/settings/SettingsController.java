@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus.mainMenu.settings;
+package controller.menus.settings;
 
 import application.GameApplication;
 import controller.AbstractViewController;
@@ -59,9 +59,9 @@ import java.util.ResourceBundle;
 public class SettingsController extends AbstractViewController implements ViewController {
 
     /** Chemin menant au fichier CSS associé au menu, <b>sans</b> le masque de thème et l'extension. */
-    private static final String CSSPath = "/controller/menus/mainMenu/settings/SettingsMenu";
+    private static final String CSSPath = "/controller/menus/settings/SettingsMenu";
     /** Chemin menant au fichier FXML associé au menu principal. */
-    public static final String FXMLPath = "/controller/menus/mainMenu/settings/SettingsMenu.fxml";
+    public static final String FXMLPath = "/controller/menus/settings/SettingsMenu.fxml";
 
     /** boolean indiquant s'il y a eu un changement appliqué ({@link #previewThemeChange()}. */
     private boolean hasChanged;

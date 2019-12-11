@@ -10,13 +10,15 @@
 
 package controller;
 
+import controller.menus.MainMenuController;
+
 /**
  * Enumération Theme.
  * <p>
  * Permet d'avoir plusieurs thèmes CSS sans devoir ajouter d'éléments superflus, ainsi que connaître les éléments
  * disponibles : pour l'instant, il y un thème clair et un thème sombre.
  * <p>
- * Utilisée par les interfaces, telles que le {@link controller.menus.mainMenu.MainMenuController menu principal},
+ * Utilisée par les interfaces, telles que le {@link MainMenuController menu principal},
  * et les vues de jeux.
  */
 public enum Theme {

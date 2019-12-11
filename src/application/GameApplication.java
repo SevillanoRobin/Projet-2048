@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 10/12/2019
+ * Copyright (c) 11/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -12,7 +12,7 @@ package application;
 
 import controller.Theme;
 import controller.ViewLoader;
-import controller.menus.mainMenu.MainMenuController;
+import controller.menus.MainMenuController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

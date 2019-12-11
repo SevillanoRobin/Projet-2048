@@ -11,7 +11,7 @@
 package controller;
 
 import application.GameApplication;
-import controller.menus.mainMenu.MainMenuController;
+import controller.menus.MainMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;

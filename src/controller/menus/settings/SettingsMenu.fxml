@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import java.lang.String?>
 <VBox alignment="CENTER" styleClass="vbox" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.menus.mainMenu.settings.SettingsController">
+      fx:controller="controller.menus.settings.SettingsController">
     <children>
         <AnchorPane minHeight="100.0">
             <children>

@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus.mainMenu;
+package controller.menus;
 
 import application.GameApplication;
 import controller.AbstractViewController;
@@ -50,9 +50,9 @@ import java.util.ResourceBundle;
  */
 public class MainMenuController extends AbstractViewController implements ViewController {
     /** Chemin menant au fichier FXML associé au menu principal. */
-    public static final String FXMLPath = "/controller/menus/mainMenu/MainMenu.fxml";
+    public static final String FXMLPath = "/controller/menus/MainMenu.fxml";
     /** Chemin menant au fichier CSS associé au menu, <b>sans</b> le masque de thème et l'extension. */
-    public static final String CSSPath = "controller/menus/mainMenu/MainMenu";
+    public static final String CSSPath = "controller/menus/MainMenu";
 
     /** Pack de ressource associé à cette vue. */
     private ResourceBundle bundle;
@@ -146,7 +146,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
      * Si le menu principal est fermé alors que le menu des options est ouvert, alors on le ferme également.
      *
      * @see SubViewLoader
-     * @see controller.menus.mainMenu.settings.SettingsController
+     * @see controller.menus.settings.SettingsController
      */
     @FXML
     private void onSettings() {
