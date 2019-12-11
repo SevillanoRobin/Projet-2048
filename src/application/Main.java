@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 11/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -16,6 +16,13 @@ import java.util.Locale;
 
 /**
  * Classe principale.
+ * <p>
+ * Peut lancer l'application textuelle ou changer la langue de l'interface selon les paramètres données.
+ * <p>
+ * Paramètres possibles : <br>
+ *      - "{@code text}", pour lancer une partie en console. <br>
+ *      - "{@code IA}", pour lancer une partie contrôlée par une IA. <br>
+ *      - Sinon, ce sera la partie graphique, qui accepte une langue avec la formule "{@code -lang [en/fr]}".
  */
 public class Main {
 
@@ -38,6 +45,11 @@ public class Main {
      * Méthode principale.
      * <p>
      * Peut lancer l'application textuelle ou changer la langue de l'interface selon les paramètres données.
+     * <p>
+     * Paramètres possibles : <br>
+     *      - "{@code text}", pour lancer une partie en console. <br>
+     *      - "{@code IA}", pour lancer une partie contrôlée par une IA. <br>
+     *      - Sinon, ce sera la partie graphique, qui accepte une langue avec la formule "{@code -lang [en/fr]}".
      *
      * @param args
      *         Paramètres d'exécution.
