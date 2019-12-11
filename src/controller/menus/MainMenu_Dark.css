@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 11/12/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
+.button {
+    -fx-border-color: white;
+    -fx-text-fill: black;
+
+    /* cf. https://blog.e-zest.com/gradients-in-javafx-2/ */
+    -fx-background-color: linear-gradient(to bottom, #f5ff1e, #f2892e);
+}
+
+.vbox {
+    -fx-background-color: linear-gradient(to bottom, #0c053e, #210834);
+}
+
+.transparent {
+    -fx-opacity: 0;
+}

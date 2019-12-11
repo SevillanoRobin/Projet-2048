@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 06/12/2019
+ * Copyright (c) 11/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -11,6 +11,7 @@
 package controller;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -52,7 +53,7 @@ public class DialogBoxFactory {
      * @param _bundle
      *         Pack de ressources à associer à cette instance.
      */
-    public DialogBoxFactory(ResourceBundle _bundle) {
+    DialogBoxFactory(ResourceBundle _bundle) {
         this.bundle = _bundle;
     }
 
@@ -69,7 +70,7 @@ public class DialogBoxFactory {
      *         Exception lancée si la langue est la même entre les deux packs. <br>
      *         N'est pas censée être rattrapée, étant un problème de programmation.
      */
-    public void setBundle(ResourceBundle _bundle) throws IllegalArgumentException {
+    void setBundle(ResourceBundle _bundle) throws IllegalArgumentException {
         if (this.bundle.getLocale() == _bundle.getLocale()) {
             throw new IllegalArgumentException("The locale remains unchanged between the bundles.");
         }
@@ -94,6 +95,32 @@ public class DialogBoxFactory {
 
         alert.setTitle(bundle.getString("exit_confirmation.window"));
         alert.setContentText(bundle.getString("exit_confirmation.msg"));
+
+        return alert;
+    }
+
+    /**
+     * Crée une {@link Alert boîte de dialogue} de type {@link AlertType#CONFIRMATION} pour confirmer, ou annuler,
+     * une demande de fermeture de la fenêtre des options avec des modifications (sélection et aperçu).
+     * <p>
+     * Utilise les ressources du type <i>themes.confirm</i>.
+     *
+     * @return la boîte de dialogue créée, si lieu.
+     *
+     * @throws MissingResourceException
+     *         Exception lancée si le {@link ResourceBundle pack de ressources} ne contient pas les clés demandées. <br>
+     *         Cela implique que l'instance tente d'utiliser une méthode non-affiliée à son domaine. <br>
+     *         N'est pas censée être rattrapée, étant un problème de programmation.
+     */
+    public Alert validateThemeChangeDialog() throws MissingResourceException {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+
+        alert.setTitle(bundle.getString("themes.confirm"));
+        alert.setContentText(bundle.getString("themes.confirm.desc"));
+
+        alert.getButtonTypes().remove(ButtonType.OK);
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.NO);
 
         return alert;
     }

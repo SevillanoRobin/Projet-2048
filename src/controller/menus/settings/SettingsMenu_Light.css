@@ -1,0 +1,19 @@
+/*
+ * Copyright (c) 11/12/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
+@import "SettingsMenu_Core.css";
+@import "../MainMenu_Light.css";
+
+.radio {
+    -fx-border-color: black;
+
+    /* cf. https://blog.e-zest.com/gradients-in-javafx-2/ */
+    -fx-background-color: linear-gradient(to bottom, #fbffa6, #f2e09f);
+}

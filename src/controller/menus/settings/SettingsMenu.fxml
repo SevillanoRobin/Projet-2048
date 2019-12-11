@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 11/12/2019
+  ~
+  ~ Auteurs :
+  ~      - Behm Guillaume
+  ~      - Claudel Adrien
+  ~      - Richez Guillaume
+  ~      - Sevillano Robin
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+<VBox alignment="CENTER" styleClass="vbox" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.menus.settings.SettingsController">
+    <children>
+        <AnchorPane minHeight="100.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="14.0"
+                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="17.0"
+                       prefWidth="355.0" text="%themes.dialog">
+                    <styleClass>
+                        <String fx:value="title"/>
+                        <String fx:value="text"/>
+                    </styleClass>
+                </Label>
+                <RadioButton fx:id="lightTheme" contentDisplay="CENTER" layoutX="124.0" layoutY="41.0"
+                             mnemonicParsing="false" selected="true" text="%themes.light" textAlignment="CENTER">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="themeToggle"/>
+                    </toggleGroup>
+                    <styleClass>
+                        <String fx:value="text"/>
+                    </styleClass>
+                </RadioButton>
+                <RadioButton fx:id="darkTheme" layoutX="124.0" layoutY="69.0" mnemonicParsing="false" styleClass="text"
+                             text="%themes.dark" toggleGroup="$themeToggle"/>
+            </children>
+        </AnchorPane>
+        <!-- https://stackoverflow.com/a/32427404/10935530 -->
+        <ButtonBar buttonMinWidth="100.0" buttonOrder="U+L_HE+FBIX_NCYOA_R" minHeight="35.0" minWidth="355.0">
+            <buttons>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onValidate"
+                        text="OK"/>
+                <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false"
+                        onAction="#onCancel" text="%settings.cancel"/>
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPreview"
+                        text="%settings.preview"/>
+            </buttons>
+        </ButtonBar>
+    </children>
+</VBox>
