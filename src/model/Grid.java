@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 12/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -349,9 +349,13 @@ public class Grid {
     }
 
     /**
-     * Ajoute une nouvelle tuile à la grille
+     * Ajoute une nouvelle tuile à la grille.
+     * <p>
+     * La valeur de retour est utilisée par le constructeur {@link #Grid()} afin d'obtenir la meilleure valeur
+     * au début de partie de façon plus optimale que de devoir parcourir le tableau des tuiles.
      *
-     * @return
+     * @return Si une tuile est créée, retourne sa valeur.
+     * Sinon, retourne 0.
      */
     int newTile() {
         ArrayList<Integer> emptyTiles = new ArrayList<>();
@@ -362,8 +366,9 @@ public class Grid {
             }
         }
 
-        if (emptyTiles.size() > 0) {
-            int pos = new Random().nextInt(emptyTiles.size());
+        int nbOfEmptyTiles = emptyTiles.size();
+        if (nbOfEmptyTiles > 0) {
+            int pos = new Random().nextInt(nbOfEmptyTiles);
             Tile tile = new Tile(pos);
             grid[emptyTiles.get(pos)] = tile;
             return tile.getValue();
