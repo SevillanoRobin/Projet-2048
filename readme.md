@@ -12,7 +12,7 @@
  * M. Castagnos Silvain
 ____
 ### Liens utiles
- * [*Pull Requests* du projet](https://github.com/SevillanoRobin/Projet-2048-Behm-Claudel-Richez-Sevillano/issues)
+ * [*Issues* du projet](https://github.com/SevillanoRobin/Projet-2048-Behm-Claudel-Richez-Sevillano/issues)
  * [*Pull Requests* du projet](https://github.com/SevillanoRobin/Projet-2048-Behm-Claudel-Richez-Sevillano/pulls)
  * [*Trello* du projet](https://trello.com/b/rNTRJGrx/projet-2048-behm-claudel-richez-sevillano)
  
