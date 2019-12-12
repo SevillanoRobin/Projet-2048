@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 15/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -179,5 +179,10 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      */
     public void show() {
         this.stage.show();
+    }
+
+    /** Stage créé pour la vue à charger. */
+    public Stage getStage() {
+        return this.stage;
     }
 }
