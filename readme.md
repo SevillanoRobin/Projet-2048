@@ -17,4 +17,6 @@ ____
  * [*Trello* du projet](https://trello.com/b/rNTRJGrx/projet-2048-behm-claudel-richez-sevillano)
  
  * [Notes sur l'utilisation de Git (aide)](misc/git-help.md)
- * [Capture d'écran des spécifications](misc/specs.png)
+
+### Liste des spécifications
+![Capture d'écran](misc/specs.png)
