@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- https://www.tutorialspoint.com/ant/ant_build_documentation.htm -->
+<project name="2048 3D" default="all" basedir=".">
+
+    <target name="all" depends="generate-javadoc">
+
+    </target>
+
+    <target name="generate-javadoc">
+        <!-- Generate the JavaDoc -->
+        <javadoc packagenames="*" sourcepath="src"
+                 destdir="pcdoc" version="true" windowtitle="2048 3D">
+
+            <doctitle><![CDATA[= 2048 3D =]]></doctitle>
+
+            <bottom>
+                <![CDATA[Copyright © 2019. All Rights Reserved.]]>
+            </bottom>
+
+            <group title="Application" packages="application:application.*"/>
+            <group title="Contr&#244;leurs" packages="controller:controller.*"/>
+            <group title="IA" packages="model.Ia:recommender:recommender.*"/>
+            <group title="Mod&#232;le" packages="model:model.Bdd"/>
+        </javadoc>
+
+        <echo message="java doc has been generated!"/>
+
+    </target>
+
+</project>
