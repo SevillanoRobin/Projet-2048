@@ -9,6 +9,10 @@
  */
 package model;
 
+import javafx.event.EventHandler;
+import javafx.util.Callback;
+import model.events.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,18 +22,21 @@ import java.util.Random;
  *
  * @author Robin
  */
-public class Grid implements Serializable {
+public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter, Serializable {
 
     private final Tile[] grid;
     private int bestValue;
     private boolean fusion = true;
+
+    /** File d'indices qui ont été créés avant l'initialisation du flux d'événements. */
+    private ArrayList<Integer> eventFlowQueue = new ArrayList<>();
 
     /**
      * Constructeur
      */
     Grid() {
         this.grid = new Tile[Parameters.SIZE];
-        this.bestValue = newTile();
+        this.bestValue = this.initialNewTile();
     }
 
     /**
@@ -331,12 +338,23 @@ public class Grid implements Serializable {
             grid[_b] = null;
 
             grid[_a].setX(_a);
+
+            // Flux d'événements [!b]
+            if (!this.getListeners().isEmpty()) {
+                this.fireMoveEvent(_b, _a);
+            }
+
             return true;
         } // Fusion de _a et _b
         else if (grid[_b] != null && grid[_a].getValue() == grid[_b].getValue() && !fusion) {
             int newValue = grid[_a].getValue() * 2;
             grid[_a].setValue(newValue);
             grid[_b] = null;
+
+            // Flux d'événements [!b]
+            if (!this.getListeners().isEmpty()) {
+                this.fireFusionEvent(_b, _a);
+            }
 
             if (this.bestValue < newValue) {
                 this.bestValue = newValue;
@@ -352,13 +370,66 @@ public class Grid implements Serializable {
     /**
      * Ajoute une nouvelle tuile à la grille.
      * <p>
+     * Cette méthode n'est pas utilisée pour obtenir la valeur de la tuile créée, et ne reverra donc pas de valeur.
+     * <p>
+     * Cette méthode envoit un événement au {@link EventHandler listener} s'il existe.
+     *
+     * @see #newTile(Callback)
+     * @see #initialNewTile()
+     * @see #fireNewTileEvent(int)
+     */
+    void newTile() {
+        this.newTile((_arrayPos) -> {
+            if (!this.getListeners().isEmpty()) {
+                this.fireNewTileEvent(_arrayPos);
+            }
+            return null;
+        });
+    }
+
+    /**
+     * Ajoute une nouvelle tuile à la grille.
+     * <p>
      * La valeur de retour est utilisée par le constructeur {@link #Grid()} afin d'obtenir la meilleure valeur
      * au début de partie de façon plus optimale que de devoir parcourir le tableau des tuiles.
+     * <p>
+     * Cette méthode stocke l'indice créé afin de l'envoyer au {@link EventHandler listener} une fois créé.
      *
      * @return Si une tuile est créée, retourne sa valeur.
      * Sinon, retourne 0.
      */
-    int newTile() {
+    private int initialNewTile() {
+        return newTile((_ind) -> {
+            this.eventFlowQueue.add(_ind);
+
+            // Utilisé pour le Callback<Integer,Void>, censé retourner un void (ou null).
+            return null;
+        });
+    }
+
+    /**
+     * Ajoute une nouvelle tuile à la grille
+     *
+     * @return
+     */
+    private int newTile(Callback<Integer, Void> _additionalTasks) {
+        ArrayList<Integer> emptyTiles = furnishEmptyTiles();
+
+        int nbOfEmptyTiles = emptyTiles.size();
+        if (nbOfEmptyTiles > 0) {
+
+            int[] creationResults = createNewTile(emptyTiles, nbOfEmptyTiles);
+            _additionalTasks.call(creationResults[0]);
+            return creationResults[1];
+        }
+
+        return 0;
+    }
+
+    /**
+     * @return
+     */
+    private ArrayList<Integer> furnishEmptyTiles() {
         ArrayList<Integer> emptyTiles = new ArrayList<>();
 
         for (int index = 0; index < Parameters.SIZE - 1; index++) {
@@ -367,15 +438,31 @@ public class Grid implements Serializable {
             }
         }
 
-        int nbOfEmptyTiles = emptyTiles.size();
-        if (nbOfEmptyTiles > 0) {
-            int pos = new Random().nextInt(nbOfEmptyTiles);
-            Tile tile = new Tile(pos);
-            grid[emptyTiles.get(pos)] = tile;
-            return tile.getValue();
-        }
+        return emptyTiles;
+    }
 
-        return 0;
+    /**
+     * Crée une nouvelle tuile à partir des tuiles vides.
+     *
+     * @param _emptyTiles
+     *         Tableau contenant les indices des tuiles vides de la grille ; fourni par {@link #furnishEmptyTiles()}.
+     * @param _nbOfEmptyTiles
+     *         Nombre de tuiles vides, calculé à partir de {@code emptyTiles} par {@link #newTile(Callback)}.
+     *
+     * @return Retourne un tableau d'entier, tel que : <br>
+     *      - pos 0: Indice de la tuile créée dans l'attribut {@link #grid}. <br>
+     *      - pos 1: Valeur de la tuile créée (retour de {@link #newTile(Callback)}.
+     *
+     * @see #newTile(Callback)
+     */
+    private int[] createNewTile(ArrayList<Integer> _emptyTiles, int _nbOfEmptyTiles) {
+        int pos = new Random().nextInt(_nbOfEmptyTiles);
+        Integer ind = _emptyTiles.get(pos);
+
+        Tile tile = new Tile(pos);
+        this.grid[ind] = tile;
+
+        return new int[] { ind, tile.getValue() };
     }
 
     /// --- ACCESSEURS & MODIFICATEURS --- ///
@@ -391,5 +478,84 @@ public class Grid implements Serializable {
 
     int getBestValue() {
         return this.bestValue;
+    }
+
+    /**
+     * Accesseur des éléments de l'attribut {@code grid} (tableau de {@link Tile tuile}).
+     *
+     * @param _ind
+     *         Indice de la tuile dans le tableau.
+     *
+     * @return la tuile trouvée.
+     */
+    public Tile getTile(int _ind) {
+        return this.grid[_ind];
+    }
+
+    // --- Gestion du flux des événements --- //
+
+    /**
+     * Lie un {@link EventHandler} à l'objet courant.
+     * <p>
+     * Vide également la liste d'indices non-envoyés.
+     *
+     * @param _listener
+     *         Listener à lier.
+     */
+    @Override
+    public void addListener(EventHandler<ModelEvent> _listener) {
+        super.addListener(_listener);
+        this.emptyEventQueue();
+    }
+
+    /**
+     * Vide la file d'indices de nouvelles tuiles et transmet les événements correspondant.
+     * <p>
+     * La file se remplit quand le listener n'est pas disponible, mais que des éléments devraient être
+     * envoyés.
+     */
+    private void emptyEventQueue() {
+        if (this.eventFlowQueue != null) {
+            for (int i : this.eventFlowQueue) {
+                this.fireNewTileEvent(i);
+            }
+            this.eventFlowQueue.clear();
+        }
+    }
+
+    /**
+     * Envoit un événement "Nouvelle tuile" aux listeners.
+     *
+     * @param _ind
+     *         Indice de la nouvelle tuile.
+     */
+    private void fireNewTileEvent(int _ind) {
+        this.fireEvent(ModelNewTileEvent.createInstance(ModelEventSubtype.NEW_TILE_EVENT, _ind));
+    }
+
+    /**
+     * Envoit un événement "tuile déplacée" aux listeners.
+     *
+     * @param _initInd
+     *         Indice initiale de la tuile.
+     * @param _finalInd
+     *         Indice finale de la tuile.
+     */
+    private void fireMoveEvent(int _initInd, int _finalInd) {
+        ModelMovedTileEvent event = ModelMovedTileEvent.createInstance(
+                ModelEventSubtype.MOVED_TILE_EVENT, _initInd, _finalInd);
+        this.fireEvent(event);
+    }
+
+    /**
+     * Envoit un événement "tuiles fusionnées" aux listeners.
+     *
+     * @param _ind1
+     *         1ère indice (indice initiale / de la tuile n°1).
+     * @param _ind2
+     *         2ème indice (indice finale / de la tuile n°2).
+     */
+    private void fireFusionEvent(int _ind1, int _ind2) {
+        this.fireEvent(ModelFusionEvent.createInstance(ModelEventSubtype.FUSED_TILES_EVENT, _ind1, _ind2));
     }
 }
