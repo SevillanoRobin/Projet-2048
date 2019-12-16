@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus.game;
+package controller.game;
 
 import application.GameApplication;
 import javafx.event.EventHandler;
@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 public class GridSetView extends StackPane implements EventHandler<ModelEvent> {
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle(
-            "controller/menus/game/GridSetView",
+            "controller/game/GridSetView",
             GameApplication.getLANG());
 
     private Grids gridSet;
@@ -42,7 +42,7 @@ public class GridSetView extends StackPane implements EventHandler<ModelEvent> {
         this.winView = this.prepareAnchorPane("victory");
         this.loseView = this.prepareAnchorPane("lose");
 
-        this.getStylesheets().add("./controller/menus/game/GridSetViewStyle.css");
+        this.getStylesheets().add("controller/game/GridSetViewStyle.css");
 
         this.getChildren().add(gridsView);
         this.getChildren().add(winView);
@@ -67,7 +67,7 @@ public class GridSetView extends StackPane implements EventHandler<ModelEvent> {
         }
 
         // Styles CSS.
-        this.getStylesheets().add("./controller/menus/game/GridSetViewStyle.css");
+        this.getStylesheets().add("controller/game/GridSetViewStyle.css");
         pane.getStyleClass().add(_key + "Pane");
 
         pane.setVisible(false);

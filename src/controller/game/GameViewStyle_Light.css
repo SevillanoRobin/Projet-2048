@@ -8,8 +8,5 @@
  *      - Sevillano Robin
  */
 
-@import "../MainMenu_Dark.css";
+@import "../menus/MainMenu_Light.css";
 
-.label {
-    -fx-text-fill: white;
-}

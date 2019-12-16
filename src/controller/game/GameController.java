@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus.game;
+package controller.game;
 
 import controller.AbstractViewController;
 import controller.DialogBoxFactory;
@@ -59,11 +59,11 @@ public class GameController extends AbstractViewController implements EventHandl
     @FXML private Button continuousHelpBtn;
 
     /** Chemin menant au fichier CSS associé au menu, <b>sans</b> le masque de thème et l'extension. */
-    private static final String CSSPath = "controller/menus/game/GameViewStyle";
+    private static final String CSSPath = "controller/game/GameViewStyle";
     /** Chemin menant au fichier FXML associé à la vue de jeu. */
-    public static final String FXMLPath = "/controller/menus/game/GameViewFXML.fxml";
+    public static final String FXMLPath = "/controller/game/GameViewFXML.fxml";
     /** Chemin menant aux fichiers <i>.properties</i> associés à la vue de jeu. */
-    public static final String BundlePath = "controller/menus/game/GameView";
+    public static final String BundlePath = "controller/game/GameView";
 
     public GameController() {
         this.isAGameOnGoing = false;

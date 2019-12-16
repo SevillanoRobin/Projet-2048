@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus.game;
+package controller.game;
 
 import javafx.scene.control.Label;
 import model.Parameters;
@@ -52,7 +52,7 @@ class TileView extends Label {
         this.position = _model.getPos();
 
         // Styles.
-        this.getStylesheets().add("./controller/menus/game/TileStyle.css");
+        this.getStylesheets().add("controller/game/TileStyle.css");
         this.getStyleClass().add("tileCoreStyle");
 
         this.calculateCoors();

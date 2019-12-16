@@ -10,8 +10,8 @@
 
 package controller;
 
+import controller.game.GameController;
 import controller.menus.MainMenuController;
-import controller.menus.game.GameController;
 import controller.menus.settings.SettingsController;
 import javafx.stage.Stage;
 

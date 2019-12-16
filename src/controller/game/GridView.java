@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -8,7 +8,7 @@
  *      - Sevillano Robin
  */
 
-package controller.menus.game;
+package controller.game;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;

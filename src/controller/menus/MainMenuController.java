@@ -129,7 +129,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
      * lors de la fermeture de la vue de jeu.
      *
      * @see SubViewLoader
-     * @see controller.menus.game.GameController
+     * @see controller.game.GameController
      * @see Stage#setOnShown(EventHandler)
      * @see Stage#setOnHiding(EventHandler)
      */

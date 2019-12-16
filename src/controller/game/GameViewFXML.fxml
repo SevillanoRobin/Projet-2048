@@ -10,12 +10,12 @@
   ~      - Sevillano Robin
   -->
 
-<?import controller.menus.game.GridSetView?>
+<?import controller.game.GridSetView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane styleClass="vbox" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.menus.game.GameController">
+            fx:controller="controller.game.GameController">
     <right>
         <VBox alignment="CENTER" prefHeight="220.0" prefWidth="120.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
