@@ -9,7 +9,7 @@
     <target name="generate-javadoc">
         <!-- Generate the JavaDoc -->
         <javadoc packagenames="*" sourcepath="src"
-                 destdir="pcdoc" version="true" windowtitle="2048 3D">
+                 destdir="doc" version="true" windowtitle="2048 3D">
 
             <doctitle><![CDATA[= 2048 3D =]]></doctitle>
 
