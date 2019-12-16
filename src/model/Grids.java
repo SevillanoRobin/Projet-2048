@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -393,9 +393,13 @@ public class Grids implements Serializable {
 
     public void save() {
         String strDate = Calendar.getInstance().getTime().toString();
+        strDate = strDate.replaceAll(" ", "\\ ").replaceAll(":", ".");
+
+        String baseDir = System.getProperty("user.dir").replaceAll(" ", "\\ ");
+        String filePath = baseDir + "/2048_" + strDate + ".xt";
 
         try {
-            FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "2048_" + strDate + ".xt");
+            FileOutputStream fos = new FileOutputStream(filePath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             oos.writeObject(this.grids);
