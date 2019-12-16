@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -16,6 +16,7 @@ import controller.DialogBoxFactory;
 import controller.SubViewLoader;
 import controller.ViewController;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -56,8 +57,6 @@ public class MainMenuController extends AbstractViewController implements ViewCo
 
     /** Pack de ressource associé à cette vue. */
     private ResourceBundle bundle;
-    /** Bouton "Nouvelle Partie". */
-    @FXML private Button newGameButton;
     /** Bouton "Charger une Partie". */
     @FXML private Button continueGameButton;
 
@@ -72,7 +71,6 @@ public class MainMenuController extends AbstractViewController implements ViewCo
      */
     @FXML
     void initialize() {
-        this.newGameButton.setDisable(true);
         this.continueGameButton.setDisable(true);
     }
 
@@ -123,11 +121,34 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     }
 
     /**
-     * [Non-implémentée] Action correspondante au bouton "Nouvelle Partie".
+     * Action correspondante au bouton "Nouvelle Partie".
+     * <p>
+     * Ouvre la vue de jeu, grâce au {@link SubViewLoader}.
+     * <p>
+     * Le menu principal est fermé après l'ouverture de la vue de jeu, mais s'ouvre à nouveau
+     * lors de la fermeture de la vue de jeu.
+     *
+     * @see SubViewLoader
+     * @see controller.menus.game.GameController
+     * @see Stage#setOnShown(EventHandler)
+     * @see Stage#setOnHiding(EventHandler)
      */
     @FXML
     private void onNewGame() {
-        // TODO: Implement a game interface.
+        Optional<ButtonType> res = this.dialogFactory.furnishGameBugWarning().showAndWait();
+
+        if (res.isPresent() && res.get() == ButtonType.OK) {
+
+            SubViewLoader viewLoader = SubViewLoader.createGameViewLoader();
+            viewLoader.loadView();
+
+            // Si la vue de jeu est fermée, alors le menu principal s'affiche à nouveau.
+            Stage loadedStage = viewLoader.getStage();
+            loadedStage.setOnShown((event) -> this.stage.close());
+            loadedStage.setOnHiding((event) -> this.stage.show());
+
+            viewLoader.show();
+        }
     }
 
     /**

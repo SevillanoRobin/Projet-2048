@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -13,8 +13,8 @@ package controller;
 import application.GameApplication;
 import controller.menus.MainMenuController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -63,8 +63,8 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * <p>
      * L'instanciation hors de la classe se fait avec les méthodes de fabrique (cf. section <i>See Also</i>).
      * <p>
-     * Le {@link ResourceBundle pack de ressources} est automatiquement considéré comme étant selon des vues
-     * "classiques", excluant donc la vue de jeu.
+     * Le {@link ResourceBundle pack de ressources} est automatiquement considéré comme étant selon
+     * des menus, excluant donc la vue de jeu.
      *
      * @param _stage
      *         {@link Stage} qui est associé à l'interface à charger, créé ou modifié par la classe appellante
@@ -90,9 +90,37 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * Constructeur privé.
      * <p>
      * L'instanciation hors de la classe se fait avec les méthodes de fabrique (cf. section <i>See Also</i>).
+     *
      * <p>
-     * Le {@link ResourceBundle pack de ressources} est automatiquement considéré comme étant selon des vues
-     * "classiques", excluant donc la vue de jeu.
+     * Le {@link Stage} est instancié automatiquement, donc il ne faut pas l'appeler depuis une classe modifiant
+     * le {@link Stage} (telle que {@link javafx.application.Application}).
+     *
+     * @param _FXMLPath
+     *         {@link String} menant au fichier FXML lié à la vue que l'on veut ouvrir. <br>
+     *         Typiquement accessible par des attributs de classes dans les contrôleurs (<b>T</b>).
+     * @param _bundlePath
+     *         Le {@link ResourceBundle pack de ressources} associé à la vue.
+     *
+     * @see #AbstractViewLoader(Stage, String)
+     * @see #AbstractViewLoader(String)
+     */
+    AbstractViewLoader(String _FXMLPath, String _bundlePath) {
+        this.stage = new Stage();
+
+        this.bundle = ResourceBundle.getBundle(_bundlePath, GameApplication.getLANG());
+
+        URL FXMLfile = AbstractViewLoader.class.getResource(_FXMLPath);
+        this.loader = new FXMLLoader(FXMLfile);
+        this.loader.setResources(bundle);
+    }
+
+    /**
+     * Constructeur privé.
+     * <p>
+     * L'instanciation hors de la classe se fait avec les méthodes de fabrique (cf. section <i>See Also</i>).
+     * <p>
+     * Le {@link ResourceBundle pack de ressources} est automatiquement considéré comme étant selon
+     * des menus, excluant donc la vue de jeu.
      * <p>
      * Le {@link Stage} est instancié automatiquement, donc il ne faut pas l'appeler depuis une classe modifiant
      * le {@link Stage} (telle que {@link javafx.application.Application}).
@@ -104,13 +132,7 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * @see #AbstractViewLoader(Stage, String)
      */
     AbstractViewLoader(String _FXMLPath) {
-        this.stage = new Stage();
-
-        this.bundle = ResourceBundle.getBundle("controller/menus/menus", GameApplication.getLANG());
-
-        URL FXMLfile = ViewLoader.class.getResource(_FXMLPath);
-        this.loader = new FXMLLoader(FXMLfile);
-        this.loader.setResources(bundle);
+        this(_FXMLPath, "controller/menus/menus");
     }
 
     /**
@@ -122,11 +144,11 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * <p>
      * Utilise les deux méthodes privées de cette classe :
      *      - {@link #initController()}, pour les attributs du contrôleur.
-     *      - {@link #initSceneAndStage(VBox)}, pour la scène et le stage.
+     *      - {@link #initSceneAndStage(Parent)}, pour la scène et le stage.
      */
     public void loadView() {
         try {
-            VBox root = loader.load();
+            Parent root = loader.load();
             this.initController();
             this.initSceneAndStage(root);
 
@@ -155,13 +177,13 @@ public abstract class AbstractViewLoader<T extends ViewController> {
     /**
      * Initialise le {@link Stage stage} avec sa {@link Scene scène} et l'affiche.
      * <p>
-     * La scène est configurée à partir de la {@link VBox}-racine créé par l'instance {@link FXMLLoader}
+     * La scène est configurée à partir de la {@link Parent}-racine créé par l'instance {@link FXMLLoader}
      * et utilise le fichier CSS associé au contrôleur qui est fournit à partir du constructeur et des attributs.
      *
      * @param _root
      *         Racine créée par l'instance {@link FXMLLoader} ; utilisée pour instancier la {@link Scene scène}.
      */
-    private void initSceneAndStage(VBox _root) {
+    private void initSceneAndStage(Parent _root) {
         Scene scene = new Scene(_root);
         scene.getStylesheets().add(this.controller.getCSSPath() + GameApplication.getThemeSuffix());
 

@@ -124,7 +124,7 @@ public class DialogBoxFactory {
     }
 
     public Alert furnishLeaveConfirmationDB() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(AlertType.CONFIRMATION);
 
         alert.setTitle(bundle.getString("exit_confirmation.window"));
         alert.setContentText(bundle.getString("exit_confirmation.msg"));
@@ -145,6 +145,15 @@ public class DialogBoxFactory {
 
         alert.setTitle(bundle.getString("save_confirmation.window"));
         alert.setContentText(bundle.getString("save_confirmation.msg") + " " + _name);
+
+        return alert;
+    }
+
+    public Alert furnishGameBugWarning() {
+        Alert alert = new Alert(AlertType.WARNING);
+
+        alert.setTitle(bundle.getString("game_bug_warning.window"));
+        alert.setContentText(bundle.getString("game_bug_warning.msg"));
 
         return alert;
     }
