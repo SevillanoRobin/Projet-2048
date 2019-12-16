@@ -114,10 +114,19 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
      * Meilleur valeur
      */
     private void parseBestValue() {
-        for (Tile t : grid) {
-            if (t != null && t.getValue() > bestValue) {
-                bestValue = t.getValue();
+        Thread thread = new Thread(() -> {
+            for (Tile t : Grid.this.grid) {
+                if (t != null && t.getValue() > Grid.this.bestValue) {
+                    Grid.this.bestValue = t.getValue();
+                }
             }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException _e) {
+            _e.printStackTrace();
         }
     }
 
