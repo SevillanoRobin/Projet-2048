@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 12/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -9,6 +9,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ import java.util.Random;
  *
  * @author Robin
  */
-public class Grid {
+public class Grid implements Serializable {
 
     private final Tile[] grid;
     private int bestValue;
