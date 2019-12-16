@@ -1,0 +1,15 @@
+/*
+ * Copyright (c) 16/12/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
+@import "../MainMenu_Dark.css";
+
+.label {
+    -fx-text-fill: white;
+}
