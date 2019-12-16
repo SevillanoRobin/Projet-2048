@@ -396,7 +396,7 @@ public class Grids implements Serializable {
         strDate = strDate.replaceAll(" ", "\\ ").replaceAll(":", ".");
 
         String baseDir = System.getProperty("user.dir").replaceAll(" ", "\\ ");
-        String filePath = baseDir + "/2048_" + strDate + ".xt";
+        String filePath = baseDir + "/save/2048_" + strDate + ".xt";
 
         try {
             FileOutputStream fos = new FileOutputStream(filePath);
