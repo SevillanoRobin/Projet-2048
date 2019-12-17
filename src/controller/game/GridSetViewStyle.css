@@ -1,0 +1,28 @@
+/*
+ * Copyright (c) 16/12/2019
+ *
+ * Auteurs :
+ *      - Behm Guillaume
+ *      - Claudel Adrien
+ *      - Richez Guillaume
+ *      - Sevillano Robin
+ */
+
+
+.gridSetView {
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+    -fx-background-color: grey;
+}
+
+.victoryPane {
+    -fx-background-color: rgba(89, 255, 56, 0.56);
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
+.losePane {
+    -fx-background-color: rgba(255, 121, 4, 0.56);
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}

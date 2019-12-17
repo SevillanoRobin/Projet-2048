@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -10,6 +10,7 @@
 
 package controller;
 
+import controller.game.GameController;
 import controller.menus.MainMenuController;
 import controller.menus.settings.SettingsController;
 import javafx.stage.Stage;
@@ -55,6 +56,24 @@ public final class SubViewLoader extends AbstractViewLoader<ViewController> {
     }
 
     /**
+     * Constructeur privé.
+     * <p>
+     * L'instanciation hors de la classe se fait avec les méthodes de fabrique (cf. section <i>See Also</i>).
+     * <p>
+     * Initialise la {@link Stage vue-mère}.
+     *
+     * @param _FXMLPath
+     *         {@link String} menant au fichier FXML lié à la vue que l'on veut ouvrir. <br>
+     *         Typiquement accessible par des attributs de classes dans les contrôleurs (<b>T</b>).
+     *
+     * @see AbstractViewLoader#AbstractViewLoader(Stage, String)
+     * @see #createSettingsMenuLoader()
+     */
+    private SubViewLoader(String _FXMLPath, String _bundlePath) {
+        super(_FXMLPath, _bundlePath);
+    }
+
+    /**
      * Affiche la vue et attend qu'elle soit fermée.
      * <p>
      * Déléguée de {@link Stage#show()}.
@@ -93,8 +112,24 @@ public final class SubViewLoader extends AbstractViewLoader<ViewController> {
      *
      * @see #SubViewLoader(String)
      * @see javafx.application.Application#start(Stage)
+     * @see SettingsController
      */
     public static SubViewLoader createSettingsMenuLoader() {
         return new SubViewLoader(SettingsController.FXMLPath);
+    }
+
+    /**
+     * Méthode de fabrique.
+     * <p>
+     * Fournit une instance pouvant charger la vue de jeu.
+     *
+     * @return Retourne une instance {@link AbstractViewLoader} chargée de s'occuper de la vue de jeu.
+     *
+     * @see #SubViewLoader(String)
+     * @see javafx.application.Application#start(Stage)
+     * @see GameController
+     */
+    public static SubViewLoader createGameViewLoader() {
+        return new SubViewLoader(GameController.FXMLPath, GameController.BundlePath);
     }
 }

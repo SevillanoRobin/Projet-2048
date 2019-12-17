@@ -9,17 +9,19 @@
  */
 package model;
 
+import javafx.event.EventHandler;
+import javafx.util.Callback;
+import model.events.*;
+
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Ensemble des 3 grilles
- *
- * @author Robin
- */
-public class Grids implements Serializable {
-
+public class Grids extends AbstractModelEventEmitter implements Serializable, ModelEventEmitter {
     private Grid[] grids;
+
+    // TODO: Repasser à faux lors d'un chargement de grille.
+    private boolean didFireStartEvent;
 
     /**
      * Constructeur de la matrice 3D
@@ -30,6 +32,18 @@ public class Grids implements Serializable {
         for (int index = 0; index < 3; index++) {
             grids[index] = new Grid();
         }
+        this.didFireStartEvent = false;
+    }
+
+    public Grids(Grids grids) {
+        this.grids = new Grid[Parameters.SIDE];
+
+        for (int index = 0; index < Parameters.SIDE; index++) {
+            this.grids[index] = new Grid(grids.grids[index].copy());
+        }
+
+        // Flux des événements.
+        this.addListeners(grids.getListeners());
     }
 
     /**
@@ -45,6 +59,20 @@ public class Grids implements Serializable {
     }
 
     /**
+     * Constructeur par argument.
+     *
+     * @param _listeners
+     *         {@link EventHandler EventHandlers} associés à cette instance.
+     */
+    public Grids(ArrayList<EventHandler<ModelEvent>> _listeners) {
+        // Appel au constructeur par défaut.
+        this();
+
+        // Flux des événements.
+        this.addListeners(_listeners);
+    }
+
+    /**
      * Meilleur score
      *
      * @return
@@ -55,6 +83,10 @@ public class Grids implements Serializable {
         for (Grid g : grids) {
             if (g.getBestValue() > score) {
                 score = g.getBestValue();
+
+                if (this.hasListeners()) { // !b
+                    this.fireScoreEvent(ModelEventSubtype.BEST_VALUE_CHANGE_EVENT, score);
+                }
             }
         }
 
@@ -114,7 +146,13 @@ public class Grids implements Serializable {
             }
         }
 
-        return nbBoolean != nbGrids * 2;
+        boolean res = nbBoolean != nbGrids * 2;
+
+        if (!res && this.hasListeners()) {// !b
+            this.fireGeneralistEvent(ModelEventSubtype.LOSE_EVENT);
+        }
+
+        return res;
     }
 
     /**
@@ -123,7 +161,14 @@ public class Grids implements Serializable {
      * @return
      */
     public boolean victory() {
-        return best() >= Parameters.GOAL;
+        if (best() >= Parameters.GOAL) {
+            if (this.hasListeners()) { // !b
+                this.fireGeneralistEvent(ModelEventSubtype.WIN_EVENT);
+            }
+
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -392,6 +437,13 @@ public class Grids implements Serializable {
     }
 
     public void save() {
+        this.save((_strDate) -> {
+            System.out.println("Sauvegarder : " + System.getProperty("user.dir") + "2048_" + _strDate + ".xt");
+            return null;
+        });
+    }
+
+    public void save(Callback<String, Void> _action) {
         String strDate = Calendar.getInstance().getTime().toString();
         strDate = strDate.replaceAll(" ", "\\ ").replaceAll(":", ".");
 
@@ -404,7 +456,7 @@ public class Grids implements Serializable {
 
             oos.writeObject(this.grids);
             oos.close();
-            System.out.println("Sauvegarder : " + System.getProperty("user.dir") + "2048_" + strDate + ".xt");
+            _action.call(filePath);
         } catch (IOException _e) {
             _e.printStackTrace();
         }
@@ -453,5 +505,48 @@ public class Grids implements Serializable {
      */
     private void setGrids(Grid[] _gs) {
         this.grids = _gs;
+    }
+
+    // --- Gestion du flux des événements --- //
+
+    private void addListeners(ArrayList<EventHandler<ModelEvent>> _listeners) {
+        for (EventHandler<ModelEvent> listener : _listeners) {
+            this.addListener(listener);
+        }
+    }
+
+    public void fireStartEvent() {
+        if (!this.didFireStartEvent) {
+            this.fireGeneralistEvent(ModelEventSubtype.START_EVENT);
+        } else {
+            System.err.println("Trying to fire a second start event.");
+        }
+    }
+
+    /**
+     * Envoit un événement de {@link ModelEventCategory type "général"} selon un sous-type donné.
+     *
+     * @param _eventSubtype
+     *         Sous-type d'événement à envoyer.
+     */
+    private void fireGeneralistEvent(ModelEventSubtype _eventSubtype) {
+        ModelEvent event = ModelEvent.createInstance(_eventSubtype);
+        this.fireEvent(event);
+    }
+
+    /**
+     * Envoit un événement de {@link ModelEventCategory type "score"} selon des paramètres.
+     *
+     * @param _eventSubtype
+     *         Sous-type d'événement à envoyer.
+     * @param _newScore
+     *         Nouveau score.
+     */
+    private void fireScoreEvent(ModelEventSubtype _eventSubtype, int _newScore) {
+        ModelEvent event = ModelScoreEvent.createInstance(_eventSubtype, _newScore);
+        if (event == null) {
+            return;
+        }
+        this.fireEvent(event);
     }
 }

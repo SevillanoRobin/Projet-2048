@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 16/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -118,9 +118,42 @@ public class DialogBoxFactory {
         alert.setTitle(bundle.getString("themes.confirm"));
         alert.setContentText(bundle.getString("themes.confirm.desc"));
 
-        alert.getButtonTypes().remove(ButtonType.OK);
-        alert.getButtonTypes().add(ButtonType.YES);
-        alert.getButtonTypes().add(ButtonType.NO);
+        changeButtonTypes(alert);
+
+        return alert;
+    }
+
+    public Alert furnishLeaveConfirmationDB() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+
+        alert.setTitle(bundle.getString("exit_confirmation.window"));
+        alert.setContentText(bundle.getString("exit_confirmation.msg"));
+
+        changeButtonTypes(alert);
+
+        return alert;
+    }
+
+    private void changeButtonTypes(Alert _alert) {
+        _alert.getButtonTypes().remove(ButtonType.OK);
+        _alert.getButtonTypes().add(ButtonType.YES);
+        _alert.getButtonTypes().add(ButtonType.NO);
+    }
+
+    public Alert furnishSaveConfirmationDB(String _name) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+
+        alert.setTitle(bundle.getString("save_confirmation.window"));
+        alert.setContentText(bundle.getString("save_confirmation.msg") + " " + _name);
+
+        return alert;
+    }
+
+    public Alert furnishGameBugWarning() {
+        Alert alert = new Alert(AlertType.WARNING);
+
+        alert.setTitle(bundle.getString("game_bug_warning.window"));
+        alert.setContentText(bundle.getString("game_bug_warning.msg"));
 
         return alert;
     }
