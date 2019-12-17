@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -73,11 +73,11 @@ public class JouerEnSolo {
                 }
             } else if (s.equals("ia") || s.equals("sauvegarder") || s.equals("quitter")) {
                 if (s.equals("ia")) {
-                    System.out.println("Ecrire 1 pour avoir une IA qui choisit un deplacment aleatoire, 2 pour une IA basé sur la recherche de la tuile la plus élevé ou 3 pour une IA basé sur la réduction du nombre totale de tuile");
+                    System.out.println("Écrire 1 pour avoir une IA qui choisit un déplacement aléatoire, 2 pour une IA basée sur la recherche de la tuile la plus élevé ou 3 pour une IA basée sur la réduction du nombre totale de tuile");
                     sc = new Scanner(System.in);
                     s = sc.nextLine();
                     while (!(s.equals("1") || (s.equals("2")) || (s.equals("3")))) {
-                        System.out.println("Ecrire 1 pour avoir une IA qui choisit un deplacment aleatoire, 2 pour une IA basé sur la recherche de la tuile la plus élevé ou 3 pour une IA basé sur la réduction du nombre totale de tuile");
+                        System.out.println("Écrire 1 pour avoir une IA qui choisit un déplacement aléatoire, 2 pour une IA basée sur la recherche de la tuile la plus élevé ou 3 pour une IA basée sur la réduction du nombre totale de tuile");
                         sc = new Scanner(System.in);
                         s = sc.nextLine();
                     }
@@ -89,7 +89,7 @@ public class JouerEnSolo {
                     }else {
                         System.out.println(ia.setStrategyIa("ReductionNombreTuile", g, 1) + " a été effectué");
                     }
-                    System.out.println("Appuyer sur entrée pour que la même ia fasse le prochain mouvement ou sur n'importe quelle autre touche pour revenenir aux autres options");
+                    System.out.println("Appuyer sur entrée pour que la même ia fasse le prochain mouvement ou sur n'importe quelle autre touche pour revenir aux autres options");
                     sc = new Scanner(System.in);
                     String continuer = sc.nextLine();
                     String reponse;
@@ -103,7 +103,7 @@ public class JouerEnSolo {
                         }
                         System.out.println(reponse + " a été effectué");
                         while (continuer.equals("") && reponse != null && !(g.victory())) {
-                            System.out.println("Appuyer sur entrée pour que la même ia fasse le prochain mouvement ou sur n'importe quelle autre touche pour revenenir aux autres options");
+                            System.out.println("Appuyer sur entrée pour que la même ia fasse le prochain mouvement ou sur n'importe quelle autre touche pour revenir aux autres options");
                             sc = new Scanner(System.in);
                             continuer = sc.nextLine();
                             if (continuer.equals("")) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
 public interface ViewController {
 
     /**
-     * Transfère l'attribut {@link Stage} depuis l'instance {@link ViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link ViewLoader} accédant à la vue.
      * <p>
      * Devrait être appelée par l'instance {@link ViewLoader} qui a instancié le stage.
      *
@@ -54,7 +54,7 @@ public interface ViewController {
     void initStage(Stage _stage);
 
     /**
-     * Transfère l'attribut {@link ResourceBundle} depuis l'instance {@link ViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link ResourceBundle} depuis l'instance {@link ViewLoader} accédant à la vue.
      * <p>
      * Devrait être appelée par l'instance {@link ViewLoader} qui a instancié le pack.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -44,7 +44,7 @@ public class Etat {
     }
 
     /**
-     * Fait une copie d'un etat existant
+     * Fait une copie d'un état existant
      *
      * @param ee
      */
@@ -82,10 +82,10 @@ public class Etat {
         return this.scoreMax;
     }
 
-    /// --- METHODES --- ///
+    /// --- MÉTHODES --- ///
 
     /**
-     * Retoutne vrai si la valeur but est atteinte
+     * Retourne vrai si la valeur but est atteinte
      *
      * @param pb
      *
@@ -96,7 +96,7 @@ public class Etat {
     }
 
     /**
-     * Applique l'action passe en parametre
+     * Applique l'action passe en paramètre
      *
      * @param a
      * @param grids
@@ -142,7 +142,7 @@ public class Etat {
                     e = null;
                 }
                 break;
-            case "Déplacement etages superieurs":
+            case "Déplacement étages supérieures":
                 e = new Etat(grids, "r");
                 if (e.valide("r")) {
                     e.getGrids().move(true, Parameters.FRONT);
@@ -165,7 +165,7 @@ public class Etat {
     }
 
     /**
-     * Retourne vrai si la direction passe en parametre est possible a executer
+     * Retourne vrai si la direction passée en paramètre peut être exécutée.
      *
      * @param direction
      *

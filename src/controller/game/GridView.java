@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -42,7 +42,7 @@ public class GridView extends GridPane implements EventHandler<ModelEvent> {
     }
 
     private void implementSpans() {
-        int spanValue = 50; // Egale à la valeur du CSS.
+        int spanValue = 50; // Égale à la valeur du CSS.
 
         for (int i = 0; i < 3; i++) {
             this.getColumnConstraints().add(new ColumnConstraints(spanValue));
@@ -83,7 +83,7 @@ public class GridView extends GridPane implements EventHandler<ModelEvent> {
         tileView.doubleValue();
     }
 
-    // --- GESTION DES EVENEMENTS --- //
+    // --- GESTION DES ÉVÉNEMENTS --- //
 
     /**
      * Invoked when a specific event of the type for which this handler is

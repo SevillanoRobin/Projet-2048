@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  * <p>
  * Cette classe prend une implémentation de {@link ViewController} en paramètre.
  * Cela implique que la classe <i>T</i> doit être un contrôleur, et non une vue elle-même.
- * Les vues ne devant se charger sans contrôleur, il n'a donc pas été jugé nécéssaire de créer une classe pour
+ * Les vues ne devant se charger sans contrôleur, il n'a donc pas été jugé nécessaire de créer une classe pour
  * cela et l'ambiguité du nom de la classe comme acceptable.
  *
  * <p>
@@ -67,7 +67,7 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * des menus, excluant donc la vue de jeu.
      *
      * @param _stage
-     *         {@link Stage} qui est associé à l'interface à charger, créé ou modifié par la classe appellante
+     *         {@link Stage} qui est associé à l'interface à charger, créé ou modifié par la classe appelante
      *         (par ex., le paramètre <i>primaryStage</i> de la méthode <i>Application.start()</i>). <br>
      *         Autrement, il serait mieux de créer l'autre constructeur.
      * @param _FXMLPath
@@ -140,7 +140,7 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * <p>
      * Lance le chargement de la vue à travers l'instance configurée de {@link FXMLLoader}.
      * <p>
-     * Abilitée à arrêter l'application s'il y a une erreur de chargement.
+     * Habilitée à arrêter l'application s'il y a une erreur de chargement.
      * <p>
      * Utilise les deux méthodes privées de cette classe :
      *      - {@link #initController()}, pour les attributs du contrôleur.
@@ -163,7 +163,7 @@ public abstract class AbstractViewLoader<T extends ViewController> {
      * <p>
      * Dépend de l'implémentation donnée par le contrôleur des méthodes de {@link ViewController}.
      * <p>
-     * Cette méthode nécéssite que le contrôleur soit donné par le fichier FXML.
+     * Cette méthode nécessite que le contrôleur soit donné par le fichier FXML.
      *
      * @see ViewController#initBundle(ResourceBundle)
      * @see ViewController#initStage(Stage)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -75,7 +75,7 @@ public class GridSetView extends StackPane implements EventHandler<ModelEvent> {
         return pane;
     }
 
-    // --- GESTION DES EVENEMENTS --- //
+    // --- GESTION DES ÉVÉNEMENTS --- //
 
     /**
      * Invoked when a specific event of the type for which this handler is

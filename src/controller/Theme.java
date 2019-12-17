@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -13,7 +13,7 @@ package controller;
 import controller.menus.MainMenuController;
 
 /**
- * Enumération Theme.
+ * Énumération Theme.
  * <p>
  * Permet d'avoir plusieurs thèmes CSS sans devoir ajouter d'éléments superflus, ainsi que connaître les éléments
  * disponibles : pour l'instant, il y un thème clair et un thème sombre.

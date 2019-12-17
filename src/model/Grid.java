@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -40,7 +40,7 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
     }
 
     /**
-     * Contruit une grille a partir d'un tableau de tuile
+     * Construit une grille à partir d'un tableau de tuile
      *
      * @param _g
      */
@@ -157,21 +157,21 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
         fusion = false;
         boolean move0 = moveTile(0, 1);
         boolean move1 = moveTile(1, 2);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move2 = moveTile(0, 1);
         fusion = false; // On donne a nouveau la possibilité de faire une fusion pour prochaine ligne
 
         // seconde ligne
         boolean move3 = moveTile(3, 4);
         boolean move4 = moveTile(4, 5);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move5 = moveTile(3, 4);
         fusion = false;
 
         // troisième ligne
         boolean move6 = moveTile(6, 7);
         boolean move7 = moveTile(7, 8);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move8 = moveTile(6, 7);
         fusion = false;
 
@@ -188,21 +188,21 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
         fusion = false;
         boolean move0 = moveTile(2, 1);
         boolean move1 = moveTile(1, 0);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move2 = moveTile(2, 1);
         fusion = false;
 
         // seconde ligne
         boolean move3 = moveTile(5, 4);
         boolean move4 = moveTile(4, 3);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move5 = moveTile(5, 4);
         fusion = false;
 
         // troisième ligne
         boolean move6 = moveTile(8, 7);
         boolean move7 = moveTile(7, 6);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move8 = moveTile(8, 7);
         fusion = false;
 
@@ -219,21 +219,21 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
         // première ligne
         boolean move0 = moveTile(0, 3);
         boolean move1 = moveTile(3, 6);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move2 = moveTile(0, 3);
         fusion = false;
 
         // seconde ligne
         boolean move3 = moveTile(1, 4);
         boolean move4 = moveTile(4, 7);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move5 = moveTile(1, 4);
         fusion = false;
 
         // troisième ligne
         boolean move6 = moveTile(2, 5);
         boolean move7 = moveTile(5, 8);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move8 = moveTile(2, 5);
         fusion = false;
 
@@ -250,14 +250,14 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
         fusion = false;
         boolean move0 = moveTile(6, 3);
         boolean move1 = moveTile(3, 0);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move2 = moveTile(6, 3);
         fusion = false;
 
         // seconde ligne
         boolean move3 = moveTile(7, 4);
         boolean move4 = moveTile(4, 1);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move5 = moveTile(7, 4);
 
         fusion = false;
@@ -265,7 +265,7 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
         // troisième ligne
         boolean move6 = moveTile(8, 5);
         boolean move7 = moveTile(5, 2);
-        // si il y a déja eu une fusion sur la ligne on n'en permet pas une nouvelle
+        // si il y a déjà eu une fusion sur la ligne on n'en permet pas une nouvelle
         boolean move8 = moveTile(8, 5);
 
         fusion = false;
@@ -372,7 +372,7 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
      * <p>
      * Cette méthode n'est pas utilisée pour obtenir la valeur de la tuile créée, et ne reverra donc pas de valeur.
      * <p>
-     * Cette méthode envoit un événement au {@link EventHandler listener} s'il existe.
+     * Cette méthode envoie un événement au {@link EventHandler listener} s'il existe.
      *
      * @see #newTile(Callback)
      * @see #initialNewTile()
@@ -524,7 +524,7 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
     }
 
     /**
-     * Envoit un événement "Nouvelle tuile" aux listeners.
+     * Envoie un événement "Nouvelle tuile" aux listeners.
      *
      * @param _ind
      *         Indice de la nouvelle tuile.
@@ -534,7 +534,7 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
     }
 
     /**
-     * Envoit un événement "tuile déplacée" aux listeners.
+     * Envoie un événement "tuile déplacée" aux listeners.
      *
      * @param _initInd
      *         Indice initiale de la tuile.
@@ -548,7 +548,7 @@ public class Grid extends AbstractModelEventEmitter implements ModelEventEmitter
     }
 
     /**
-     * Envoit un événement "tuiles fusionnées" aux listeners.
+     * Envoie un événement "tuiles fusionnées" aux listeners.
      *
      * @param _ind1
      *         1ère indice (indice initiale / de la tuile n°1).

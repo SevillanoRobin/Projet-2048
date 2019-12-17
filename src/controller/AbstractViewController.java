@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -38,7 +38,7 @@ public abstract class AbstractViewController implements ViewController {
     protected Stage stage;
 
     /**
-     * Transfère l'attribut {@link Stage} depuis l'instance {@link ViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link ViewLoader} accédant à la vue.
      *
      * <p>
      * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
@@ -113,7 +113,7 @@ public abstract class AbstractViewController implements ViewController {
 
     /**
      * Affiche une {@link javafx.scene.control.Alert boîte de dialogue} pour confirmer la fermeture de la fenêtre,
-     * et interprête ses résultats.
+     * et interprète ses résultats.
      * <p>
      * Invoquée lors d'une demande de fermeture de la fenêtre, par la propriété <i>onCloseRequest</i> du {@link Stage}.
      * <p>

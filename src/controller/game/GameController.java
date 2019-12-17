@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -84,7 +84,7 @@ public class GameController extends AbstractViewController implements EventHandl
     }
 
     /**
-     * Transfère l'attribut {@link ResourceBundle} depuis l'instance {@link controller.SubViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link ResourceBundle} depuis l'instance {@link controller.SubViewLoader} accédant à la vue.
      * <p>
      * Devrait être appelée par l'instance {@link controller.SubViewLoader} qui a instancié le pack.
      *
@@ -103,7 +103,7 @@ public class GameController extends AbstractViewController implements EventHandl
     }
 
     /**
-     * Transfère l'attribut {@link Stage} depuis l'instance {@link controller.SubViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link controller.SubViewLoader} accédant à la vue.
      *
      * <p>
      * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
@@ -139,7 +139,7 @@ public class GameController extends AbstractViewController implements EventHandl
 
     /**
      * Affiche une {@link Alert boîte de dialogue} pour confirmer la fermeture de la fenêtre,
-     * et interprête ses résultats.
+     * et interprète ses résultats.
      * <p>
      * Invoquée lors d'une demande de fermeture de la fenêtre, par la propriété <i>onCloseRequest</i> du {@link Stage}.
      *
@@ -228,7 +228,7 @@ public class GameController extends AbstractViewController implements EventHandl
     }
 
 
-    // --- GESTION DES EVENEMENTS --- //
+    // --- GESTION DES ÉVÉNEMENTS --- //
 
     private void fireLoadedGameEvent() {
         ModelEvent event = ModelEvent.createInstance(ModelEventSubtype.LOADED_GAME_EVENT);

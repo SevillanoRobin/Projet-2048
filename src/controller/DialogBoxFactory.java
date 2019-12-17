@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -25,7 +25,7 @@ import static javafx.scene.control.Alert.AlertType;
  * en évitant la redondance entre les méthodes de création de nouvelles boîtes de dialogue.
  * <p>
  * <p>
- * Nécéssite un {@link ResourceBundle pack de ressources} afin de pouvoir fournir des éléments textuels associés à
+ * Nécessite un {@link ResourceBundle pack de ressources} afin de pouvoir fournir des éléments textuels associés à
  * la langue de l'application (cf. {@link application.Main}).
  * Un modificateur est disponible dans le cas d'un changement de langue lors de l'exécution.
  * <p>

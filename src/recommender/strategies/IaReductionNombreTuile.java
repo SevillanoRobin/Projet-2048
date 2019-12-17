@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -28,13 +28,13 @@ import java.util.ArrayList;
 public class IaReductionNombreTuile implements IaStrategies {
 
     /**
-     * Methode principale qui lance l'ia score max
+     * Méthode principale qui lance l'ia score max
      *
      * @param grids
-     * @param pronfondeurMax
+     * @param profondeurMax
      * @return
      */
-    public String ia(Grids grids, int pronfondeurMax) {
+    public String ia(Grids grids, int profondeurMax) {
         Etat e;
         boolean trouve = false;
         ArrayList<Action> listeactions, sol;
@@ -44,7 +44,7 @@ public class IaReductionNombreTuile implements IaStrategies {
 
         int max = 0;
 
-        //initialisation de la solution à un etat "vide"
+        //initialisation de la solution à un état "vide"
         sol = new ArrayList<>();
 
         // initialisation de la liste d'attente avec l'état initial
@@ -55,8 +55,8 @@ public class IaReductionNombreTuile implements IaStrategies {
         // je mémorise la liste d'actions du probleme
         listeactions = pb.getlisteactions();
 
-        int pronfondeur = 0;
-        while (!trouve && pronfondeur < pronfondeurMax) { // j'itère tant que je ne trouve pas l'état but
+        int profondeur = 0;
+        while (!trouve && profondeur < profondeurMax) { // j'itère tant que je ne trouve pas l'état but
             // je récupère la tête de la liste d'attente et je la supprime
 
             int longueurListe = l.size();
@@ -71,7 +71,7 @@ public class IaReductionNombreTuile implements IaStrategies {
                 } else { // sinon, j'applique chaque action
                     for (Action _listeaction : listeactions) {
                         e = noeudtete.getetat().AppliqueAction(_listeaction, new Grids(
-                                noeudtete.getetat().getGrids().getGrids())); // j'exécute AppliqueAction sur le noeud de tete de la liste, avec la ieme action, et j'obtiens l'état e
+                                noeudtete.getetat().getGrids().getGrids())); // j'exécute AppliqueAction sur le noeud de tête de la liste, avec la ieme action, et j'obtiens l'état e
                         //je construis le noeud résultant : e en tant que nouvel état, la liste des actions associées à l'ancien noeud : noeudtete
                         if (e != null) {
                             n = new Noeud(e, noeudtete.getlisteaction());
@@ -83,7 +83,7 @@ public class IaReductionNombreTuile implements IaStrategies {
                 }
                 compteur++;
             }
-            pronfondeur++;
+            profondeur++;
 
         }
 
@@ -106,7 +106,7 @@ public class IaReductionNombreTuile implements IaStrategies {
                     listeNoeudPossible.add(ne);
                 }
             }
-            int nb = (int) (Math.random() * listeNoeudPossible.size()); // on choisi aléatoirement un noeud parmis les plus optimale
+            int nb = (int) (Math.random() * listeNoeudPossible.size()); // on choisi aléatoirement un noeud parmi les plus optimale
             System.out.println(listeNoeudPossible.get(nb).getlisteaction().get(0));
             switch (listeNoeudPossible.get(nb).getlisteaction().get(0).getAction()) {
                 case "Déplacement droite":
@@ -121,7 +121,7 @@ public class IaReductionNombreTuile implements IaStrategies {
                 case "Déplacement bas":
                     grids.move(false, Parameters.DOWN);
                     break;
-                case "Déplacement etages superieurs":
+                case "Déplacement étages supérieures":
                     grids.move(false, Parameters.FRONT);
                     break;
                 default:

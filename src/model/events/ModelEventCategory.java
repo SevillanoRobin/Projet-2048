@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 04/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -11,20 +11,20 @@
 package model.events;
 
 /**
- * Enumération ModelEventCategory.
+ * Énumération ModelEventCategory.
  * <p>
- * Permet de trier les {@link ModelEventSubtype sous-types d'évenements} dans des catégories;
+ * Permet de trier les {@link ModelEventSubtype sous-types d'évenements} dans des catégories ;
  * pour ensuite les séparer dans des classes spécialisées dans les catégories : les nombres d'attributs varient selon
  * les différentes catégories.
  * <p>
- * Par exemple, un événement de fusion aura deux attibuts de position, alors qu'un événement de changement de score
+ * Par exemple, un événement de fusion aura deux attributs de position, alors qu'un événement de changement de score
  * n'aura qu'un seul attribut.
  * <p>
  * Il existe donc quatre catégories :
- * - Evénements généraux, liés à l'état de la partie.
- * - Evénements de changement de score.
- * - Evénements de fusion de tuiles.
- * - Evénements liés à une tuile donnée (créations de nouvelles tuiles et déplacements).
+ * - Événements généraux, liés à l'état de la partie.
+ * - Événements de changement de score.
+ * - Événements de fusion de tuiles.
+ * - Événements liés à une tuile donnée (créations de nouvelles tuiles et déplacements).
  * <p>
  * À ne pas confondre avec le {@link javafx.event.EventType type principal} ou le {@link ModelEventSubtype sous-type}.
  *

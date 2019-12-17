@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -82,7 +82,7 @@ public abstract class AbstractModelEventEmitter implements ModelEventEmitter {
     }
 
     /**
-     * Envoit un événement aux listeners.
+     * Envoie un événement aux listeners.
      * <p>
      * Par mesure de sécurité et de respect des responsabilités, cette méthode ne doit pas offrir une visibilité
      * supérieure à {@code protected}.

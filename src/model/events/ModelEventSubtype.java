@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -11,7 +11,7 @@
 package model.events;
 
 /**
- * Enumération ModelEventSubtype.
+ * Énumération ModelEventSubtype.
  * <p>
  * Permet aux {@link javafx.event.EventHandler "listeners"} de fournir des réponses appropriées aux différents types
  * d'événements,

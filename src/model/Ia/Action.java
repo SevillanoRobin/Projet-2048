@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -18,7 +18,7 @@ package model.Ia;
 public class Action {
     private String val;
 
-    // getteurs et setteurs
+    // Accesseurs et modificateurs.
 
     /**
      * Getter

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -118,7 +118,7 @@ public class SettingsController extends AbstractViewController implements ViewCo
     }
 
     /**
-     * Transfère l'attribut {@link ResourceBundle} depuis l'instance {@link SubViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link ResourceBundle} depuis l'instance {@link SubViewLoader} accédant à la vue.
      * <p>
      * Devrait être appelée par l'instance {@link SubViewLoader} qui a instancié le pack.
      *
@@ -152,7 +152,7 @@ public class SettingsController extends AbstractViewController implements ViewCo
     }
 
     /**
-     * Transfère l'attribut {@link Stage} depuis l'instance {@link SubViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link SubViewLoader} accédant à la vue.
      *
      * <p>
      * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
@@ -175,7 +175,7 @@ public class SettingsController extends AbstractViewController implements ViewCo
 
     /**
      * Affiche une {@link Alert boîte de dialogue} pour confirmer la fermeture de la fenêtre,
-     * et interprête ses résultats.
+     * et interprète ses résultats.
      * <p>
      * Invoquée lors d'une demande de fermeture de la fenêtre, par la propriété <i>onCloseRequest</i> du {@link Stage}.
      * <p>

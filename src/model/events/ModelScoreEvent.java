@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 15/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -87,11 +87,11 @@ public class ModelScoreEvent extends ModelEvent {
     }
 
     /**
-     * Vérifie la valeur du nouvelle valeur.
+     * Vérifie la valeur du nouveau score.
      * <p>
      * Si négative, une exception est lancée (sans intention de l'attraper).
      * Si nulle, un message d'erreur est envoyée, mais l'exécution continue et l'événement n'est pas créé par la
-     * méthode-appellante.
+     * méthode-appelante.
      *
      * @param _newValue
      *         Nouvelle valeur.

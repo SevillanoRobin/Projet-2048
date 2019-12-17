@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -42,7 +42,7 @@ public class GameApplication extends Application {
     }
 
     /**
-     * Démarre l'application une fois initialisée et prête à être lancée par le sytème.
+     * Démarre l'application une fois initialisée et prête à être lancée par le système.
      * <p>
      * Utilise une instance de la classe {@link ViewLoader} afin de charger le menu principal.
      * <p>
@@ -93,7 +93,7 @@ public class GameApplication extends Application {
      *
      * @throws IllegalArgumentException
      *         Lancée si une langue non-implémentée est suggérée. <br>
-     *         N'est pas censée être rapprapée, étant une erreur de programmation.
+     *         N'est pas censée être rattrapée, étant une erreur de programmation.
      */
     static void setLANG(Locale _LANG) {
         if (_LANG != Locale.FRENCH && _LANG != Locale.getDefault()) {

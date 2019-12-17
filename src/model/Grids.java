@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -47,7 +47,7 @@ public class Grids extends AbstractModelEventEmitter implements Serializable, Mo
     }
 
     /**
-     * Creé un nouvelle ensemble de 3 grilles tout en conservant les propriétés de la grille passée en paramètre
+     * Crée un nouvel ensemble de 3 grilles tout en conservant les propriétés de la grille passée en paramètre
      *
      * @param grid
      */
@@ -124,7 +124,7 @@ public class Grids extends AbstractModelEventEmitter implements Serializable, Mo
     }
 
     /**
-     * Verifie si les 3 grilles sont bloquées
+     * Vérifie si les 3 grilles sont bloquées
      * <p>
      * Vérifie au travers d'une grille réorganisée (temp) et des grilles courantes.
      *
@@ -156,7 +156,7 @@ public class Grids extends AbstractModelEventEmitter implements Serializable, Mo
     }
 
     /**
-     * Verifie si la valeur de la tuile la plus élevé est égale ou supérieur à la valeur but
+     * Vérifie si la valeur de la tuile la plus élevé est égale ou supérieur à la valeur but
      *
      * @return
      */
@@ -172,7 +172,7 @@ public class Grids extends AbstractModelEventEmitter implements Serializable, Mo
     }
 
     /**
-     * Gere les depacements des grilles
+     * Gere les déplacements des grilles
      *
      * @param simulation
      * @param _d
@@ -524,7 +524,7 @@ public class Grids extends AbstractModelEventEmitter implements Serializable, Mo
     }
 
     /**
-     * Envoit un événement de {@link ModelEventCategory type "général"} selon un sous-type donné.
+     * Envoie un événement de {@link ModelEventCategory type "général"} selon un sous-type donné.
      *
      * @param _eventSubtype
      *         Sous-type d'événement à envoyer.
@@ -535,7 +535,7 @@ public class Grids extends AbstractModelEventEmitter implements Serializable, Mo
     }
 
     /**
-     * Envoit un événement de {@link ModelEventCategory type "score"} selon des paramètres.
+     * Envoie un événement de {@link ModelEventCategory type "score"} selon des paramètres.
      *
      * @param _eventSubtype
      *         Sous-type d'événement à envoyer.

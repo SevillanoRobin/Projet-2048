@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 05/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -18,15 +18,15 @@ import java.util.Random;
 /**
  * Classe utilitaire CSSGenerator.
  * <p>
- * Sert à générer des éléments de CSS dans des fichers avec des paramètres donnés :  
+ * Sert à générer des éléments de CSS dans des fichiers avec des paramètres donnés :  
  *          - Début de la boucle de génération.  
  *          - Fin de la boucle de génération. 
  *          - Fichier vers lequel les styles devront être écrits.
  *          - {@link OpenOption Options de la gestion} du fichier.
  *          - Masque du bloc et de l'identifiant/la classe du style.
  * <p>
- * Est pour l'instant configurée pour la création de couleurs aléatoires pour les tuiles, mais peut être configurée
- * autrement.
+ * Elle est configurée pour la création de couleurs aléatoires pour les tuiles, 
+ * peut être configurée autrement.
  * <p>
  * Suppression des avertissements "FieldCanBeLocal" pour permettre de garder les paramètres d'exécution en tant
  * qu'attributs plutôt qu'en tant que variables de méthodes.
@@ -45,7 +45,7 @@ class CSSGenerator {
     /**
      * {@link OpenOption Options de la gestion} du fichier.
      * <p>
-     * Configué pour avoir un {@link StandardOpenOption#WRITE accès d'écriture} et
+     * Configurées pour avoir un {@link StandardOpenOption#WRITE accès d'écriture} et
      * d'{@link StandardOpenOption#APPEND ajouter les éléments à la fin du fichier}.
      *
      * @see StandardOpenOption#CREATE_NEW s'il est question de créer un nouveau fichier.
@@ -63,7 +63,7 @@ class CSSGenerator {
      *         Numéro de la boucle ; utilisé pour les styles de tuiles afin d'obtenir une couleur différente pour chaque
      *         valeur jusqu'à {@link CSSGenerator#LOOP_END}.
      * @param _element
-     *         Elément généré par la {@link CSSGenerator#generateNewElement() méthode de génération}.
+     *         Élément généré par la {@link CSSGenerator#generateNewElement() méthode de génération}.
      *
      * @return une {@link String chaîne de caractères} correspondant à l'élément dans le cadre du masque.
      */
@@ -74,7 +74,7 @@ class CSSGenerator {
     }
 
     /**
-     * Génére aléatoirement une nouvelle {@link Color couleur}.
+     * Génère aléatoirement une nouvelle {@link Color couleur}.
      * <p>
      * Ne concerne qu'une configuration de couleur, et peut donc être supprimée si la configuration change.
      * <p>
@@ -94,7 +94,7 @@ class CSSGenerator {
     }
 
     /**
-     * Génére un nouvel élément pouvant consister en plusieurs lignes selon la configuration.
+     * Génère un nouvel élément pouvant consister en plusieurs lignes selon la configuration.
      * <p>
      * Dans la configuration actuelle, une couleur est {@link CSSGenerator#generateNewColor()} générée et
      * fournit le code RGB pour écrire une ligne CSS {@code -fx-background-color: rgb()}.
@@ -112,10 +112,10 @@ class CSSGenerator {
     }
 
     /**
-     * Génére une série d'élément dans une {@link String chaîne de caractères} dépendant des paramètres de la classe.
+     * Génère une série d'éléments dans une {@link String chaîne de caractères} dépendant des paramètres de la classe.
      * <p>
-     * Commenence une boucle avec LOOP_BEGINNING et la finit LOOP_END, où des éléments sont
-     * {@link CSSGenerator#generateNewElement() générés} et ajoutés au sein du bloque fournit par MASK.
+     * Commence une boucle avec LOOP_BEGINNING et la finit LOOP_END, où des éléments sont
+     * {@link CSSGenerator#generateNewElement() générés} et ajoutés au sein du bloc fournit par MASK.
      *
      * @return la {@link String chaîne de caractères} contenant les blocs générés.
      */
@@ -129,7 +129,7 @@ class CSSGenerator {
     }
 
     /**
-     * Ecrit le contenu passé en paramètre dans un fichier donné par la classe ({@link CSSGenerator#FILE}).
+     * Écrit le contenu passé en paramètre dans un fichier donné par la classe ({@link CSSGenerator#FILE}).
      *
      * @param _content
      *         Contenu à écrire dans le fichier.

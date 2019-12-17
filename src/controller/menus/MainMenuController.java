@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -99,7 +99,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     }
 
     /**
-     * Transfère l'attribut {@link Stage} depuis l'instance {@link controller.ViewLoader} accèdant à la vue.
+     * Transfère l'attribut {@link Stage} depuis l'instance {@link controller.ViewLoader} accédant à la vue.
      *
      * <p>
      * Modifie la propriété <i>onCloseRequest</i> du {@link Stage} afin d'appeler {@link
@@ -162,7 +162,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     /**
      * Action correspondante au bouton "Options".
      * <p>
-     * Ouvre une menu des options, grâce au {@link SubViewLoader}.
+     * Ouvre le menu des options, grâce au {@link SubViewLoader}.
      * <p>
      * Si le menu principal est fermé alors que le menu des options est ouvert, alors on le ferme également.
      *
@@ -186,7 +186,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     /**
      * Action correspondante au bouton "Quitter".
      * <p>
-     * Envoit une requête de fermeture au {@link Stage}, qui peut ensuite être validée ou annulée, au travers de
+     * Envoie une requête de fermeture au {@link Stage}, qui peut ensuite être validée ou annulée, au travers de
      * la boîte de dialogue créée par la méthode {@link #isCloseable()}.
      *
      * @see javafx.scene.control.Alert
@@ -200,7 +200,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
 
     /**
      * Affiche une {@link javafx.scene.control.Alert boîte de dialogue} pour confirmer la fermeture de la fenêtre,
-     * et interprête ses résultats.
+     * et interprète ses résultats.
      * <p>
      * Invoquée lors d'une demande de fermeture de la fenêtre, par la propriété <i>onCloseRequest</i> du {@link Stage}.
      * <p>
@@ -220,7 +220,7 @@ public class MainMenuController extends AbstractViewController implements ViewCo
     /**
      * Rafraichit le fichier CSS associé.
      * <p>
-     * Utilise {@link ObservableList#clear()}, donc il faudra modifier cette méthode si on y associé plus d'un
+     * Utilise {@link ObservableList#clear()}, donc il faudra modifier cette méthode si on y associe plus d'un
      * fichier CSS (thèmes ou autres).
      *
      * @see javafx.scene.Scene#getStylesheets()

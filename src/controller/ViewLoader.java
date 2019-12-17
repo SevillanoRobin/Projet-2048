@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 11/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  * ainsi qu'éviter de la redondance de code pour le chargement de vue.
  *
  * <p>
- * Les vues ne devant se charger sans contrôleur, il n'a donc pas été jugé nécéssaire de créer une classe pour
+ * Les vues ne devant se charger sans contrôleur, il n'a donc pas été jugé nécessaire de créer une classe pour
  * cela et l'ambiguité du nom de la classe comme acceptable.
  *
  * <p>
@@ -41,7 +41,7 @@ public final class ViewLoader extends AbstractViewLoader<ViewController> {
      * des menus, excluant donc la vue de jeu.
      *
      * @param _stage
-     *         {@link Stage} qui est associé à l'interface à charger, créé ou modifié par la classe appellante
+     *         {@link Stage} qui est associé à l'interface à charger, créé ou modifié par la classe appelante
      *         (par ex., le paramètre <i>primaryStage</i> de la méthode <i>Application.start()</i>). <br>
      *         Autrement, il serait mieux de créer un autre constructeur.
      * @param _FXMLPath
@@ -65,7 +65,7 @@ public final class ViewLoader extends AbstractViewLoader<ViewController> {
      * {@code public static ViewLoader createMainMenuLoader()}
      *
      * @param _stage
-     *         Instance particulière de {@link Stage}, créée ou modifiée par la classe appellante (par ex.,
+     *         Instance particulière de {@link Stage}, créée ou modifiée par la classe appelante (par ex.,
      *         le paramètre <i>primaryStage</i> de la méthode <i>Application.start()</i>).
      *
      * @return Retourne une instance {@link ViewLoader} chargée de s'occuper du menu principal.

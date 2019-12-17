@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 08/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -19,7 +19,7 @@ import recommender.strategies.IaStrategies;
 import java.util.ArrayList;
 
 /**
- * Conext de l'IA
+ * Contexte de l'IA
  *
  * @author Robin
  */
@@ -58,7 +58,7 @@ public class IaContext {
     }
 
     /**
-     * Change le nom de la strategie et appelle la methode ia de la bonne classe
+     * Change le nom de la stratégie et appelle la méthode ia de la bonne classe
      *
      * @param iaStrategy
      * @param grids

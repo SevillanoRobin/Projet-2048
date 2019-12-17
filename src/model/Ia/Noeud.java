@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -24,7 +24,7 @@ public class Noeud {
 
 
     /**
-     * Fait une copie d'un noeud deja existant
+     * Fait une copie d'un noeud déjà existant
      *
      * @param ee
      * @param aa

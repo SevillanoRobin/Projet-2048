@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 16/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -132,7 +132,7 @@ class TileView extends Label {
     /**
      * Modificateur de l'attribut <i>value</i>.
      * <p>
-     * Double la valeur de l'attribut et accomode l'apparence de la vue en fonction de la nouvelle valeur.
+     * Double la valeur de l'attribut et accommode l'apparence de la vue en fonction de la nouvelle valeur.
      */
     void doubleValue() {
         this.value *= 2;

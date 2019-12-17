@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 09/12/2019
+ * Copyright (c) 17/12/2019
  *
  * Auteurs :
  *      - Behm Guillaume
@@ -20,21 +20,21 @@ import model.Parameters;
 import java.util.ArrayList;
 
 /**
- * IA aleatoire
+ * IA aléatoire
  *
  * @author Robin
  */
 public class IaRandom implements IaStrategies {
 
     /**
-     * Methode principale qui lance l'ia random
+     * Méthode principale qui lance l'ia random
      *
      * @param grids
-     * @param pronfondeurMax
+     * @param profondeurMax
      *
      * @return
      */
-    public String ia(Grids grids, int pronfondeurMax) {
+    public String ia(Grids grids, int profondeurMax) {
         Etat e;
         boolean trouve = false;
         ArrayList<Action> listeactions, sol;
@@ -42,7 +42,7 @@ public class IaRandom implements IaStrategies {
         Noeud n, noeudtete;
         Probleme pb = new Probleme(grids);
 
-        //initialisation de la solution à un etat "vide"
+        //initialisation de la solution à un état "vide"
         sol = new ArrayList<>();
 
         // initialisation de la liste d'attente avec l'état initial
@@ -53,8 +53,8 @@ public class IaRandom implements IaStrategies {
         // je mémorise la liste d'actions du probleme
         listeactions = pb.getlisteactions();
 
-        int pronfondeur = 0;
-        while (!trouve && pronfondeur < pronfondeurMax) { // j'itère tant que je ne trouve pas l'état but
+        int profondeur = 0;
+        while (!trouve && profondeur < profondeurMax) { // j'itère tant que je ne trouve pas l'état but
             int longueurListe = l.size();
             int compteur = 0;
 
@@ -67,7 +67,7 @@ public class IaRandom implements IaStrategies {
                 } else { // sinon, j'applique chaque action
                     for (Action _listeaction : listeactions) {
                         e = noeudtete.getetat().AppliqueAction(_listeaction,
-                                noeudtete.getetat().getGrids()); // j'exécute AppliqueAction sur le noeud de tete de la liste, avec la ieme action, et j'obtiens l'état e
+                                noeudtete.getetat().getGrids()); // j'exécute AppliqueAction sur le noeud de tête de la liste, avec la ieme action, et j'obtiens l'état e
                         //je construis le noeud résultant : e en tant que nouvel état, la liste des actions associées à l'ancien noeud : noeudtete
                         if (e != null) {
                             n = new Noeud(e, noeudtete.getlisteaction());
@@ -79,17 +79,17 @@ public class IaRandom implements IaStrategies {
                 }
                 compteur++;
             }
-            pronfondeur++;
+            profondeur++;
 
         }
         if (sol.size() != 0) { // si une solution a ete trouve, on la retourne
             return sol.get(0).getAction();
-        } else if (listefils.size() == 0) { // si aucun mouvement n'est possible, on renvoit null
+        } else if (listefils.size() == 0) { // si aucun mouvement n'est possible, on renvoie null
             return null;
         } else {
 
             int nb = (int) (Math.random() *
-                            listefils.size()); // on choisi aléatoirement un noeud parmis les plus optimale
+                            listefils.size()); // on choisit aléatoirement un noeud parmi les plus optimale
             switch (listefils.get(nb).getlisteaction().get(0).getAction()) {
                 case "Déplacement droite":
                     grids.move(false, Parameters.RIGHT);
@@ -103,7 +103,7 @@ public class IaRandom implements IaStrategies {
                 case "Déplacement bas":
                     grids.move(false, Parameters.DOWN);
                     break;
-                case "Déplacement etages superieurs":
+                case "Déplacement étages supérieures":
                     grids.move(false, Parameters.FRONT);
                     break;
                 default:
@@ -111,7 +111,7 @@ public class IaRandom implements IaStrategies {
                     break;
             }
             grids.affichage();
-            return listefils.get(nb).getlisteaction().get(0).getAction(); // on renvoit l'action qui a ete effectue
+            return listefils.get(nb).getlisteaction().get(0).getAction(); // on renvoie l'action qui a ete effectue
         }
     }
 }
